@@ -3,13 +3,9 @@
 namespace App\Entity;
 use App\Repository\SentimentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
-/**
- * Sentiment
- *
- * @ORM\Table(name="sentiment", indexes={@ORM\Index(name="idCh", columns={"idCh"})})
- * @ORM\Entity
- */
+
 #[ORM\Entity(repositoryClass:SentimentRepository::class)]
 class Sentiment
 {
@@ -27,6 +23,35 @@ class Sentiment
  
     #[ORM\ManyToOne(inversedBy:'Sentiment')]
     private ?Channel $Channel=null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getChannel(): ?Channel
+    {
+        return $this->Channel;
+    }
+
+    public function setChannel(?Channel $Channel): static
+    {
+        $this->Channel = $Channel;
+
+        return $this;
+    }
  
 
 
