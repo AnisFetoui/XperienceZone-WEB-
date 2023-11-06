@@ -10,93 +10,44 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="activites")
  * @ORM\Entity
  */
+#[ORM\Entity(repositoryClass: ActivitesRepository::class)]
 class Activites
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="Id_act", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idAct;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+   #[ORM\Column]
+    private ?int $idAct;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom_act", type="string", length=50, nullable=false)
-     */
-    private $nomAct;
+    #[ORM\Column( length: 50)]
+    private ?string $nomAct;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=200, nullable=false)
-     */
-    private $description;
+    #[ORM\Column( length: 200)]
+    private ?string $description;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="organisateur", type="string", length=20, nullable=false)
-     */
-    private $organisateur;
+    #[ORM\Column( length: 20)]
+    private ?string $organisateur;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="lieu_act", type="integer", nullable=false)
-     */
-    private $lieuAct;
+   #[ORM\Column]
+    private ?int $lieuAct;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse", type="string", length=50, nullable=false)
-     */
-    private $adresse;
+    #[ORM\Column( length: 50)]
+    private ?string $adresse;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="images", type="string", length=600, nullable=false)
-     */
-    private $images;
+    #[ORM\Column( length: 600)]
+    private ?string $images;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="place_diso", type="integer", nullable=false)
-     */
-    private $placeDiso;
+   #[ORM\Column]
+    private ?int $placeDiso;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prix_act", type="string", length=10, nullable=false)
-     */
-    private $prixAct;
+    #[ORM\Column(type: "string", length: 10)]
+    private ?string $prixAct;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="durée", type="integer", nullable=false)
-     */
-    private $durée;
+    #[ORM\Column]
+    private ?int $durée;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="periode", type="string", length=50, nullable=false)
-     */
-    private $periode;
+    #[ORM\Column(type: "string", length: 50)]
+    private ?string $periode;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
-     */
-    private $idUser;
-
-
+    #[ORM\Column]
+    private ?int $idUser;
 }

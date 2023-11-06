@@ -12,56 +12,27 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Inscription
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="Id_ins", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idIns;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
+    private int $Id_ins;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_ins", type="date", nullable=false)
-     */
-    private $dateIns;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateIns = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="heure_ins", type="time", nullable=false)
-     */
-    private $heureIns;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $heureIns = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nbr_tickes", type="integer", nullable=false)
-     */
-    private $nbrTickes;
+    #[ORM\Column]
+    private ?int $nbrTickes;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="frait_abonnement", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $fraitAbonnement;
+    #[ORM\Column]
+    private ?float $fraitAbonnement;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="activite_id", type="integer", nullable=true)
-     */
-    private $activiteId;
-
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="user_id", type="integer", nullable=true)
-     */
-    private $userId;
+    #[ORM\Column]
+    private ?int $activiteId;
 
 
+    #[ORM\Column]
+    private ?int $userId;
 }
