@@ -1,46 +1,38 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Categorie
- *
- * @ORM\Table(name="categorie")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass:CategorieRepository::class)]
 class Categorie
+
+
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="Id_categorie", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idCategorie;
+    
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idCategorie=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom_categorie", type="string", length=50, nullable=false)
-     */
-    private $nomCategorie;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description_categorie", type="string", length=100, nullable=false)
-     */
-    private $descriptionCategorie;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type_categorie", type="string", length=30, nullable=false)
-     */
-    private $typeCategorie;
+   
+    #[ORM\Column(length: 150)]
+    private ?string $nomCategorie=null;
+
+
+
+
+    #[ORM\Column(length: 150)]
+    private ?string $descriptionCategorie=null;
+
+
+
+
+
+    #[ORM\Column(length: 150)]
+    private ?string $typeCategorie=null;
 
 
 }

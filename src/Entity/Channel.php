@@ -1,45 +1,27 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\ChannelRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Channel
- *
- * @ORM\Table(name="channel", indexes={@ORM\Index(name="id_event", columns={"id_event"})})
- * @ORM\Entity
- */
+
+#[ORM\Entity(repositoryClass:ChannelRepository::class)]
 class Channel
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idCh", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idch;
+  
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idCh=null;
+   
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nomCh", type="string", length=11, nullable=false)
-     */
-    private $nomch;
 
-    /**
-     * @var \Evenement
-     *
-     * @ORM\ManyToOne(targetEntity="Evenement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_event", referencedColumnName="id_event")
-     * })
-     */
-    private $idEvent;
+    #[ORM\Column(length: 150)]
+    private ?string $nomCh=null;
 
-    //#[ORM\ManyToOne(targetEntity: Evenement::class)]
-   // #[ORM\JoinColumn(name: "id_event", referencedColumnName: "id_event")]
-    //private ?Evenement $idEvent;
+
+
+    #[ORM\ManyToOne(inversedBy:'Channel')]
+    private ?Evenement $Evenement=null;
 
 }

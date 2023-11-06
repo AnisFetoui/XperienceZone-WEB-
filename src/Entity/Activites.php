@@ -3,13 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ActivitesRepository;
 
-/**
- * Activites
- *
- * @ORM\Table(name="activites")
- * @ORM\Entity
- */
 #[ORM\Entity(repositoryClass: ActivitesRepository::class)]
 class Activites
 {

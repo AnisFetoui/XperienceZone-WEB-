@@ -1,60 +1,30 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\ReclamationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Réclamations
- *
- * @ORM\Table(name="réclamations")
- * @ORM\Entity
- */
-class Réclamations
-{
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idR", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idr;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idU", type="integer", nullable=false)
-     */
-    private $idu;
+    #[ORM\Entity(repositoryClass:ReclamationRepository::class)]
+    class Réclamations
+    {
+      
+        #[ORM\Id]
+        #[ORM\GeneratedValue]
+        #[ORM\Column]
+        private ?int $idr=null;
+    
+        #[ORM\ManyToOne(inversedBy:'Réclamations')]
+        private ?Utilisateur $Utilisateur=null;
+       
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateREC", type="date", nullable=false)
-     */
-    private $daterec;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="typeRec", type="integer", nullable=false)
-     */
-    private $typerec;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="refObject", type="integer", nullable=false)
-     */
-    private $refobject;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="details", type="text", length=65535, nullable=false)
-     */
-    private $details;
-
-
-}
+        #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+        private ?\DateTime $daterec = null;
+    
+       
+        #[ORM\Column]
+        private ?int $typerec=null;
+    
+        #[ORM\Column]
+        private ?int $refobject=null;
+         }

@@ -1,15 +1,10 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\InscriptionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Inscription
- *
- * @ORM\Table(name="inscription")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass:InscriptionRepository::class)]
 class Inscription
 {
     #[ORM\Id]

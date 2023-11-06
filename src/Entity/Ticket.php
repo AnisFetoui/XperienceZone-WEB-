@@ -3,65 +3,120 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TicketRepository;
 
-/**
- * Ticket
- *
- * @ORM\Table(name="ticket", indexes={@ORM\Index(name="fk.id_event", columns={"id_event"}), @ORM\Index(name="id_user", columns={"id_user", "id_event"})})
- * @ORM\Entity
- */
+
+#[ORM\Entity(repositoryClass:TicketRepository::class)]
 class Ticket
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_ticket", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idTicket;
+    #[ORM\Id]
+    #[ORM\GenerateValue]
+    #[ORM\Column]
+    private ?int $idTicket=null;
+    
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="num_ticket", type="integer", nullable=false)
-     */
-    private $numTicket;
+    #[ORM\Column]
+    private ?int $numTicket=null;
+    
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
-     */
-    private $idUser;
+    #[ORM\Column]
+    private ?int $idUser=null;
+    
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_event", type="integer", nullable=false)
-     */
-    private $idEvent;
+    #[ORM\Column]
+    private ?int $idEvent=null;
+    
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=300, nullable=false)
-     */
-    private $image;
+    #[ORM\Column(length:200)]
+   private ?string $image=null;
+   
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $prix;
+   #[ORM\Column]
+   private ?float $prix=null;
+   
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="categorie", type="string", length=0, nullable=false)
-     */
-    private $categorie;
+   #[ORM\Column(length:200)]
+   private ?string $categorie=null;
+  
+   #[ORM\ManyToOne(inversedBy: 'tickets')]
+   private ?Evenement $evenement=null;
+
+    public function getIdTicket(): ?int
+    {
+        return $this->idTicket;
+    }
+
+    public function getNumTicket(): ?int
+    {
+        return $this->numTicket;
+    }
+
+    public function setNumTicket(int $numTicket): static
+    {
+        $this->numTicket = $numTicket;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?int
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(int $idUser): static
+    {
+        $this->idUser = $idUser;
+
+        return $this;
+    }
+
+    public function getIdEvent(): ?int
+    {
+        return $this->idEvent;
+    }
+
+    public function setIdEvent(int $idEvent): static
+    {
+        $this->idEvent = $idEvent;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(float $prix): static
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(string $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
 
 
 }

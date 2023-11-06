@@ -1,74 +1,44 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\\UserRepository
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Utilisateur
- *
- * @ORM\Table(name="utilisateur")
- * @ORM\Entity
- */
+
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 class Utilisateur
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idUser;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=35, nullable=false)
-     */
-    private $username;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ? int $idUser = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mail", type="string", length=50, nullable=false)
-     */
-    private $mail;
+    #[ORM\Column(length:35)]
+    private ?string $username = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mdp", type="string", length=40, nullable=false)
-     */
-    private $mdp;
+    #[ORM\Column(length:50)]
+    private ?string $mail = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=15, nullable=false)
-     */
-    private $role;
+    #[ORM\Column(length:40)]
+    private ?string $mdp = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=300, nullable=false)
-     */
-    private $image;
+    #[ORM\Column(length:15)]
+    private ?string $role = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="age", type="integer", nullable=false)
-     */
-    private $age;
+    #[ORM\Column(length:300 )]
+    private ?string $image= null;
+    
+    #[ORM\Column]
+    private ?int $age= null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="sexe", type="string", length=10, nullable=false)
-     */
-    private $sexe;
+    #[ORM\Column(length:10 )]
+    private ?string $sexe= null;
 
+
+    
+
+    #[ORM\Column(type: "boolean", nullable: false, options: ["default" => true])]
+    private ?bool $etat = true;
 
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\SentimentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,37 +10,24 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sentiment", indexes={@ORM\Index(name="idCh", columns={"idCh"})})
  * @ORM\Entity
  */
+#[ORM\Entity(repositoryClass:SentimentRepository::class)]
 class Sentiment
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+  
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private $nom;
+   
 
-    /**
-     * @var \Channel
-     *
-     * @ORM\ManyToOne(targetEntity="Channel")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idCh", referencedColumnName="idCh")
-     * })
-     */
-    private $idch;
-    
-   // #[ORM\ManyToOne]
-//#[ORM\JoinColumn(name: "idCh", referencedColumnName: "idCh")]
-//private ?Channel $Channel = null;
+    #[ORM\Column(length: 150)]
+    private ?string $nom=null;
+
+ 
+    #[ORM\ManyToOne(inversedBy:'Sentiment')]
+    private ?Channel $Channel=null;
+ 
 
 
 }

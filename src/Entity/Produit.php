@@ -1,70 +1,62 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Produit
- *
- * @ORM\Table(name="produit", indexes={@ORM\Index(name="Id_categorie", columns={"Id_categorie"})})
- * @ORM\Entity
- */
+
+
+#[ORM\Entity(repositoryClass:ProduitRepository::class)]
 class Produit
+
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_prod", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idProd;
+ 
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idProd=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom_prod", type="string", length=20, nullable=false)
-     */
-    private $nomProd;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="prix_prod", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $prixProd;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description_prod", type="string", length=100, nullable=false)
-     */
-    private $descriptionProd;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="quantite", type="integer", nullable=false)
-     */
-    private $quantite;
+ 
+    #[ORM\Column(length: 150)]
+    private ?string  $nomProd=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=100, nullable=false)
-     */
-    private $image;
 
-    /**
-     * @var \Categorie
-     *
-     * @ORM\ManyToOne(targetEntity="Categorie")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Id_categorie", referencedColumnName="Id_categorie")
-     * })
-     */
-    private $idCategorie;
+
+
+
+    #[ORM\Column]
+    private ?float $prixProd=null;
+
+
+
+    #[ORM\Column(length: 150)]
+    private ?string $descriptionProd=null;
+
+
+
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $quantite=null;
+
+
+
+
+    
+    #[ORM\Column(length: 150)]
+    private ?string $image=null;
+
+
+
+
+
+   
+    #[ORM\ManyToOne(inversedBy:'Produit')]
+    private ?UCategorie $Categorie=null;
 
 
 }

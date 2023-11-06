@@ -2,80 +2,150 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EvenementRepository;
 
-/**
- * Evenement
- *
- * @ORM\Table(name="evenement")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass:EvenementRepository::class)]
 class Evenement
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_event", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idEvent;
+   #[ORM\Id]
+   #[ORM\GenerateValue]
+   #[ORM\Column]
+   private ?int $idEvent=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom_event", type="string", length=30, nullable=false)
-     */
-    private $nomEvent;
+   #[ORM\Column(length:150)]
+   private ?string $nomEvent=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="descript", type="string", length=100, nullable=false)
-     */
-    private $descript;
+   #[ORM\Column(length:200)]
+   private ?string $descript=null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_event", type="date", nullable=false)
-     */
-    private $dateEvent;
+   
+   #[ORM\Column(type: Types:: DATETIME_MUTABLE, nullable:true)]
+    private ?\DateTimeInterface $dateEvent = null;
+  
+     
+   #[ORM\Column(type: Types:: DATETIME_MUTABLE, nullable:true)]
+   private ?\DateTimeInterface $heureEvent = null;
+    
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="heure_event", type="time", nullable=false)
-     */
-    private $heureEvent;
+    #[ORM\Column(length:200)]
+   private ?string $lieuEvent=null;
+   
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lieu_event", type="string", length=20, nullable=false)
-     */
-    private $lieuEvent;
+   #[ORM\Column]
+   private ?int $nbParticipants=null;
+   
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nb_participants", type="integer", nullable=false)
-     */
-    private $nbParticipants;
+   #[ORM\Column(length:200)]
+   private ?string $image=null;
+  
+   #[ORM\Column(length:200)]
+   private ?string $organisateur=null;
+  
+   
+  
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=100, nullable=false)
-     */
-    private $image;
+    public function getIdEvent(): ?int
+    {
+        return $this->idEvent;
+    }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="organisateur", type="string", length=20, nullable=false)
-     */
-    private $organisateur;
+    public function getNomEvent(): ?string
+    {
+        return $this->nomEvent;
+    }
+
+    public function setNomEvent(string $nomEvent): static
+    {
+        $this->nomEvent = $nomEvent;
+
+        return $this;
+    }
+
+    public function getDescript(): ?string
+    {
+        return $this->descript;
+    }
+
+    public function setDescript(string $descript): static
+    {
+        $this->descript = $descript;
+
+        return $this;
+    }
+
+    public function getDateEvent(): ?\DateTimeInterface
+    {
+        return $this->dateEvent;
+    }
+
+    public function setDateEvent(\DateTimeInterface $dateEvent): static
+    {
+        $this->dateEvent = $dateEvent;
+
+        return $this;
+    }
+
+    public function getHeureEvent(): ?\DateTimeInterface
+    {
+        return $this->heureEvent;
+    }
+
+    public function setHeureEvent(\DateTimeInterface $heureEvent): static
+    {
+        $this->heureEvent = $heureEvent;
+
+        return $this;
+    }
+
+    public function getLieuEvent(): ?string
+    {
+        return $this->lieuEvent;
+    }
+
+    public function setLieuEvent(string $lieuEvent): static
+    {
+        $this->lieuEvent = $lieuEvent;
+
+        return $this;
+    }
+
+    public function getNbParticipants(): ?int
+    {
+        return $this->nbParticipants;
+    }
+
+    public function setNbParticipants(int $nbParticipants): static
+    {
+        $this->nbParticipants = $nbParticipants;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?string
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(string $organisateur): static
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
 
 
 }
