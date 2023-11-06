@@ -36,25 +36,11 @@ class Traitements
     private $dater;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="nomT", type="string", length=50, nullable=false)
+     * @ORM\Column(name="idU", type="integer", nullable=false)
      */
-    private $nomt;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prenomT", type="string", length=50, nullable=false)
-     */
-    private $prenomt;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="emailT", type="string", length=50, nullable=false)
-     */
-    private $emailt;
+    private $idu;
 
     /**
      * @var int

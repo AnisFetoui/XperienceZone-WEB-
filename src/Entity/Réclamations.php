@@ -22,32 +22,11 @@ class Réclamations
     private $idr;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="nom", type="string", length=50, nullable=false)
+     * @ORM\Column(name="idU", type="integer", nullable=false)
      */
-    private $nom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
-     */
-    private $prenom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=50, nullable=false)
-     */
-    private $email;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateINC", type="date", nullable=false)
-     */
-    private $dateinc;
+    private $idu;
 
     /**
      * @var \DateTime

@@ -24,28 +24,28 @@ class Utilisateur
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=20, nullable=false)
+     * @ORM\Column(name="username", type="string", length=35, nullable=false)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mail", type="string", length=20, nullable=false)
+     * @ORM\Column(name="mail", type="string", length=50, nullable=false)
      */
     private $mail;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mdp", type="string", length=20, nullable=false)
+     * @ORM\Column(name="mdp", type="string", length=40, nullable=false)
      */
     private $mdp;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="role", type="string", length=0, nullable=false)
+     * @ORM\Column(name="role", type="string", length=15, nullable=false)
      */
     private $role;
 
@@ -69,13 +69,6 @@ class Utilisateur
      * @ORM\Column(name="sexe", type="string", length=10, nullable=false)
      */
     private $sexe;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="etat", type="boolean", nullable=false, options={"default"="1"})
-     */
-    private $etat = true;
 
 
 }

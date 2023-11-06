@@ -59,7 +59,7 @@ class Activites
     /**
      * @var string
      *
-     * @ORM\Column(name="images", type="string", length=100, nullable=false)
+     * @ORM\Column(name="images", type="string", length=600, nullable=false)
      */
     private $images;
 
@@ -90,6 +90,13 @@ class Activites
      * @ORM\Column(name="periode", type="string", length=50, nullable=false)
      */
     private $periode;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_user", type="integer", nullable=false)
+     */
+    private $idUser;
 
 
 }

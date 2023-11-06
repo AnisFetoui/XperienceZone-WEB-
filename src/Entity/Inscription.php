@@ -43,16 +43,23 @@ class Inscription
     private $nbrTickes;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="frait_abonnement", type="integer", nullable=false)
+     * @ORM\Column(name="frait_abonnement", type="float", precision=10, scale=0, nullable=false)
      */
     private $fraitAbonnement;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="activite_id", type="integer", nullable=true)
+     */
+    private $activiteId;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="user_id", type="integer", nullable=true)
      */
     private $userId;
 

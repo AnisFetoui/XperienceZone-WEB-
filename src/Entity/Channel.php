@@ -38,5 +38,8 @@ class Channel
      */
     private $idEvent;
 
+    //#[ORM\ManyToOne(targetEntity: Evenement::class)]
+   // #[ORM\JoinColumn(name: "id_event", referencedColumnName: "id_event")]
+    //private ?Evenement $idEvent;
 
 }

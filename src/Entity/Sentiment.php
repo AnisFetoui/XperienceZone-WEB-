@@ -37,6 +37,10 @@ class Sentiment
      * })
      */
     private $idch;
+    
+   // #[ORM\ManyToOne]
+//#[ORM\JoinColumn(name: "idCh", referencedColumnName: "idCh")]
+//private ?Channel $Channel = null;
 
 
 }

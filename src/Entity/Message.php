@@ -36,16 +36,6 @@ class Message
     private $heurenvoimsg = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \Channel
-     *
-     * @ORM\ManyToOne(targetEntity="Channel")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idCh", referencedColumnName="idCh")
-     * })
-     */
-    private $idch;
-
-    /**
      * @var \Utilisateur
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
@@ -55,5 +45,24 @@ class Message
      */
     private $idUser;
 
+    //methode attribut
+   // #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+  //#[ORM\JoinColumn(name: "id_user", referencedColumnName: "id_user")]
+  //private ?Utilisateur $idUser;
+
+    /**
+     * @var \Channel
+     *
+     * @ORM\ManyToOne(targetEntity="Channel")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idCh", referencedColumnName="idCh")
+     * })
+     */
+    private $idch;
+
+    
+// #[ORM\ManyToOne(targetEntity: Channel::class)]
+   // #[ORM\JoinColumn(name: "idCh", referencedColumnName: "idCh")]
+    //private ?Channel $idch;
 
 }
