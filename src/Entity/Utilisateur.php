@@ -13,7 +13,7 @@ class Utilisateur
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ? int $idUser = null;
+    private ?int $idUser = null;
 
     #[ORM\Column(length:35)]
     private ?string $username = null;
