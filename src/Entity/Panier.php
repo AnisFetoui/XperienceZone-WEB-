@@ -20,10 +20,13 @@ class Panier
     #[ORM\Column]
     private ?int $quantitePanier = null;
 
-    #[ORM\ManyToOne(inversedBy: 'panier')]
+
+    #[ORM\ManyToOne]
+   #[ORM\JoinColumn(nullable: false, name: "id_user", referencedColumnName: "id_user")]
     private ?Utilisateur $utilisateur = null;
 
-    #[ORM\ManyToOne(inversedBy: 'panier')]
+    #[ORM\ManyToOne]
+   #[ORM\JoinColumn(nullable: false, name: "id_prod", referencedColumnName: "id_prod")]
     private ?Produit $produit = null;
 
     public function getIdPanier(): ?int

@@ -1,29 +1,28 @@
 <?php
-
 namespace App\Entity;
+use App\Entity\Evenement;
 use App\Repository\ChannelRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\DBAL\Types\Types;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-#[ORM\Entity(repositoryClass:ChannelRepository::class)]
-class Channel
-{
-  
+
+#[ORM\Entity(repositoryClass: ChannelRepository::class)]
+class Channel 
+  {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: "idCh")]
     private ?int $idCh=null;
    
-
-
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(name: "nomCh", length: 150)]
     private ?string $nomCh=null;
 
 
-
-    #[ORM\ManyToOne(inversedBy:'Channel')]
-    private ?Evenement $Evenement=null;
+   #[ORM\ManyToOne]
+   #[ORM\JoinColumn(name:"id_event", referencedColumnName:"id_event", nullable: false  )]
+   private ?Evenement $evenement=null;
+  
 
     public function getIdCh(): ?int
     {
@@ -39,19 +38,13 @@ class Channel
     {
         $this->nomCh = $nomCh;
 
-        return $this;
-    }
+        return $this;}
 
-    public function getEvenement(): ?Evenement
-    {
-        return $this->Evenement;
-    }
-
-    public function setEvenement(?Evenement $Evenement): static
-    {
-        $this->Evenement = $Evenement;
-
-        return $this;
-    }
-
-}
+        public function getEvenement(): ?Evenement {
+            return $this->evenement;
+        }
+        public function setEvenement(Evenement $evenement): self
+        { 
+             $this ->evenement = $evenement; 
+             return $this;   
+    }}

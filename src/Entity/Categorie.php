@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Entity;
+
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+
 
 #[ORM\Entity(repositoryClass:CategorieRepository::class)]
 class Categorie
@@ -13,29 +15,28 @@ class Categorie
     
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name:"Id_categorie")]
     private ?int $idCategorie=null;
-
-
 
    
     #[ORM\Column(length: 150)]
     private ?string $nomCategorie=null;
 
 
-
-
     #[ORM\Column(length: 150)]
     private ?string $descriptionCategorie=null;
+
 
     #[ORM\Column(length: 150)]
     private ?string $typeCategorie=null;
 
+
+    
     public function getIdCategorie(): ?int
     {
         return $this->idCategorie;
     }
-
+    
     public function getNomCategorie(): ?string
     {
         return $this->nomCategorie;

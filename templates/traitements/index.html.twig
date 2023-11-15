@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Traitements index{% endblock %}
+
+{% block body %}
+    <h1>Traitements index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idt</th>
+                <th>Refobj</th>
+                <th>Dater</th>
+                <th>Typer</th>
+                <th>Resume</th>
+                <th>Stat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for traitement in traitements %}
+            <tr>
+                <td>{{ traitement.idt }}</td>
+                <td>{{ traitement.refobj }}</td>
+                <td>{{ traitement.dater ? traitement.dater|date('Y-m-d') : '' }}</td>
+                <td>{{ traitement.typer }}</td>
+                <td>{{ traitement.resume }}</td>
+                <td>{{ traitement.stat }}</td>
+                <td>
+                    <a href="{{ path('app_traitements_show', {'idt': traitement.idt}) }}">show</a>
+                    <a href="{{ path('app_traitements_edit', {'idt': traitement.idt}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_traitements_new') }}">Create new</a>
+{% endblock %}

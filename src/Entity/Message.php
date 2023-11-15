@@ -1,31 +1,42 @@
 <?php
 
 namespace App\Entity;
+use App\Entity\Channel;
+use App\Entity\Utilisateur;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 
 
 
+
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
-class Message
+class Message 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: "idMsg")]
     private ?int $idMsg = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(name: "contenuMsg", length: 150)]
     private ?string $contenuMsg = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $heurEnvoiMsg = null;
+   
+    
+   // #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+   #[ORM\Column(name: "heurEnvoiMsg")] 
+   private ?\DateTimeInterface $heurEnvoiMsg = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Message')]
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(name: "idCh", referencedColumnName: "idCh", nullable: false)]
+    private ?Channel $channel = null;
+
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(name: "id_user", referencedColumnName: "id_user", nullable: false)]
     private ?Utilisateur $utilisateur = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Message')]
-    private ?Channel $channel = null;
 
     public function getIdMsg(): ?int
     {
@@ -61,7 +72,7 @@ class Message
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): static
+    public function setUtilisateur(Utilisateur $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
 
@@ -73,10 +84,11 @@ class Message
         return $this->channel;
     }
 
-    public function setChannel(?Channel $channel): static
+    public function setChannel(Channel $channel): self
     {
         $this->channel = $channel;
 
         return $this;
     }
+
 }

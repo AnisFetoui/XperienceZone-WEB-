@@ -3,15 +3,20 @@
 namespace App\Entity;
 use App\Repository\InscriptionRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\DBAL\Types\Types;
+USE Doctrine\DBAL\Types\Types;
 
-#[ORM\Entity(repositoryClass:InscriptionRepository::class)]
+use Doctrine\Common\Collections\Collection;
+
+
+#[ORM\Entity(repositoryClass: InscriptionRepository::class)]
+#[ORM\Table(name: "inscription")]
 class Inscription
+
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer")]
-    private int $Id_ins;
+    #[ORM\Column]
+    private ?int $Id_ins;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateIns = null;
@@ -32,11 +37,22 @@ class Inscription
     #[ORM\Column]
     private ?int $userId;
 
+    /*#[ORM\OneToMany(mappedBy: 'inscription', targetEntity: Activites::class)]
+    #[ORM\JoinColumn(nullable : true)]
+    private Collection $activitesliste;
+    public function __construct()
+    {
+        $this->activitesliste = new ArrayCollection();
+    }
+        /**
+     * @return Collection<int, Activites>
+     */
+
     public function getIdIns(): ?int
     {
         return $this->Id_ins;
     }
-
+   
     public function getDateIns(): ?\DateTimeInterface
     {
         return $this->dateIns;

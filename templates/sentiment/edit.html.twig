@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Sentiment{% endblock %}
+
+{% block body %}
+    <h1>Edit Sentiment</h1>
+
+    {{ include('sentiment/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_sentiment_index') }}">back to list</a>
+
+    {{ include('sentiment/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ActivitesRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: ActivitesRepository::class)]
@@ -39,7 +38,7 @@ class Activites
     private ?string $prixAct;
 
     #[ORM\Column]
-    private ?int $durée;
+    private ?int $duree;
 
     #[ORM\Column(type: "string", length: 50)]
     private ?string $periode;
@@ -148,14 +147,14 @@ class Activites
         return $this;
     }
 
-    public function getDurée(): ?int
+    public function getDuree(): ?int
     {
-        return $this->durée;
+        return $this->duree;
     }
 
-    public function setDurée(int $durée): static
+    public function setDuree(int $duree): static
     {
-        $this->durée = $durée;
+        $this->duree = $duree;
 
         return $this;
     }

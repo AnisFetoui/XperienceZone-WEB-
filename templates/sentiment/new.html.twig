@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Sentiment{% endblock %}
+
+{% block body %}
+    <h1>Create new Sentiment</h1>
+
+    {{ include('sentiment/_form.html.twig') }}
+
+    <a href="{{ path('app_sentiment_index') }}">back to list</a>
+{% endblock %}

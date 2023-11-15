@@ -36,8 +36,8 @@ use Doctrine\DBAL\Types\Types;
         #[ORM\Column( length: 50)]
         private ?string $stat=null;
     
-        #[ORM\ManyToOne(targetEntity: Réclamations::class,inversedBy:'traitements')]
-        private ?Réclamations $réclamations=null;
+        #[ORM\ManyToOne(targetEntity: Reclamations::class,inversedBy:'traitements')]
+        private ?Reclamations $reclamations=null;
 
         public function getIdt(): ?int
         {
@@ -116,14 +116,14 @@ use Doctrine\DBAL\Types\Types;
             return $this;
         }
 
-        public function getRéclamations(): ?Réclamations
+        public function getReclamations(): ?Reclamations
         {
-            return $this->réclamations;
+            return $this->reclamations;
         }
 
-        public function setRéclamations(?Réclamations $réclamations): static
+        public function setReclamations(?Reclamations $reclamations): static
         {
-            $this->réclamations = $réclamations;
+            $this->reclamations = $reclamations;
 
             return $this;
         }

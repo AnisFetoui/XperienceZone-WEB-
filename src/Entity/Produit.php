@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use App\Entity\Categorie;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
@@ -12,7 +13,7 @@ class Produit
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name:"id_prod")]
     private ?int $idProd = null;
 
     #[ORM\Column(length: 150)]
@@ -30,8 +31,12 @@ class Produit
     #[ORM\Column(length: 150)]
     private ?string $image = null;
 
-    #[ORM\ManyToOne(targetEntity: Categorie::class,inversedBy: 'produit')]
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false, name: "Id_categorie", referencedColumnName: "Id_categorie")]
     private ?Categorie $categorie = null;
+ 
+
+   
 
     public function getIdProd(): ?int
     {
@@ -98,12 +103,25 @@ class Produit
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
+    /**public function getCategorie(): ?Categorie
     {
         return $this->categorie;
     }
 
     public function setCategorie(?Categorie $categorie): static
+    {
+       $this->categorie = $categorie;
+
+        return $this;
+    }*/
+    
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
 

@@ -12,7 +12,7 @@ class Sentiment
   
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: "id")]
     private ?int $id=null;
 
    
@@ -21,8 +21,11 @@ class Sentiment
     private ?string $nom=null;
 
  
-    #[ORM\ManyToOne(inversedBy:'Sentiment')]
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(name:"idCh", referencedColumnName:"idCh", nullable: false  )]
     private ?Channel $Channel=null;
+
 
     public function getId(): ?int
     {

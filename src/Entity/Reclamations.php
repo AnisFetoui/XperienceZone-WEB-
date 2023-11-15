@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
-class Réclamations
+class Reclamations
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

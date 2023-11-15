@@ -13,7 +13,7 @@ class Utilisateur
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idUser = null;
+    private ? int $idUser = null;
 
     #[ORM\Column(length:35)]
     private ?string $username = null;
@@ -35,10 +35,7 @@ class Utilisateur
 
     #[ORM\Column(length:10 )]
     private ?string $sexe= null;
-
-
     
-
     #[ORM\Column(type: "boolean", nullable: false, options: ["default" => true])]
     private ?bool $etat = true;
 

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Channel{% endblock %}
+
+{% block body %}
+    <h1>Create new Channel</h1>
+
+    {{ include('channel/_form.html.twig') }}
+
+    <a href="{{ path('app_channel_index') }}">back to list</a>
+{% endblock %}
