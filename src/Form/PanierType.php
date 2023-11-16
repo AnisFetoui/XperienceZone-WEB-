@@ -12,12 +12,23 @@ class PanierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('total')
+             ->add('total')
             ->add('quantitePanier')
-            ->add('utilisateur')
-            ->add('produit')
+            ->add('utilisateur', null, [
+                'choice_label' => 'username' // Spécifiez la propriété "nom" de l'objet Categorie comme représentation en chaîne
+            ])
+            //->add('utilisateur')
+            //->add('produit')
+            ->add('produit', null, [
+                'choice_label' => 'nomProd' // Spécifiez la propriété "nom" de l'objet Categorie comme représentation en chaîne
+            ]);
+    
         ;
     }
+
+
+
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

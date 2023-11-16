@@ -154,25 +154,26 @@
 										<!-- RD Navbar Nav-->
 										<ul class="rd-navbar-nav">
 											<li class="active">
-												<a href="index.html">Activité</a>
+												<a href="{{ path('app_activites_index') }}">Activities</a>
 											</li>
 											<li>
-												<a href="about-us.html">Evenements</a>
+												<a href="{{ path('app_evenement_index') }}">Events</a>
 											</li>
 											<li>
-												<a href="contacts.html">panier</a>
+												<a href="{{ path('app_produit_index') }}">Product</a>
 											</li>
 											<li>
-												<a href="typography.html">Channel</a>
+												<a href="{{ path('app_channel_index') }}">Channels</a>
 											</li>
 											<li>
-												<a href="typography.html">Reclamation</a>
+												<a href="{{ path('app_reclamations_index') }}">Complaints</a>
 											</li>
 										</ul>
 									</div>
 								</div>
 								<div class="rd-navbar-aside-right">
-									<a class="button button-sm button-secondary button-nina" href="#">Book a tour now</a>
+									<a class="button button-sm button-secondary button-nina" href="{{ path('app_panier_index') }}">Shop Now</a>
+
 								</div>
 							</div>
 						</nav>
