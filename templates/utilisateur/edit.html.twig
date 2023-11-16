@@ -1,13 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 
 {% block title %}Edit Utilisateur{% endblock %}
 
 {% block container %}
     <h1>Edit Utilisateur</h1>
 
+     
+
     {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+    <a href="{{ path('app_utilisateur_index') }}" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">back to list</a>
 
-    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
-
-    {{ include('utilisateur/_delete_form.html.twig') }}
+    {{ include('utilisateur/_delete_form.html.twig') }} 
+    </div>
 {% endblock %}
