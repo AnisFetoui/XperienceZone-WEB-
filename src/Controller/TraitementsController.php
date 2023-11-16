@@ -30,11 +30,22 @@ class TraitementsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+
+        // Récupérer la réclamation sélectionnée dans le formulaire
+        $reclamation = $formData->getReclamations();
+
+        if ($reclamation) {
+            // Utiliser les attributs de la réclamation pour remplir les champs de l'entité Traitements
+            $traitement->setDater($reclamation->getDaterec());
+            $traitement->setTyper($reclamation->getTyperec());
+            $traitement->setRefobj($reclamation->getRefobject());
+            $traitement->setIdU($reclamation->getUtilisateur()->getIdUser());
             $entityManager->persist($traitement);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_traitements_index', [], Response::HTTP_SEE_OTHER);
-        }
+        }}
 
         return $this->renderForm('traitements/new.html.twig', [
             'traitement' => $traitement,
