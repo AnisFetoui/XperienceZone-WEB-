@@ -6,27 +6,33 @@ use App\Entity\Utilisateur;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
-class Message 
+class Message extends AbstractController
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: "idMsg")]
     private ?int $idMsg = null;
 
+
+      
+    #[Assert\NotBlank]
+    #[Assert\Length( min: 2,  max: 256,  minMessage: 'Description must be at least {{ limit }} characters long',
+        maxMessage: 'Description cannot be longer than {{ limit }} characters',)]
     #[ORM\Column(name: "contenuMsg", length: 150)]
     private ?string $contenuMsg = null;
 
    
     
-   // #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+    
+   
    #[ORM\Column(name: "heurEnvoiMsg")] 
-   private ?\DateTimeInterface $heurEnvoiMsg = null;
-
+   private ?\DateTime $heurEnvoiMsg = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: "idCh", referencedColumnName: "idCh", nullable: false)]

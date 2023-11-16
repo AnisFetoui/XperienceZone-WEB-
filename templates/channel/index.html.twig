@@ -2,15 +2,15 @@
 
 {% block title %}Channel index{% endblock %}
 
-{% block body %}
-    <h1>Channel index</h1>
+{% block  container  %}
+    <h1>Channel de discussion </h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>IdCh</th>
-                <th>NomCh</th>
-                <th>actions</th>
+               
+                <th> Nom Channel </th>
+                <th>Evenements </th>
             </tr>
         </thead>
         <tbody>
@@ -18,9 +18,11 @@
             <tr>
                 <td>{{ channel.idCh }}</td>
                 <td>{{ channel.nomCh }}</td>
+                
                 <td>
-                    <a href="{{ path('app_channel_show', {'idCh': channel.idCh}) }}">show</a>
-                    <a href="{{ path('app_channel_edit', {'idCh': channel.idCh}) }}">edit</a>
+                    <a href="{{ path('app_channel_show', {'idCh': channel.idCh}) }}">show channel</a>
+                    <a href="{{ path('app_channel_edit', {'idCh': channel.idCh}) }}">edit channel</a>
+                
                 </td>
             </tr>
         {% else %}
@@ -31,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_channel_new') }}">Create new</a>
+    <a href="{{ path('app_channel_new') }}">Create new channel </a>
 {% endblock %}

@@ -10,181 +10,185 @@
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta charset="utf-8">
-		<link rel="icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
 		{% block css%}
 		<!-- Stylesheets -->
 		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald:200,400%7CLato:300,400,300italic,700%7CMontserrat:900">
 		<link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
 		<link rel="stylesheet" href="{{asset('css/style.css')}}">
 		<link
-		rel="stylesheet" href="{{asset('ss/fonts.css')}}c">
+		rel="stylesheet" href="href=" {{asset('ss/fonts.css')}} c">
 	<!--[if lt IE 10]>
-							    {% endblock %}
-							    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="{{asset( 'images/ie8-panel/warning_bar_0000_us.jpg')}}" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
-							    <script src="{{asset('js/html5shiv.min.js')}}"> </script>
-									<![endif]-->
+								    {% endblock %}
+								    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="{{asset( 'images/ie8-panel/warning_bar_0000_us.jpg')}}" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+								    <script src="{{asset('js/html5shiv.min.js')}}"> </script>
+										<![endif]-->
 	</head>
 	<body>
 		{% block test %}
-			<!-- Page preloader-->
-			<div class="page-loader">
-				<div class="page-loader-body">
-					<div class="preloader-wrapper big active">
-						<div class="spinner-layer spinner-blue">
-							<div class="circle-clipper left">
-								<div class="circle"></div>
-							</div>
-							<div class="gap-patch">
-								<div class="circle"></div>
-							</div>
-							<div class="circle-clipper right">
-								<div class="circle"></div>
-							</div>
+		<!-- Page preloader-->
+		<div class="page-loader">
+			<div class="page-loader-body">
+				<div class="preloader-wrapper big active">
+					<div class="spinner-layer spinner-blue">
+						<div class="circle-clipper left">
+							<div class="circle"></div>
 						</div>
-						<div class="spinner-layer spinner-red">
-							<div class="circle-clipper left">
-								<div class="circle"></div>
-							</div>
-							<div class="gap-patch">
-								<div class="circle"></div>
-							</div>
-							<div class="circle-clipper right">
-								<div class="circle"></div>
-							</div>
+						<div class="gap-patch">
+							<div class="circle"></div>
 						</div>
-						<div class="spinner-layer spinner-yellow">
-							<div class="circle-clipper left">
-								<div class="circle"></div>
-							</div>
-							<div class="gap-patch">
-								<div class="circle"></div>
-							</div>
-							<div class="circle-clipper right">
-								<div class="circle"></div>
-							</div>
+						<div class="circle-clipper right">
+							<div class="circle"></div>
 						</div>
-						<div class="spinner-layer spinner-green">
-							<div class="circle-clipper left">
-								<div class="circle"></div>
-							</div>
-							<div class="gap-patch">
-								<div class="circle"></div>
-							</div>
-							<div class="circle-clipper right">
-								<div class="circle"></div>
-							</div>
+					</div>
+					<div class="spinner-layer spinner-red">
+						<div class="circle-clipper left">
+							<div class="circle"></div>
+						</div>
+						<div class="gap-patch">
+							<div class="circle"></div>
+						</div>
+						<div class="circle-clipper right">
+							<div class="circle"></div>
+						</div>
+					</div>
+					<div class="spinner-layer spinner-yellow">
+						<div class="circle-clipper left">
+							<div class="circle"></div>
+						</div>
+						<div class="gap-patch">
+							<div class="circle"></div>
+						</div>
+						<div class="circle-clipper right">
+							<div class="circle"></div>
+						</div>
+					</div>
+					<div class="spinner-layer spinner-green">
+						<div class="circle-clipper left">
+							<div class="circle"></div>
+						</div>
+						<div class="gap-patch">
+							<div class="circle"></div>
+						</div>
+						<div class="circle-clipper right">
+							<div class="circle"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- Page-->
-			<div class="page">
-				<a class="section section-banner text-center d-none d-xl-block" href="https://www.templatemonster.com/intense-multipurpose-html-template.html" style="background-image: url(images/banner/background-04-1920x60.jpg); background-image: -webkit-image-set( url(images/banner/background-04-1920x60.jpg) 1x, url(images/banner/background-04-3840x120.jpg) 2x )"><img src="{{asset( 'images/banner/foreground-04-1600x60.png')}}" srcset="images/banner/foreground-04-1600x60.png 1x, images/banner/foreground-04-3200x120.png 2x" alt="" width="1600" height="310"></a>
-				<!-- Page Header-->
-				<header
-					class="section page-header">
-					<!-- RD Navbar-->
-					<div class="rd-navbar-wrap rd-navbar-corporate">
-						<nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fullwidth" data-xl-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-device-layout="rd-navbar-static" data-md-stick-up-offset="130px" data-lg-stick-up-offset="100px" data-stick-up="true" data-sm-stick-up="true" data-md-stick-up="true" data-lg-stick-up="true" data-xl-stick-up="true">
-							<div class="rd-navbar-collapse-toggle" data-rd-navbar-toggle=".rd-navbar-collapse">
-								<span></span>
-							</div>
-							<div class="rd-navbar-top-panel rd-navbar-collapse novi-background">
-								<div class="rd-navbar-top-panel-inner">
-									<ul class="list-inline">
-										<li class="box-inline list-inline-item">
-											<span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-phone"></span>
-											<ul class="list-comma">
-												<li>
-													<a href="tel:#">1-800-1234-567</a>
-												</li>
-												<li>
-													<a href="tel:#">1-800-6780-345</a>
-												</li>
-											</ul>
-										</li>
-										<li class="box-inline list-inline-item">
-											<span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-map-marker"></span>
-											<a href="#">2130 Fulton Street, San Diego, CA 94117-1080 USA</a>
-										</li>
-										<li class="box-inline list-inline-item">
-											<span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-email"></span>
-											<a href="mailto:#">username@gmail.org</a>
-										</li>
-									</ul>
-									<ul class="list-inline">
-										<li class="list-inline-item">
-											<a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-facebook" href="#"></a>
-										</li>
-										<li class="list-inline-item">
-											<a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-twitter" href="#"></a>
-										</li>
-										<li class="list-inline-item">
-											<a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-instagram" href="#"></a>
-										</li>
-										<li class="list-inline-item">
-											<a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-google-plus" href="#"></a>
-										</li>
-										<li class="list-inline-item">
-											<a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-linkedin" href="#"></a>
-										</li>
-									</ul>
-								</div>
-								<div class="rd-navbar-top-panel-inner">
-									<a class="button button-sm button-secondary button-nina" href="https://www.templatemonster.com/website-templates/62466.html" target="_blank">buy template now</a>
-								</div>
-							</div>
-							<div
-								class="rd-navbar-inner">
-								<!-- RD Navbar Panel-->
-								<div
-									class="rd-navbar-panel">
-									<!-- RD Navbar Toggle-->
-									<button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap">
-										<span></span>
-									</button>
-									<!-- RD Navbar Brand-->
-									<div class="rd-navbar-brand">
-										<a class="brand-name" href="index.html"><img class="logo-default" src="images/xperiencelogo.png" alt="" width="208" height="26"/><img class="logo-inverse" src="{{asset( 'images/logo-inverse-208x46.png')}}" alt="" width="208" height="46"/></a>
-									</div>
-								</div>
-								<div class="rd-navbar-aside-center">
-									<div
-										class="rd-navbar-nav-wrap">
-										<!-- RD Navbar Nav-->
-										<ul class="rd-navbar-nav">
-											<li class="active">
-												<a href="index.html">Activité</a>
+		</div>
+		<!-- Page-->
+		<div class="page">
+			<a class="section section-banner text-center d-none d-xl-block" href="https://www.templatemonster.com/intense-multipurpose-html-template.html" style="background-image: url(images/banner/background-04-1920x60.jpg); background-image: -webkit-image-set( url(images/banner/background-04-1920x60.jpg) 1x, url(images/banner/background-04-3840x120.jpg) 2x )"><img src="{{asset( 'images/banner/foreground-04-1600x60.png')}}" srcset="images/banner/foreground-04-1600x60.png 1x, images/banner/foreground-04-3200x120.png 2x" alt="" width="1600" height="310"></a>
+			<!-- Page Header-->
+			<header
+				class="section page-header">
+				<!-- RD Navbar-->
+				<div class="rd-navbar-wrap rd-navbar-corporate">
+					<nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fullwidth" data-xl-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-device-layout="rd-navbar-static" data-md-stick-up-offset="130px" data-lg-stick-up-offset="100px" data-stick-up="true" data-sm-stick-up="true" data-md-stick-up="true" data-lg-stick-up="true" data-xl-stick-up="true">
+						<div class="rd-navbar-collapse-toggle" data-rd-navbar-toggle=".rd-navbar-collapse">
+							<span></span>
+						</div>
+						<div class="rd-navbar-top-panel rd-navbar-collapse novi-background">
+							<div class="rd-navbar-top-panel-inner">
+								<ul class="list-inline">
+									<li class="box-inline list-inline-item">
+										<span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-phone"></span>
+										<ul class="list-comma">
+											<li>
+												<a href="tel:#">1-800-1234-567</a>
 											</li>
 											<li>
-												<a href="about-us.html">Evenements</a>
-											</li>
-											<li>
-												<a href="contacts.html">panier</a>
-											</li>
-											<li>
-												<a href="typography.html">Channel</a>
-											</li>
-											<li>
-												<a href="typography.html">Reclamation</a>
+												<a href="tel:#">1-800-6780-345</a>
 											</li>
 										</ul>
-									</div>
-								</div>
-								<div class="rd-navbar-aside-right">
-									<a class="button button-sm button-secondary button-nina" href="#">Book a tour now</a>
+									</li>
+									<li class="box-inline list-inline-item">
+										<span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-map-marker"></span>
+										<a href="#">  2083,Sabelet ben Ammar Ariana soghra, TUNIS, </a>
+									</li>
+									<li class="box-inline list-inline-item">
+										<span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-email"></span>
+										<a href="mailto:#">experinecezone@gmail.com</a>
+									</li>
+								</ul>
+								<ul class="list-inline">
+									<li class="list-inline-item">
+										<a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-facebook" href="#"></a>
+									</li>
+									<li class="list-inline-item">
+										<a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-twitter" href="#"></a>
+									</li>
+									<li class="list-inline-item">
+										<a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-instagram" href="#"></a>
+									</li>
+									<li class="list-inline-item">
+										<a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-google-plus" href="#"></a>
+									</li>
+									<li class="list-inline-item">
+										<a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-linkedin" href="#"></a>
+									</li>
+								</ul>
+							</div>
+							<div class="rd-navbar-top-panel-inner">
+								<a class="button button-sm button-secondary button-nina" href="https://www.templatemonster.com/website-templates/62466.html" target="_blank">buy template now</a>
+							</div>
+						</div>
+						<div
+							class="rd-navbar-inner">
+							<!-- RD Navbar Panel-->
+							<div
+								class="rd-navbar-panel">
+								<!-- RD Navbar Toggle-->
+								<button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap">
+									<span></span>
+								</button>
+								<!-- RD Navbar Brand-->
+								<div class="rd-navbar-brand">
+									<a class="brand-name" href="index.html"><img class="logo-default" src="images/xperiencelogo.png" alt="" width="208" height="26"/><img class="logo-inverse" src="{{asset( 'images/logo-inverse-208x46.png')}}" alt="" width="208" height="46"/></a>
 								</div>
 							</div>
-						</nav>
-					</div>
-				</header>
-				<section class="section">
-					<div
-						class="swiper-form-wrap">
-						<!-- Swiper-->
-						<div class="swiper-container swiper-slider swiper-slider_height-1 swiper-align-left swiper-align-left-custom context-dark bg-gray-darker" data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="fade">
-							{% block container%}
-              <div class="swiper-wrapper">
+							<div class="rd-navbar-aside-center">
+								<div
+									class="rd-navbar-nav-wrap">
+									<!-- RD Navbar Nav-->
+									<ul class="rd-navbar-nav">
+										<li class="active">
+											<a href="index.html">Activité</a>
+										</li>
+										<li>
+											<a href="about-us.html">Evenements</a>
+										</li>
+										<li>
+											<a href="contacts.html">panier</a>
+										</li>
+										<li>
+										<a href="{{ path('app_channel_index') }}">Channel</a>
+											
+										</li>
+										<li>
+											<a href="typography.html">Reclamation</a>
+										</li>
+										<li>
+											<a href="{{ path('app_message_index') }}">Message</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="rd-navbar-aside-right">
+								<a class="button button-sm button-secondary button-nina" href="#">Book a tour now</a>
+							</div>
+						</div>
+					</nav>
+				</div>
+			</header>
+			<section class="section">
+				<div
+					class="swiper-form-wrap">
+					<!-- Swiper-->
+					<div class="swiper-container swiper-slider swiper-slider_height-1 swiper-align-left swiper-align-left-custom context-dark bg-gray-darker" data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="fade">
+						{% block container%}
+							<div class="swiper-wrapper">
 								<div class="swiper-slide" data-slide-bg="images/swiper-slide-1.jpg">
 									<div class="swiper-slide-caption">
 										<div class="container container-bigger swiper-main-section">
@@ -238,9 +242,17 @@
 									</div>
 								</div>
 							</div>
-						{% endblock%}
-            </div>
-						
+							{% endblock%}
+						</div>
+						<div class="container container-bigger form-request-wrap form-request-wrap-modern">
+							<div class="row row-fix justify-content-sm-center justify-content-lg-end">
+								<div class="col-lg-6 col-xxl-5">
+									
+									
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</section>
 
@@ -293,7 +305,7 @@
 									</div>
 								</article>
 							</div>
-              <div class="col-md-6 col-xl-4">
+							<div class="col-md-6 col-xl-4">
 								<article class="event-default-wrap">
 									<div class="event-default">
 										<figure class="event-default-image"><img src="{{asset( 'images/landing-private-airlines-03-570x370.jpg')}}" alt="" width="570" height="370"/>
