@@ -2,15 +2,12 @@
 
 {% block title %}Produit{% endblock %}
 
-{% block body %}
+{% block container %}
     <h1>Produit</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>IdProd</th>
-                <td>{{ produit.idProd }}</td>
-            </tr>
+           
             <tr>
                 <th>NomProd</th>
                 <td>{{ produit.nomProd }}</td>
@@ -27,10 +24,17 @@
                 <th>Quantite</th>
                 <td>{{ produit.quantite }}</td>
             </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ produit.image }}</td>
-            </tr>
+           <tr>
+    <th>Image</th>
+    <td>
+            {% if produit.image %}
+                <img src="{{ asset('uploads/images/' ~ produit.image) }}" alt="Product Image">
+            {% else %}
+                No Image Available
+            {% endif %}
+        </td>
+</tr>
+
         </tbody>
     </table>
 

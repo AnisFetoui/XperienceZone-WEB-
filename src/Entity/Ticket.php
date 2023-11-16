@@ -13,7 +13,7 @@ use Doctrine\DBAL\Types\Types;
 class Ticket
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue] 
     #[ORM\Column(name:"id_ticket")]
     private ?int $idTicket=null;
     
