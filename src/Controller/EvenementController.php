@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\FileType;
+
 
 #[Route('/evenement')]
 class EvenementController extends AbstractController
@@ -28,8 +30,16 @@ class EvenementController extends AbstractController
         $evenement = new Evenement();
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
-
+        $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; // Remplacez par le chemin réel de votre répertoire
         if ($form->isSubmitted() && $form->isValid()) {
+            //handle image apload 
+            $imageFile= $form->get('image')->getData();
+            if ($imageFile){
+                //generate a unique name for the image 
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+                $imageFile->move( $imagedirectory,$newFilename);
+                $evenement->setImage($newFilename);
+            }
             $entityManager->persist($evenement);
             $entityManager->flush();
 

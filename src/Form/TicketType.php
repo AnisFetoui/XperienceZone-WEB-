@@ -16,8 +16,9 @@ class TicketType extends AbstractType
             ->add('image')
             ->add('prix')
             ->add('categorie')
-            ->add('evenement')
-            ->add('user')
+            ->add('evenement',null,['choice_label'=> 'nomEvent'])
+            ->add('user',null,['choice_label'=> 'username'])
+        ;
         ;
     }
 

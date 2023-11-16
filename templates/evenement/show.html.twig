@@ -2,15 +2,12 @@
 
 {% block title %}Evenement{% endblock %}
 
-{% block body %}
-    <h1>Evenement</h1>
+{% block container %}
+    <h2>Evenement</h2>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>IdEvent</th>
-                <td>{{ evenement.idEvent }}</td>
-            </tr>
+           
             <tr>
                 <th>NomEvent</th>
                 <td>{{ evenement.nomEvent }}</td>
@@ -37,7 +34,13 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ evenement.image }}</td>
+                <td>
+                {% if evenement.image %}
+                <img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="event image" style="width: 180px; height: auto;">
+                {% else %}
+                No Image Available 
+                {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Organisateur</th>
