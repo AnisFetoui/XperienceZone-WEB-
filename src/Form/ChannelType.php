@@ -25,8 +25,7 @@ class ChannelType extends AbstractType
             ],
         ])
         ->add('evenement',EntityType::class,[ 'class' => Evenement::class,  'choice_label' => 'nomEvent',  
-                           'expented'=> true, 
-                           'multiple' => true,  ])  ;
+                             ])  ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

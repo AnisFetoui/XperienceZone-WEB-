@@ -5,7 +5,7 @@ use App\Entity\Categorie;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
@@ -16,15 +16,24 @@ class Produit
     #[ORM\Column(name:"id_prod")]
     private ?int $idProd = null;
 
+    #[Assert\NotBlank(message: 'Le champ "Nom" ne peut pas être vide.')]
+    #[Assert\Length(max: 150, maxMessage: 'Le champ "Nom" ne peut pas dépasser {{ limit }} caractères.')]
     #[ORM\Column(length: 150)]
     private ?string $nomProd = null;
 
+
+    #[Assert\NotBlank(message: 'Le champ "Prix" ne peut pas être vide.')]
+    #[Assert\Type(type: 'float', message: 'Le champ "Prix" doit être un nombre décimal.')]
     #[ORM\Column]
     private ?float $prixProd = null;
 
+
+    #[Assert\NotBlank(message: 'Le champ "Description" ne peut pas être vide.')]
     #[ORM\Column(length: 150)]
     private ?string $descriptionProd = null;
 
+    #[Assert\NotBlank(message: 'Le champ "Quantité" ne peut pas être vide.')]
+    #[Assert\Type(type: 'integer', message: 'Le champ "Quantité" doit être un nombre entier.')]
     #[ORM\Column]
     private ?int $quantite = null;
 
