@@ -22,14 +22,16 @@ class InscriptionController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_inscription_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    #[Route('/new/{id}', name: 'app_inscription_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager,$id): Response
+    {   
         $inscription = new Inscription();
+        
         $form = $this->createForm(InscriptionType::class, $inscription);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $inscription -> setActiviteId($id);
             $entityManager->persist($inscription);
             $entityManager->flush();
 
@@ -39,6 +41,7 @@ class InscriptionController extends AbstractController
         return $this->renderForm('inscription/new.html.twig', [
             'inscription' => $inscription,
             'form' => $form,
+            'id'=>$id,
         ]);
     }
 
@@ -71,7 +74,7 @@ class InscriptionController extends AbstractController
     #[Route('/{Id_ins}', name: 'app_inscription_delete', methods: ['POST'])]
     public function delete(Request $request, Inscription $inscription, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$inscription->getId_ins(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$inscription->getIdins(), $request->request->get('_token'))) {
             $entityManager->remove($inscription);
             $entityManager->flush();
         }

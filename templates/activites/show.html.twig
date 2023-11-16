@@ -1,66 +1,73 @@
 {% extends 'base.html.twig' %}
+{% block title %}Activites
+{% endblock %}
 
-{% block title %}Activites{% endblock %}
+{% block container %}
+	<h1>Activites</h1>
 
-{% block body %}
-    <h1>Activites</h1>
+	<table class="table">
+		<tbody>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>IdAct</th>
-                <td>{{ activite.idAct }}</td>
-            </tr>
-            <tr>
-                <th>NomAct</th>
-                <td>{{ activite.nomAct }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ activite.description }}</td>
-            </tr>
-            <tr>
-                <th>Organisateur</th>
-                <td>{{ activite.organisateur }}</td>
-            </tr>
-            <tr>
-                <th>LieuAct</th>
-                <td>{{ activite.lieuAct }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ activite.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Images</th>
-                <td>{{ activite.images }}</td>
-            </tr>
-            <tr>
-                <th>PlaceDiso</th>
-                <td>{{ activite.placeDiso }}</td>
-            </tr>
-            <tr>
-                <th>PrixAct</th>
-                <td>{{ activite.prixAct }}</td>
-            </tr>
-            <tr>
-                <th>Duree</th>
-                <td>{{ activite.duree }}</td>
-            </tr>
-            <tr>
-                <th>Periode</th>
-                <td>{{ activite.periode }}</td>
-            </tr>
-            <tr>
-                <th>IdUser</th>
-                <td>{{ activite.idUser }}</td>
-            </tr>
-        </tbody>
-    </table>
+			<tr>
+				<th>NomAct</th>
+				<td>{{ activite.nomAct }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ activite.description }}</td>
+			</tr>
+			<tr>
+				<th>Organisateur</th>
+				<td>{{ activite.organisateur }}</td>
+			</tr>
+			<tr>
+				<th>LieuAct</th>
+				<td>{{ activite.lieuAct }}</td>
+			</tr>
+			<tr>
+				<th>Adresse</th>
+				<td>{{ activite.adresse }}</td>
+			</tr>
+			<tr>
+				<th>Images</th>
+				<td>
+					{% if activite.images %}
+						<img src="{{ asset('uploads/images/' ~ activite.images )}}" alt="activity image">
 
-    <a href="{{ path('app_activites_index') }}">back to list</a>
+					{% else %}
+						NO IMAGE AVAILABLE FOR THIS activity
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<th>PlaceDiso</th>
+				<td>{{ activite.placeDiso }}
+					Places</td>
+			</tr>
+			<tr>
+				<th>PrixAct</th>
+				<td>{{ activite.prixAct }}
+					DT</td>
+			</tr>
+			<tr>
+				<th>Duree</th>
+				<td>{{ activite.duree }}
+					hour(s)</td>
+			</tr>
+			<tr>
+				<th>Periode</th>
+				<td>{{ activite.periode }}</td>
+			</tr>
+			<tr>
+				<th>IdUser</th>
+				<td>{{ activite.idUser }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_activites_edit', {'idAct': activite.idAct}) }}">edit</a>
+	<a href="{{ path('app_activites_index') }}">back to list</a>
 
-    {{ include('activites/_delete_form.html.twig') }}
+	<a href="{{ path('app_activites_edit', {'idAct': activite.idAct}) }}">edit</a>
+
+	{{ include('activites/_delete_form.html.twig') }}
 {% endblock %}
