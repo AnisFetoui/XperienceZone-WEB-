@@ -1,46 +1,45 @@
-{% extends 'base.html.twig' %}
+{% block title %}Inscription
+{% endblock %}
 
-{% block title %}Inscription{% endblock %}
+{% block container %}
+	<h1>Inscription</h1>
 
-{% block body %}
-    <h1>Inscription</h1>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id_ins</th>
+				<td>{{ inscription.IdIns }}</td>
+			</tr>
+			<tr>
+				<th>DateIns</th>
+				<td>{{ inscription.dateIns ? inscription.dateIns|date('Y-m-d') : '' }}</td>
+			</tr>
+			<tr>
+				<th>HeureIns</th>
+				<td>{{ inscription.heureIns ? inscription.heureIns|date('H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>NbrTickes</th>
+				<td>{{ inscription.nbrTickes }}</td>
+			</tr>
+			<tr>
+				<th>FraitAbonnement</th>
+				<td>{{ inscription.fraitAbonnement }}</td>
+			</tr>
+			<tr>
+				<th>ActiviteId</th>
+				<td>{{ inscription.activiteId }}</td>
+			</tr>
+			<tr>
+				<th>UserId</th>
+				<td>{{ inscription.userId }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id_ins</th>
-                <td>{{ inscription.IdIns }}</td>
-            </tr>
-            <tr>
-                <th>DateIns</th>
-                <td>{{ inscription.dateIns ? inscription.dateIns|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>HeureIns</th>
-                <td>{{ inscription.heureIns ? inscription.heureIns|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>NbrTickes</th>
-                <td>{{ inscription.nbrTickes }}</td>
-            </tr>
-            <tr>
-                <th>FraitAbonnement</th>
-                <td>{{ inscription.fraitAbonnement }}</td>
-            </tr>
-            <tr>
-                <th>ActiviteId</th>
-                <td>{{ inscription.activiteId }}</td>
-            </tr>
-            <tr>
-                <th>UserId</th>
-                <td>{{ inscription.userId }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<a href="{{ path('app_inscription_index') }}">back to list</a>
 
-    <a href="{{ path('app_inscription_index') }}">back to list</a>
+	<a href="{{ path('app_inscription_edit', {'Id_ins': inscription.Idins}) }}">edit</a>
 
-    <a href="{{ path('app_inscription_edit', {'Id_ins': inscription.Id_ins}) }}">edit</a>
-
-    {{ include('inscription/_delete_form.html.twig') }}
+	{{ include('inscription/_delete_form.html.twig') }}
 {% endblock %}

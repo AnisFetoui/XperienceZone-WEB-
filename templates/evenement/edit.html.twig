@@ -1,5 +1,18 @@
 {% extends 'base.html.twig' %}
 
+<<<<<<< HEAD
+{% block title %}Edit Evenement
+{% endblock %}
+
+{% block container %}
+	<h1>Edit Evenement</h1>
+
+	{{ include('evenement/_form.html.twig', {'button_label': 'Update'}) }}
+
+	<a href="{{ path('app_evenement_index') }}">back to list</a>
+
+	{{ include('evenement/_delete_form.html.twig') }}
+=======
 {% block title %}Edit Evenement{% endblock %}
 
 {% block container %}
@@ -10,4 +23,5 @@
     <a href="{{ path('app_evenement_index') }}">back to list</a>
 
     {{ include('evenement/_delete_form.html.twig') }}
+>>>>>>> be0a76ce18ff825bbc206e1ecc7ca0e29540d9b7
 {% endblock %}
