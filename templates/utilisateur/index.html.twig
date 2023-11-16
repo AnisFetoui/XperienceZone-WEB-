@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 
-{% block title %}Utilisateur index{% endblock %}
+{% block title %}Utilisateur ffff{% endblock %}
 
 {% block container %}
     <h1>Utilisateur index</h1>
@@ -44,6 +44,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_utilisateur_new') }}">Create new</a>
+    <br>
+    <a href="{{ path('app_utilisateur_new') }}" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Create new</a>
 {% endblock %}
