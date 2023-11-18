@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 
 {% block title %}Traitements index{% endblock %}
 
-{% block body %}
+{% block container %}
     <h1>Traitements index</h1>
 
     <table class="table">
@@ -11,6 +11,7 @@
                 <th>Idt</th>
                 <th>Refobj</th>
                 <th>Dater</th>
+                <th>IdU</th>
                 <th>Typer</th>
                 <th>Resume</th>
                 <th>Stat</th>
@@ -23,6 +24,7 @@
                 <td>{{ traitement.idt }}</td>
                 <td>{{ traitement.refobj }}</td>
                 <td>{{ traitement.dater ? traitement.dater|date('Y-m-d') : '' }}</td>
+                <td>{{ traitement.idu }}</td>
                 <td>{{ traitement.typer }}</td>
                 <td>{{ traitement.resume }}</td>
                 <td>{{ traitement.stat }}</td>
@@ -38,6 +40,10 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_traitements_new') }}">Create new</a>
+    <table >
+    <tr>
+    <a href="{{ path('app_traitements_new') }}">Create new</a></tr>
+    <tr>
+    <a href="{{ path('app_reclamations_index') }}">back </a></tr>
+    </table>
 {% endblock %}

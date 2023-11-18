@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Message;
 use App\Form\MessageType;
+use App\Repository\ChannelRepository;
 use App\Repository\MessageRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,13 +25,19 @@ class MessageController extends AbstractController
     }
 
     #[Route('/new', name: 'app_message_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,UserRepository $userRepository ,ChannelRepository $channelRepository) : Response
     {
         $message = new Message();
+        $message->setHeurEnvoiMsg(new \DateTime()) ;
+        $currentUser=$userRepository->findOneBy(['mail'=> "fetoui@a.com"]);
+        $message->setUtilisateur($currentUser) ;
+        $channel=$channelRepository->findOneBy(['nomCh'=> "ariana"]);  
+        $message->setChannel($channel) ;
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+         
             $entityManager->persist($message);
             $entityManager->flush();
 

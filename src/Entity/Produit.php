@@ -5,7 +5,7 @@ use App\Entity\Categorie;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]

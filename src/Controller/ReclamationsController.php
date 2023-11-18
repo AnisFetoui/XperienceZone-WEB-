@@ -11,10 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/reclamations')]
 class ReclamationsController extends AbstractController
 {
-    #[Route('/', name: 'app_reclamations_index', methods: ['GET'])]
+    #[Route('/nacer', name: 'app_reclamations_index', methods: ['GET'])]
     public function index(ReclamationRepository $reclamationRepository): Response
     {
         return $this->render('reclamations/index.html.twig', [
