@@ -155,7 +155,7 @@ nav.navbar.bootsnav {
     padding: 34px 0px;
     text-transform:capitalize;
 }
-.navbar-header a.navbar-brand span{display: inline-block;color:#ff545a;text-transform:capitalize;}
+.navbar-header a.navbar-brand span{display: inline-block;color:#25a52b;text-transform:capitalize;}
 
 .wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand,.wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand:hover,.wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand:focus {padding:30px 0px;}
 /*.navbar-brand*/
@@ -173,8 +173,8 @@ nav.navbar.bootsnav ul.nav > li > a {
     transition: 0.3s linear;
 }
 nav.navbar.bootsnav ul.nav > li > a {padding:34px 21px;}
-nav.navbar.bootsnav ul.nav > li > a:hover,nav.navbar.bootsnav ul.nav > li > a:focus{color: #ff545a;}
-nav.navbar.bootsnav ul.nav > li.active>a {color: #ff545a;}
+nav.navbar.bootsnav ul.nav > li > a:hover,nav.navbar.bootsnav ul.nav > li > a:focus{color: #25a52b;}
+nav.navbar.bootsnav ul.nav > li.active>a {color: #25a52b;}
 
 nav.navbar.bootsnav ul.nav > li.dropdown > a.dropdown-toggle:after {
     content: "";
@@ -195,7 +195,7 @@ nav.navbar.bootsnav ul.nav > li.dropdown span {
     box-shadow: inset 0 0 8px #000;
 }
 .menu-ui-design::-webkit-scrollbar-thumb {
-  background-color: #ff545a;
+  background-color: #25a52b;
 }
 /*.menu-ui-design*/
 
@@ -203,11 +203,11 @@ nav.navbar.bootsnav ul.nav > li.dropdown span {
 nav.navbar.bootsnav .navbar-toggle {
     position: relative;
     background-color: transparent;
-    border: 1px solid #ff545a;
+    border: 1px solid #25a52b;
     padding: 10px;
     top: 0;
 }
-nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
+nav.navbar.bootsnav .navbar-toggle i{color: #25a52b;}
 /*.navbar-toggle */
 
 /*-------------------------------------
@@ -292,7 +292,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     color:  #fff;
     width:  170px;
     height:  70px;
-    background:  #ff545a;
+    background:  #ff0000;
     text-transform:  capitalize;
     margin-left:  30px;
     border-radius: 3px;
@@ -302,7 +302,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     -o-transition: 0.3s linear; 
     transition: 0.3s linear;
 }
-.welcome-hero-btn:hover{/*background: #fd4043;*/background: #f43032;}
+.welcome-hero-btn:hover{/*background: #fd4043;*/background: #51f430;}
 
 .welcome-hero-btn svg {
     width:  14px;
@@ -347,7 +347,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 .single-list-topics-content:hover h2>a,.single-list-topics-content:hover p{color: #fff!important;}
 .single-list-topics-content:hover{
     color: #fff;
-    background:#ff545a;
+    background:#25a52b;
     box-shadow: 0 5px 10px rgba(71,71,71,.4);
 }
 
@@ -387,7 +387,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 .single-how-works p {margin-bottom: 25px;text-transform: initial;}
 
 .single-how-works-icon [class^="flaticon-"]:before,.single-how-works-icon [class*=" flaticon-"]:before,.single-how-works-icon [class^="flaticon-"]:after,.single-how-works-icon [class*=" flaticon-"]:after {font-size: 35px;}
-.single-how-works:hover .single-how-works-icon [class^="flaticon-"]:before,.single-how-works:hover .single-how-works-icon [class*=" flaticon-"]:before,.single-how-works:hover .single-how-works-icon [class^="flaticon-"]:after,.single-how-works:hover .single-how-works-icon [class*=" flaticon-"]:after {color:#ff545a;}
+.single-how-works:hover .single-how-works-icon [class^="flaticon-"]:before,.single-how-works:hover .single-how-works-icon [class*=" flaticon-"]:before,.single-how-works:hover .single-how-works-icon [class^="flaticon-"]:after,.single-how-works:hover .single-how-works-icon [class*=" flaticon-"]:after {color:#25a52b;}
 
 .welcome-hero-btn.how-work-btn {
     display: inline-block;
@@ -403,8 +403,8 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 
 .single-how-works:hover h2 a,.single-how-works:hover p{color: #fff;}
 .single-how-works:hover .single-how-works-icon{background: #fff;}
-.single-how-works:hover .welcome-hero-btn.how-work-btn{background: #fff;color: #ff545a;}
-.single-how-works:hover{box-shadow: 0 0px 10px rgba(71,71,71,.4);background: #ff545a;}
+.single-how-works:hover .welcome-hero-btn.how-work-btn{background: #fff;color: #25a52b;}
+.single-how-works:hover{box-shadow: 0 0px 10px rgba(71,71,71,.4);background: #25a52b;}
 
 /*-------------------------------------
         7. Explore
@@ -461,7 +461,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     width: 83px;
     height: 21px;
     line-height: 21px;
-    background: #ff545a;
+    background: #25a52b;
     border-radius: 3px;
     color: #fcfcfc;
     text-transform: capitalize;
@@ -536,7 +536,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     margin-top: 20px;
 }
 .close-btn {
-    color: #f63138;
+    color: #25a52b;
     text-transform: capitalize;
 }
 .close-btn.open-btn {color: #00c437;}
@@ -719,7 +719,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     text-transform: uppercase;
 }
 
-.single-blog-item:hover h2 a {color:#ff545a;}
+.single-blog-item:hover h2 a {color:#25a52b;}
 .single-blog-item:hover{
     box-shadow: 0 10px 20px rgba(21,19,19,.4);
 }
@@ -783,7 +783,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     position: absolute;
     top: 0;
     right: 0;
-    background: #ff545a;
+    background: #25a52b;
     display: inline-block;
     width: 180px;
     height: 60px;
@@ -870,8 +870,8 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     border-radius: 50%;
 }
 .footer-social span {margin-right:15px;margin-left: 0;color: #a5adb3;}
-.footer-social span:hover{color: #ff545a;}
-.footer-social a:hover {background:#ff545a;color: #fff;}
+.footer-social span:hover{color: #25a52b;}
+.footer-social a:hover {background:#25a52b;color: #fff;}
 
 /*===============================
     Scroll Top
@@ -888,8 +888,8 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     font-size: 20px;
     cursor: pointer;
     color: #fff;
-    background:#ff545a;
-	border:1px solid #ff545a;
+    background:#25a52b;
+	border:1px solid #25a52b;
 	border-radius:50%;
 	-webkit-transition: .5s; 
 	-moz-transition:.5s; 
@@ -900,7 +900,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 }
 #scroll-Top  .return-to-top:hover {
     background:#f43032;
-	border:1px solid #ff545a;
+	border:1px solid #25a52b;
 }
 
 #scroll-Top  .return-to-top i{
@@ -1106,7 +1106,7 @@ nav.navbar.bootsnav {
     padding: 34px 0px;
     text-transform:capitalize;
 }
-.navbar-header a.navbar-brand span{display: inline-block;color:#ff545a;text-transform:capitalize;}
+.navbar-header a.navbar-brand span{display: inline-block;color:#25a52b;text-transform:capitalize;}
 
 .wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand,.wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand:hover,.wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand:focus {padding:30px 0px;}
 /*.navbar-brand*/
@@ -1124,8 +1124,8 @@ nav.navbar.bootsnav ul.nav > li > a {
     transition: 0.3s linear;
 }
 nav.navbar.bootsnav ul.nav > li > a {padding:34px 21px;}
-nav.navbar.bootsnav ul.nav > li > a:hover,nav.navbar.bootsnav ul.nav > li > a:focus{color: #ff545a;}
-nav.navbar.bootsnav ul.nav > li.active>a {color: #ff545a;}
+nav.navbar.bootsnav ul.nav > li > a:hover,nav.navbar.bootsnav ul.nav > li > a:focus{color: #25a52b;}
+nav.navbar.bootsnav ul.nav > li.active>a {color: #25a52b;}
 
 nav.navbar.bootsnav ul.nav > li.dropdown > a.dropdown-toggle:after {
     content: "";
@@ -1144,7 +1144,7 @@ nav.navbar.bootsnav ul.nav > li.dropdown span {
 }
 
 .menu-ui-design::-webkit-scrollbar-thumb {
-  background-color: #ff545a;
+  background-color: #25a52b;
 }
 /*.menu-ui-design*/
 
@@ -1152,11 +1152,11 @@ nav.navbar.bootsnav ul.nav > li.dropdown span {
 nav.navbar.bootsnav .navbar-toggle {
     position: relative;
     background-color: transparent;
-    border: 1px solid #ff545a;
+    border: 1px solid #25a52b;
     padding: 10px;
     top: 0;
 }
-nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
+nav.navbar.bootsnav .navbar-toggle i{color: #25a52b;}
 /*.navbar-toggle */
 
 /*-------------------------------------
@@ -1241,7 +1241,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     color:  #fff;
     width:  170px;
     height:  70px;
-    background:  #ff545a;
+    background:  #25a52b;
     text-transform:  capitalize;
     margin-left:  30px;
     border-radius: 3px;
@@ -1296,7 +1296,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 .single-list-topics-content:hover h2>a,.single-list-topics-content:hover p{color: #fff!important;}
 .single-list-topics-content:hover{
     color: #fff;
-    background:#ff545a;
+    background:#25a52b;
     box-shadow: 0 5px 10px rgba(71,71,71,.4);
 }
 
@@ -1336,7 +1336,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 .single-how-works p {margin-bottom: 25px;text-transform: initial;}
 
 .single-how-works-icon [class^="flaticon-"]:before,.single-how-works-icon [class*=" flaticon-"]:before,.single-how-works-icon [class^="flaticon-"]:after,.single-how-works-icon [class*=" flaticon-"]:after {font-size: 35px;}
-.single-how-works:hover .single-how-works-icon [class^="flaticon-"]:before,.single-how-works:hover .single-how-works-icon [class*=" flaticon-"]:before,.single-how-works:hover .single-how-works-icon [class^="flaticon-"]:after,.single-how-works:hover .single-how-works-icon [class*=" flaticon-"]:after {color:#ff545a;}
+.single-how-works:hover .single-how-works-icon [class^="flaticon-"]:before,.single-how-works:hover .single-how-works-icon [class*=" flaticon-"]:before,.single-how-works:hover .single-how-works-icon [class^="flaticon-"]:after,.single-how-works:hover .single-how-works-icon [class*=" flaticon-"]:after {color:#25a52b;}
 
 .welcome-hero-btn.how-work-btn {
     display: inline-block;
@@ -1352,8 +1352,8 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 
 .single-how-works:hover h2 a,.single-how-works:hover p{color: #fff;}
 .single-how-works:hover .single-how-works-icon{background: #fff;}
-.single-how-works:hover .welcome-hero-btn.how-work-btn{background: #fff;color: #ff545a;}
-.single-how-works:hover{box-shadow: 0 0px 10px rgba(71,71,71,.4);background: #ff545a;}
+.single-how-works:hover .welcome-hero-btn.how-work-btn{background: #fff;color: #25a52b;}
+.single-how-works:hover{box-shadow: 0 0px 10px rgba(71,71,71,.4);background: #25a52b;}
 
 /*-------------------------------------
         7. Explore
@@ -1410,7 +1410,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     width: 83px;
     height: 21px;
     line-height: 21px;
-    background: #ff545a;
+    background: #25a52b;
     border-radius: 3px;
     color: #fcfcfc;
     text-transform: capitalize;
@@ -1668,7 +1668,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     text-transform: uppercase;
 }
 
-.single-blog-item:hover h2 a {color:#ff545a;}
+.single-blog-item:hover h2 a {color:#25a52b;}
 .single-blog-item:hover{
     box-shadow: 0 10px 20px rgba(21,19,19,.4);
 }
@@ -1732,7 +1732,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     position: absolute;
     top: 0;
     right: 0;
-    background: #ff545a;
+    background: #25a52b;
     display: inline-block;
     width: 180px;
     height: 60px;
@@ -1819,8 +1819,8 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     border-radius: 50%;
 }
 .footer-social span {margin-right:15px;margin-left: 0;color: #a5adb3;}
-.footer-social span:hover{color: #ff545a;}
-.footer-social a:hover {background:#ff545a;color: #fff;}
+.footer-social span:hover{color: #25a52b;}
+.footer-social a:hover {background:#25a52b;color: #fff;}
 
 /*===============================
     Scroll Top
@@ -1837,8 +1837,8 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     font-size: 20px;
     cursor: pointer;
     color: #fff;
-    background:#ff545a;
-	border:1px solid #ff545a;
+    background:#25a52b;
+	border:1px solid #25a52b;
 	border-radius:50%;
 	-webkit-transition: .5s; 
 	-moz-transition:.5s; 
@@ -1849,7 +1849,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 }
 #scroll-Top  .return-to-top:hover {
     background:#f43032;
-	border:1px solid #ff545a;
+	border:1px solid #25a52b;
 }
 
 #scroll-Top  .return-to-top i{
