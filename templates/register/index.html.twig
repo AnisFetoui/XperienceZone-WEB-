@@ -12,7 +12,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN: Head -->
     <head>
         <meta charset="utf-8">
-        <link href="dist/images/logo.svg" rel="shortcut icon">
+         <meta charset="utf-8">
+        <link href="{{asset('assetsAdmin/dist/images/logo.png')}}" rel="shortcut icon">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Tinker admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, Tinker Admin Template, dashboard template, flat admin template, responsive admin template, web app">
@@ -50,35 +51,9 @@ License: You must have a valid license purchased only from themeforest(the above
                             Sign Up
                         </h2>
                         <div class="intro-x mt-2 text-slate-400 dark:text-slate-400 xl:hidden text-center">A few more clicks to sign in to your account. Manage all your e-commerce accounts in one place</div>
-                        <div class="intro-x mt-8">
-                            <input type="text" class="intro-x login__input form-control py-3 px-4 block" placeholder="Username">
-                            <input type="text" class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Email">
-                            <input type="text" class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Password">
-                            <input type="text" class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Password Confirmation">
-                            <input type="text" class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="age">
-                             <br>
-                            {% set sexe = [{ 'value': 'h', 'label': 'Male' },{ 'value': 'f', 'label': 'Female' }] %}
-                            <select name="Sexe" class="intro-x login__input form-control py-3 px-4 block" >
-                            {% for s in sexe %}
-                                <option value="{{ s.value }}">{{ s.label }}</option>
-                            {% endfor %}
-                            </select>
-
-                            {% set role = [{ 'value': 'c', 'label': 'Client' },{ 'value': 'm', 'label': 'Manager' }] %}
-                            <br>
-                            <select name="Role" class="intro-x login__input form-control py-3 px-4 block" >
-                            {% for r in role %}
-                                <option value="{{ r.value }}">{{ r.label }}</option>
-                            {% endfor %}
-                            </select>
-
+                         <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+                         {{ include('register/form.html.twig') }}
                         </div>
-                        <div class="intro-x flex items-center text-slate-600 dark:text-slate-500 mt-4 text-xs sm:text-sm">
-                           
-                        </div>
-                        <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
-                            <a href="" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Register</a>
-                            <a href="{{ path('app_login') }}" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Login</a>                        </div>
                     </div>
                 </div>
                 <!-- END: Register Form -->
