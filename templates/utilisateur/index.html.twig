@@ -3,26 +3,33 @@
 {% block title %}Utilisateur ffff{% endblock %}
 
 {% block container %}
-    <h1>Utilisateur index</h1>
+    <h2 class="text-lg font-medium mr-auto">Liste d'utilisateurs</h1>
+    <br>
 
-    <table class="table">
+    <br>
+    <a href="{{ path('app_utilisateur_new') }}" class="btn btn-primary shadow-md mr-2">Create new User</a>
+    <br>
+    <br>
+    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+    <div class="table-responsive" >
+    <table class="table table-report -mt-2">
         <thead>
             <tr>
-                <th>IdUser</th>
-                <th>Username</th>
-                <th>Mail</th>
-                <th>Mdp</th>
-                <th>Role</th>
-                <th>Image</th>
-                <th>Age</th>
-                <th>Sexe</th>
-                <th>Etat</th>
-                <th>actions</th>
+                <th class="whitespace-nowrap">IdUser</th>
+                <th class="whitespace-nowrap">Username</th>
+                <th class="whitespace-nowrap">Mail</th>
+                <th class="whitespace-nowrap">Mdp</th>
+                <th class="whitespace-nowrap">Role</th>
+                <th class="whitespace-nowrap">Image</th>
+                <th class="whitespace-nowrap">Age</th>
+                <th class="whitespace-nowrap">Sexe</th>
+                <th class="whitespace-nowrap">Etat</th>
+                <th class="whitespace-nowrap">actions</th>
             </tr>
         </thead>
         <tbody>
         {% for utilisateur in utilisateurs %}
-            <tr>
+            <tr class="intro-x">
                 <td>{{ utilisateur.idUser }}</td>
                 <td>{{ utilisateur.username }}</td>
                 <td>{{ utilisateur.mail }}</td>
@@ -31,7 +38,12 @@
                 <td>{{ utilisateur.image }}</td>
                 <td>{{ utilisateur.age }}</td>
                 <td>{{ utilisateur.sexe }}</td>
-                <td>{{ utilisateur.etat ? 'Yes' : 'No' }}</td>
+                <td class="w-40">
+                    <div class="{{ utilisateur.etat ? 'flex items-center justify-center text-success' : 'flex items-center justify-center text-danger' }}">
+                        <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
+                        {{ utilisateur.etat ? 'Yes' : 'No' }}
+                    </div>
+                </td>
                 <td>
                     <a href="{{ path('app_utilisateur_show', {'idUser': utilisateur.idUser}) }}">show</a>
                     <a href="{{ path('app_utilisateur_edit', {'idUser': utilisateur.idUser}) }}">edit</a>
@@ -44,6 +56,5 @@
         {% endfor %}
         </tbody>
     </table>
-    <br>
-    <a href="{{ path('app_utilisateur_new') }}" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Create new</a>
+    </div>
 {% endblock %}

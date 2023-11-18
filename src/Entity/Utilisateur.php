@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -15,30 +16,42 @@ class Utilisateur
     #[ORM\Column]
     private ? int $idUser = null;
 
+
+    #[Assert\NotBlank(message: 'Le champ "Nom d\'utilisateur" ne peut pas être vide.')]
+    #[Assert\Length(max: 35, maxMessage: 'Le champ "Nom d\'utilisateur" ne peut pas dépasser {{ limit }} caractères.')]
     #[ORM\Column(length:35)]
     private ?string $username = null;
-
+    
+    #[Assert\NotBlank(message: 'Le champ "Adresse email" ne peut pas être vide.')]
+    #[Assert\Email(message: 'Veuillez entrer une adresse email valide.')]
     #[ORM\Column(length:50)]
     private ?string $mail = null;
 
+    #[Assert\NotBlank(message: 'Le champ "Mot de passe" ne peut pas être vide.')]
+    #[Assert\Length(min: 6, minMessage: 'Le mot de passe doit avoir au moins {{ limit }} caractères.')]
     #[ORM\Column(length:40)]
     private ?string $mdp = null;
 
+    #[Assert\NotBlank(message: 'Le champ "Rôle" ne peut pas être vide.')]
     #[ORM\Column(length:15)]
     private ?string $role = null;
 
+    #[Assert\NotBlank(message: 'Le champ "Image" ne peut pas être vide.')]
     #[ORM\Column(length:300 )]
     private ?string $image= null;
+
     
+    #[Assert\NotBlank(message: 'Le champ "Âge" ne peut pas être vide.')]
+    #[Assert\Type(type: 'integer', message: 'Le champ "Âge" doit être un nombre entier.')]
     #[ORM\Column]
     private ?int $age= null;
-
+    
+    #[Assert\NotBlank(message: 'Le champ "Sexe" ne peut pas être vide.')]
     #[ORM\Column(length:10 )]
     private ?string $sexe= null;
-    
+ 
     #[ORM\Column(type: "boolean", nullable: false, options: ["default" => true])]
     private ?bool $etat = true;
-
     public function getIdUser(): ?int
     {
         return $this->idUser;
