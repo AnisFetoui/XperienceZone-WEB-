@@ -1,4 +1,13 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<style>
+	.error-message {
+		color: red;
+	}
+</style>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{form_row(form.nomAct)}}
+<span class="error_message">{{form_errors(form.nomAct)}}</span>
+{{ form_widget(form) }}
+
+
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

@@ -15,31 +15,42 @@ class Evenement
    private ?int $idEvent=null;
 
    #[ORM\Column(length:150)]
-   private ?string $nomEvent=null;
-
+  private ?string $nomEvent=null;
+  #[Assert\NotBlank(message: "Le nom de l'événement ne peut pas être vide")]
+  #[Assert\Length(
+    max: 255,
+    maxMessage: 'Le nom de l\'événement ne peut pas dépasser {{ limit }} caractères.'
+)]
+  
+  #[Assert\NotBlank(message: "La description de l'événement ne peut pas être vide")]
    #[ORM\Column(length:200)]
    private ?string $descript=null;
 
-   
    #[ORM\Column(type: Types:: DATETIME_MUTABLE, nullable:true)]
     private ?\DateTimeInterface $dateEvent = null;
   
-
+    #[Assert\NotBlank(message: "L'heure de l'événement ne peut pas être vide")]
     #[ORM\Column(length:200)]
     private ?string $heureEvent=null;
     
-
+    #[Assert\NotBlank(message: "Le lieu de l'événement ne peut pas être vide")]
     #[ORM\Column(length:200)]
    private ?string $lieuEvent=null;
    
-
+   #[Assert\NotBlank(message: "Le nombre de participants ne peut pas être vide")]
    #[ORM\Column]
    private ?int $nbParticipants=null;
    
-
+   #[Assert\Image(
+    maxSize: '5M', // Maximum file size (adjust as needed)
+    maxSizeMessage: 'The image file is too large. Max size: {{ limit }}',
+    mimeTypes: ['image/jpeg', 'image/png'], // Allowed MIME types
+    mimeTypesMessage: 'Please upload a valid image (JPEG or PNG).',
+)]
    #[ORM\Column(length:200)]
    private ?string $image=null;
   
+   #[Assert\NotBlank(message: "L'organisateur de l'événement ne peut pas être vide")]
    #[ORM\Column(length:200)]
    private ?string $organisateur=null;
 
@@ -125,7 +136,7 @@ class Evenement
        return $this->image;
    }
 
-   public function setImage(string $image): static
+   public function setImage(string $image): self
    {
        $this->image = $image;
 

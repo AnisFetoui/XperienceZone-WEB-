@@ -1,55 +1,60 @@
 {% extends 'base.html.twig' %}
+{% block title %}{% endblock %}
 
-{% block title %}Activites index{% endblock %}
+{% block container %}
+	<h4>Check Our Activites</h4>
+	<table class="table">
+		<thead>
+			<tr>
 
-{% block body %}
-    <h1>Activites index</h1>
+				<th>NomAct</th>
+				<th>Description</th>
+				<th>Organisateur</th>
+				<th>LieuAct</th>
+				<th>Adresse</th>
+				<th>Images</th>
+				<th>PlaceDiso</th>
+				<th>PrixAct</th>
+				<th>Duree</th>
+				<th>Periode</th>
+				<th>IdUser</th>
+				<th>actions</th>
+				<th>Abonner</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for activite in activites %}
+				<tr>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdAct</th>
-                <th>NomAct</th>
-                <th>Description</th>
-                <th>Organisateur</th>
-                <th>LieuAct</th>
-                <th>Adresse</th>
-                <th>Images</th>
-                <th>PlaceDiso</th>
-                <th>PrixAct</th>
-                <th>Duree</th>
-                <th>Periode</th>
-                <th>IdUser</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for activite in activites %}
-            <tr>
-                <td>{{ activite.idAct }}</td>
-                <td>{{ activite.nomAct }}</td>
-                <td>{{ activite.description }}</td>
-                <td>{{ activite.organisateur }}</td>
-                <td>{{ activite.lieuAct }}</td>
-                <td>{{ activite.adresse }}</td>
-                <td>{{ activite.images }}</td>
-                <td>{{ activite.placeDiso }}</td>
-                <td>{{ activite.prixAct }}</td>
-                <td>{{ activite.duree }}</td>
-                <td>{{ activite.periode }}</td>
-                <td>{{ activite.idUser }}</td>
-                <td>
-                    <a href="{{ path('app_activites_show', {'idAct': activite.idAct}) }}">show</a>
-                    <a href="{{ path('app_activites_edit', {'idAct': activite.idAct}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+					<td>{{ activite.nomAct }}</td>
+					<td>{{ activite.description }}</td>
+					<td>{{ activite.organisateur }}</td>
+					<td>{{ activite.lieuAct }}</td>
+					<td>{{ activite.adresse }}</td>
+					<td>
+						{% if activite.images %}
+							<img src="{{ asset('uploads/images/' ~ activite.images )}}" alt="activity image" style="max-width: 100px; max-height: 100px;">
+						{% else %}
+							NO IMAGE AVAILABLE FOR THIS activity
+						{% endif %}
+					</td>
 
-    <a href="{{ path('app_activites_new') }}">Create new</a>
-{% endblock %}
+
+					<td>{{ activite.placeDiso }}
+					</td>
+					<td>{{ activite.prixAct }}</td>
+					<td>{{ activite.duree }}</td>
+					<td>{{ activite.periode }}</td>
+					<td>{{ activite.idUser }}</td>
+					<td>
+						<a href="{{ path('app_activites_show', {'idAct': activite.idAct}) }}">show</a>
+						<a href="{{ path('app_activites_edit', {'idAct': activite.idAct}) }}">edit</a>
+					</td>
+					<td>
+						<a href="{{ path('abonner_activite', {'id': activite.idAct}) }}">Inscrire</a>
+					</td>
+				</tr>
+			</tbody>
+		</tbody>
+	</tr>
+</tbody></tbody></tr>{% else %}<tr><td colspan="13">no records found</td></tr>{% endfor %}</tbody></table><a href="{{ path('app_activites_new') }}">Create new</a>{% endblock %}

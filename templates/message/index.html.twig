@@ -2,13 +2,13 @@
 
 {% block title %}Message index{% endblock %}
 
-{% block body %}
+{% block container %}
     <h1>Message index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>IdMsg</th>
+               
                 <th>ContenuMsg</th>
                 <th>HeurEnvoiMsg</th>
                 <th>actions</th>
@@ -19,7 +19,7 @@
             <tr>
                 <td>{{ message.idMsg }}</td>
                 <td>{{ message.contenuMsg }}</td>
-                <td>{{ message.heurEnvoiMsg }}</td>
+                <td>{{ message.heurEnvoiMsg ? message.heurEnvoiMsg|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_message_show', {'idMsg': message.idMsg}) }}">show</a>
                     <a href="{{ path('app_message_edit', {'idMsg': message.idMsg}) }}">edit</a>

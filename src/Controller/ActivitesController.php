@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Activites;
 use App\Form\ActivitesType;
 use App\Repository\ActivitesRepository;
+use App\Repository\InscriptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,20 @@ class ActivitesController extends AbstractController
             'activites' => $activitesRepository->findAll(),
         ]);
     }
+    #[Route('/back', name: 'activitesback_index', methods: ['GET'])]
+    public function backofficeact(ActivitesRepository $activitesRepository, InscriptionRepository $inscriptionRepository): Response
+    {
+        return $this->render('activites/backoffice.html.twig', [
+            'activites' => $activitesRepository->findAll(),
+            'inscriptions' => $inscriptionRepository->findAll(),
+            
+        ]);
+    }
+    #[Route('/abonner/{id}', name: 'abonner_activite', methods: ['GET'])]
+    public function Abonner_Activite($id): Response
+    {
+        return $this->redirectToRoute('app_inscription_new', ['id' => $id]);
+    }
 
     #[Route('/new', name: 'app_activites_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -28,8 +43,16 @@ class ActivitesController extends AbstractController
         $activite = new Activites();
         $form = $this->createForm(ActivitesType::class, $activite);
         $form->handleRequest($request);
-
+        $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images';
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('images')->getData();
+            if($imageFile){
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+                $imageFile->move($imagedirectory,$newFilename);
+                $activite->setImages($newFilename);
+
+
+            }
             $entityManager->persist($activite);
             $entityManager->flush();
 

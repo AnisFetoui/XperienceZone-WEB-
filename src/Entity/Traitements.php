@@ -21,8 +21,8 @@ use Doctrine\DBAL\Types\Types;
         #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
         private ?\DateTime $dater=null;
     
-        #[ORM\ManyToOne(inversedBy:'Traitements')]
-        private ?Utilisateur $Utilisateur=null;
+        #[ORM\Column]
+        private ?int $idu=null;
        
 
         #[ORM\Column]
@@ -30,13 +30,16 @@ use Doctrine\DBAL\Types\Types;
     
         
         #[ORM\Column( length: 500)]
+        #[Assert\NotBlank(message: "Le resume doit être rempli")]
         private ?string $resume=null;
     
       
         #[ORM\Column( length: 50)]
+        #[Assert\NotBlank(message: "Le status doit être rempli")]
         private ?string $stat=null;
     
-        #[ORM\ManyToOne(targetEntity: Reclamations::class,inversedBy:'traitements')]
+        #[ORM\ManyToOne]
+        #[ORM\JoinColumn(nullable: false, name: "idrec", referencedColumnName: "idR")]
         private ?Reclamations $reclamations=null;
 
         public function getIdt(): ?int
@@ -104,14 +107,14 @@ use Doctrine\DBAL\Types\Types;
             return $this;
         }
 
-        public function getUtilisateur(): ?Utilisateur
+        public function getIdu(): ?int
         {
-            return $this->Utilisateur;
+            return $this->idu;
         }
 
-        public function setUtilisateur(?Utilisateur $Utilisateur): static
+        public function setIdu(int $idu): static
         {
-            $this->Utilisateur = $Utilisateur;
+            $this->idu = $idu;
 
             return $this;
         }

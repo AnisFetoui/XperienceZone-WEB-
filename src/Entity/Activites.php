@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Repository\ActivitesRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ActivitesRepository::class)]
 class Activites
@@ -12,39 +13,71 @@ class Activites
     #[ORM\GeneratedValue]
    #[ORM\Column]
     private ?int $idAct;
-
+    
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide" )]
+    
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z]+$/',
+        message: "name can't contain numbers or special caracters"
+        )]
     #[ORM\Column( length: 50)]
     private ?string $nomAct;
+
+
 
     #[ORM\Column( length: 200)]
     private ?string $description;
 
+
+    #[Assert\NotBlank(message: "add organiser name")]
+    
     #[ORM\Column( length: 20)]
     private ?string $organisateur;
 
-   #[ORM\Column]
-    private ?int $lieuAct;
 
+   #[ORM\Column(type: "string", length: 10)]
+    private ?string $lieuAct;
+
+    #[Assert\NotBlank(message: "add addres")]
     #[ORM\Column( length: 50)]
     private ?string $adresse;
-
+    
+  
     #[ORM\Column( length: 600)]
     private ?string $images;
-
+    
+    #[Assert\NotBlank(message: "add min participant")]
    #[ORM\Column]
     private ?int $placeDiso;
-
+  
+    #[Assert\NotBlank(message: "add a price")]
+    #[Assert\Regex(
+        pattern: '/^\d+\.\d{2}$/',
+        message: 'Price should have the format "$$.$$" (like: "20.00")'
+    )]
     #[ORM\Column(type: "string", length: 10)]
     private ?string $prixAct;
 
+    #[Assert\NotBlank(message: "add duration")]
     #[ORM\Column]
     private ?int $duree;
 
+    #[Assert\NotBlank(message: "add a periode for your activity")]
+    #[Assert\Regex(
+        pattern: '/^\d{2}\/\d{2}\/\d{4} - \d{2}\/\d{2}\/\d{4}$/',
+        message: 'Periode should have the format "DD/MM/YYYY - DD/MM/YYYY"'
+    )]
     #[ORM\Column(type: "string", length: 50)]
     private ?string $periode;
+  
 
     #[ORM\Column]
     private ?int $idUser;
+
+    
+    #[ORM\OneToOne]
+   #[ORM\JoinColumn(nullable: false, name: "id_user", referencedColumnName: "id_user")]
+   private ?Utilisateur $user=null;
 
     public function getIdAct(): ?int
     {
@@ -87,12 +120,12 @@ class Activites
         return $this;
     }
 
-    public function getLieuAct(): ?int
+    public function getLieuAct(): ?string
     {
         return $this->lieuAct;
     }
 
-    public function setLieuAct(int $lieuAct): static
+    public function setLieuAct(string $lieuAct): static
     {
         $this->lieuAct = $lieuAct;
 
@@ -182,4 +215,16 @@ class Activites
 
         return $this;
     }
+    public function getUser(): ?Utilisateur
+    {
+        return $this->user;
+    }
+ 
+    public function setUser(?Utilisateur $user): static
+    {
+        $this->user = $user;
+ 
+        return $this;
+    }
+ 
 }

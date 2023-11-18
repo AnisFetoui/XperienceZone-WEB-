@@ -74,7 +74,7 @@ class UtilisateurType extends AbstractType
             'constraints' => [
                 new File([
                     'mimeTypes' => [
-                        'image/jpeg',
+                        'image/jpg',
                         'image/png',
                     ],
                     'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide (JPG, PNG).',

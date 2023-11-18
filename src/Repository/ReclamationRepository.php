@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Réclamations;
+use App\Entity\Reclamations;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Réclamations>
+ * @extends ServiceEntityRepository<Reclamations>
  *
- * @method Réclamations|null find($id, $lockMode = null, $lockVersion = null)
- * @method Réclamations|null findOneBy(array $criteria, array $orderBy = null)
- * @method Réclamations[]    findAll()
- * @method Réclamations[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Reclamations|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Reclamations|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Reclamations[]    findAll()
+ * @method Reclamations[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ReclamationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Réclamations::class);
+        parent::__construct($registry, Reclamations::class);
     }
 
 //    /**
-//     * @return Réclamations[] Returns an array of Réclamations objects
+//     * @return Reclamations[] Returns an array of Reclamations objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class ReclamationRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Réclamations
+//    public function findOneBySomeField($value): ?Reclamations
 //    {
 //        return $this->createQueryBuilder('r')
 //            ->andWhere('r.exampleField = :val')

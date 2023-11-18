@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 
 {% block title %}Reclamations{% endblock %}
 
-{% block body %}
+{% block container %}
     <h1>Reclamations</h1>
 
     <table class="table">
@@ -22,6 +22,10 @@
             <tr>
                 <th>Refobject</th>
                 <td>{{ reclamation.refobject }}</td>
+            </tr>
+             <tr>
+                <th>Details</th>
+                <td>{{ reclamation.details }}</td>
             </tr>
         </tbody>
     </table>

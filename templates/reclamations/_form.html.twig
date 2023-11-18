@@ -1,4 +1,29 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+<style>
+    .error-message {
+        color: red;
+    }
+</style>
+
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    
+
+{{ form_row(form.utilisateur) }}
+<span class="error-message">{{ form_errors(form.utilisateur) }}</span>
+
+{{ form_row(form.daterec) }}
+<span class="error-message">{{ form_errors(form.daterec) }}</span>
+
+{{ form_row(form.typerec) }}
+<span class="error-message">{{ form_errors(form.typerec) }}</span>
+
+
+{{ form_row(form.refobject) }}
+<span class="error-message">{{ form_errors(form.refobject) }}</span>
+
+{{ form_row(form.details) }}
+<span class="error-message">{{ form_errors(form.details) }}</span>
+
+
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
