@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Check Our Activites
+{% block title %}{% endblock %}
+{% block container %}
+	<a href="{{ path('app_activites_new') }}">Create new</a>
+
 {% endblock %}
 
 {% block card %}
@@ -89,7 +92,4 @@
 			</div>
 		{% endfor %}
 	</div>
-{% endblock %}
-{% block container %}
-	<a href="{{ path('app_activites_new') }}">Create new</a>
 {% endblock %}
