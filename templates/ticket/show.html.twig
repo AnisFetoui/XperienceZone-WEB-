@@ -2,22 +2,25 @@
 
 {% block title %}Ticket{% endblock %}
 
-{% block body %}
-    <h1>Ticket</h1>
+{% block container %}
+    <h2>Ticket</h2>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>IdTicket</th>
-                <td>{{ ticket.idTicket }}</td>
-            </tr>
+           
             <tr>
                 <th>NumTicket</th>
                 <td>{{ ticket.numTicket }}</td>
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ ticket.image }}</td>
+                <td>
+                {% if ticket.image %}
+                <img src="{{ asset('uploads/images/' ~ ticket.image) }}" alt="ticket image" style="width: 180px; height: auto;">
+                {% else %}
+                No Image Available 
+                {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Prix</th>

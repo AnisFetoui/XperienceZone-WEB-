@@ -1,11 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 
 {% block title %}New Categorie{% endblock %}
 
-{% block body %}
-    <h1>Create new Categorie</h1>
+{% block stylesheets %}
+    {# Ajoutez le lien vers votre fichier CSS personnalisé ici s'il n'est pas déjà inclus #}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+{% endblock %}
 
-    {{ include('categorie/_form.html.twig') }}
+{% block container %}
+    <div class="container">
+        <h1 class="my-4">Create New Categorie</h1>
 
-    <a href="{{ path('app_categorie_index') }}">back to list</a>
+        <div class="row">
+            <div class="col-md-6">
+                {{ include('categorie/_form.html.twig') }}
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a href="{{ path('app_categorie_index') }}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
 {% endblock %}

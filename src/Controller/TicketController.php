@@ -28,8 +28,16 @@ class TicketController extends AbstractController
         $ticket = new Ticket();
         $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
-
+        $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; // Remplacez par le chemin réel de votre répertoire
         if ($form->isSubmitted() && $form->isValid()) {
+             //handle image apload 
+             $imageFile= $form->get('image')->getData();
+             if ($imageFile){
+                 //generate a unique name for the image 
+                 $newFilename = uniqid().'.'.$imageFile->guessExtension();
+                 $imageFile->move( $imagedirectory,$newFilename);
+                 $ticket->setImage($newFilename);
+             }
             $entityManager->persist($ticket);
             $entityManager->flush();
 

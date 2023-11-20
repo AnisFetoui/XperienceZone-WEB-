@@ -14,9 +14,15 @@ class Panier
     #[ORM\Column]
     private ?int $idPanier = null;
 
+    
+    #[Assert\NotBlank(message: 'Le champ "Total" ne peut pas être vide.')]
+    #[Assert\Type(type: 'float', message: 'Le champ "Total" doit être un nombre décimal.')]
     #[ORM\Column]
     private ?float $total = null;
 
+
+    #[Assert\NotBlank(message: 'Le champ "Quantité" ne peut pas être vide.')]
+    #[Assert\Type(type: 'integer', message: 'Le champ "Quantité" doit être un nombre entier.')]
     #[ORM\Column]
     private ?int $quantitePanier = null;
 

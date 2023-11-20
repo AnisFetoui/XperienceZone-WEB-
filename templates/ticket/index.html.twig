@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ticket index{% endblock %}
+{% block title %} Tickets {% endblock %}
 
-{% block body %}
-    <h1>Ticket index</h1>
+{% block container %}
+    <h3>Ticket index</h3>
 
     <table class="table">
         <thead>
             <tr>
-                <th>IdTicket</th>
+              
                 <th>NumTicket</th>
                 <th>Image</th>
                 <th>Prix</th>
@@ -19,9 +19,15 @@
         <tbody>
         {% for ticket in tickets %}
             <tr>
-                <td>{{ ticket.idTicket }}</td>
+                
                 <td>{{ ticket.numTicket }}</td>
-                <td>{{ ticket.image }}</td>
+                <td>
+                  {% if ticket.image %}
+                <img src="{{ asset('uploads/images/' ~ ticket.image) }}" alt="ticket image" style="width: 180px; height: auto;">
+                {% else %}
+                No Image Available 
+                {% endif %}
+                </td>
                 <td>{{ ticket.prix }}</td>
                 <td>{{ ticket.categorie }}</td>
                 <td>
