@@ -3,21 +3,22 @@
 {% block title %}Channel index{% endblock %}
 
 {% block  container  %}
-    <h1>Channel de discussion </h1>
+    <h1>Les Forum Disponible </h1>
 
     <table class="table">
         <thead>
             <tr>
                
-                <th> Nom Channel </th>
-                <th>Evenements </th>
+                <th> Nom du Forum </th>
+                <th> Evenements </th>
             </tr>
         </thead>
         <tbody>
         {% for channel in channels %}
             <tr>
-                <td>{{ channel.idCh }}</td>
+                
                 <td>{{ channel.nomCh }}</td>
+                <td>{{ channel.evenement.nomEvent }}</td>
                 
                 <td>
                     <a href="{{ path('app_channel_show', {'idCh': channel.idCh}) }}">show channel</a>

@@ -1,11 +1,25 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New Channel{% endblock %}
 
 {% block container %}
-    <h1>Create new Channel</h1>
+    <div class="container">
+        <h1>Create new Forum </h1>
 
-    {{ include('channel/_form.html.twig') }}
+        <div class="content-container">
+            {{ include('channel/_form.html.twig') }}
+        </div>
 
-    <a href="{{ path('app_channel_index') }}">back to list</a>
+        <div class="back-link">
+            <a href="{{ path('app_channel_index') }}">Back to List</a>
+        </div>
+    </div>
+
+    <style>
+        .container {
+            text-align: center; /* Aligne le texte au centre (peut être supprimé si non souhaité) */
+        }
+
+        .content-container {
+            max-width: 500px; /* Ajoutez une largeur maximale au contenu si vous ne voulez pas qu'il soit trop large */
+            margin: 100 auto; /* Centre le contenu horizontalement */
+        }
+    </style>
 {% endblock %}

@@ -51,4 +51,9 @@ class Channel
         { 
              $this ->evenement = $evenement; 
              return $this;   
-    }}
+    }
+    public function getIdEvent()
+    {
+        return $this->id_event;
+    }
+}
