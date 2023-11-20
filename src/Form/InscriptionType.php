@@ -13,8 +13,8 @@ class InscriptionType extends AbstractType
     {
         $builder
             ->add('nbrTickes')
-            ->add('fraitAbonnement')          
-            ->add('userId')
+            ->add('fraitAbonnement')         
+            
         ;
     }
 

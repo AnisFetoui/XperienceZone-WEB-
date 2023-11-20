@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Activites;
 use App\Form\ActivitesType;
-use App\Repository\ActivitesRepository;
+use App\Entity\Inscription;
+use App\Form\InscriptionType;
 use App\Repository\InscriptionRepository;
+use App\Repository\ActivitesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +24,18 @@ class ActivitesController extends AbstractController
             'activites' => $activitesRepository->findAll(),
         ]);
     }
+
+    #[Route('/name', name: 'app_activites_name', methods: ['GET'])]
+    public function namefind(Request $request,ActivitesRepository $activitesRepository): Response
+    {
+        /*$name = "padle";*/
+        $name = $request->query->get('activityName');
+        $act = $activitesRepository->findBy(['nomAct' => $name]);
+
+    return $this->render('activites/index.html.twig', ['activites' => $act]);
+    }
+
+
     #[Route('/back', name: 'activitesback_index', methods: ['GET'])]
     public function backofficeact(ActivitesRepository $activitesRepository, InscriptionRepository $inscriptionRepository): Response
     {
@@ -65,13 +79,33 @@ class ActivitesController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{idAct}', name: 'app_activites_show', methods: ['GET'])]
-    public function show(Activites $activite): Response
+    public function show(Activites $activite , Request $request, EntityManagerInterface $entityManager,$idAct): Response
     {
-        return $this->render('activites/show.html.twig', [
+        $inscription = new Inscription();
+        $form = $this->createForm(InscriptionType::class, $inscription);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $inscription -> setActiviteId($idAct);
+            $inscription -> setUserId(0);
+            dump($inscription);
+            $entityManager->persist($inscription);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_activites_show', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('activites/show.html.twig', [
             'activite' => $activite,
+            'inscription' => $inscription,
+            'form' => $form,
+            'id'=>$idAct,
         ]);
     }
+
+
 
     #[Route('/{idAct}/edit', name: 'app_activites_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Activites $activite, EntityManagerInterface $entityManager): Response
@@ -101,4 +135,13 @@ class ActivitesController extends AbstractController
 
         return $this->redirectToRoute('app_activites_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+    
+
+    
+
+
+
 }
