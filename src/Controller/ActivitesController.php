@@ -81,29 +81,35 @@ class ActivitesController extends AbstractController
 
 
 
-    #[Route('/{idAct}', name: 'app_activites_show', methods: ['GET'])]
+    #[Route('/{idAct}', name: 'app_activites_show', methods: ['GET', 'POST'])]
     public function show(Activites $activite , Request $request, EntityManagerInterface $entityManager,$idAct): Response
     {
         $inscription = new Inscription();
+        $inscription->setNbrTickes(1);
+        $prix = $activite->getPrixAct();
         $form = $this->createForm(InscriptionType::class, $inscription);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $inscription -> setActiviteId($idAct);
             $inscription -> setUserId(0);
+            $inscription -> setFraitAbonnement(20.00);
             dump($inscription);
             $entityManager->persist($inscription);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_activites_show', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_activites_show', ['idAct' => $idAct], Response::HTTP_SEE_OTHER);
+
         }
         return $this->renderForm('activites/show.html.twig', [
             'activite' => $activite,
             'inscription' => $inscription,
             'form' => $form,
             'id'=>$idAct,
+            'prixactivite'=>$prix,
         ]);
     }
+     
 
 
 
@@ -114,6 +120,7 @@ class ActivitesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('app_activites_index', [], Response::HTTP_SEE_OTHER);

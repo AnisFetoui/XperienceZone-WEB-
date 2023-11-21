@@ -157,7 +157,7 @@ justify-content: center;
 
 }
 .abon .btn{
-    background-color: red;
+    
     background-color:rgb(65, 167, 207);
     width: 150px;
     font-size: 15px;
@@ -185,3 +185,74 @@ justify-content: center;
     margin-bottom: 16px;
     box-sizing: border-box;
 }
+/*form new act*/
+.content{
+    
+    color:#ffffff;
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    /**/
+    position: relative;
+    background:url(../images/welcome-hero/background.png)no-repeat;
+    background-position:center;
+    background-size:cover;
+    text-align: center;
+    z-index: 1;
+    
+}
+.titre{
+    height: 150px;
+
+    padding-top: 30px;
+}
+.titre h1{
+    font-size: 28px;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.4px;
+    line-height: 1.4;
+    
+}
+.tot{
+    color:#ffffff;
+    display: flex;
+    flex-direction: row;
+}
+.buttons{
+    background-color: rgba(70, 66, 66, 0.5);
+    display: flex;
+    flex-direction: column;  
+
+    justify-content: flex-start;
+    width: 200px;
+}
+.form-new{
+    background-color: rgba(70, 66, 66, 0.5);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+.buttons a {
+    margin-top: 10px;
+    background-color:#60941A;
+    width: 110px;
+    font-size: 12px;
+    color: rgb(241, 238, 238);
+    height: 40px;
+    border-radius: 4px;
+    text-align: center;
+    padding-top: 10px;
+
+}
+.form-new .btn1{
+    background-color:#60941A;
+    width: 100px;
+    height: 30px;
+    border-radius: 4px;
+    margin-top: 50px;
+}
+/************************************************/
