@@ -56,4 +56,5 @@ class Channel
     {
         return $this->id_event;
     }
+    
 }

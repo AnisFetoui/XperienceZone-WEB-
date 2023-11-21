@@ -1,4 +1,4 @@
-{% extends  %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Message{% endblock %}
 
@@ -8,10 +8,6 @@
     <table class="table">
         <tbody>
             <tr>
-                
-                <td>{{ message.idMsg }}</td>
-            </tr>
-            <tr>
                 <th>ContenuMsg</th>
                 <td>{{ message.contenuMsg }}</td>
             </tr>
@@ -19,6 +15,7 @@
                 <th>HeurEnvoiMsg</th>
                 <td>{{ message.heurEnvoiMsg ? message.heurEnvoiMsg|date('Y-m-d H:i:s') : ''}}</td>
             </tr>
+         
         </tbody>
     </table>
 

@@ -3,7 +3,8 @@
 {% block title %}Utilisateur{% endblock %}
 
 {% block container %}
-    <h1>Utilisateur</h1>
+    <h2 class="text-lg font-medium mr-auto">Utilisateur {{ utilisateur.username }}</h1>
+    <br>
 
     <table class="table">
         <tbody>
@@ -46,10 +47,12 @@
         </tbody>
     </table>
     <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
-    <a href="{{ path('app_utilisateur_index') }}" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">back to list</a>
-
-    <a href="{{ path('app_utilisateur_edit', {'idUser': utilisateur.idUser}) }}" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">edit</a>
-
-    {{ include('utilisateur/_delete_form.html.twig') }}
+    
+    <div class="flex mt-4 xl:mt-0">
+        <a href="{{ path('app_utilisateur_edit', {'idUser': utilisateur.idUser}) }}" class="flex items-center mr-3"><i data-lucide="check-square" class="w-4 h-4 mr-1"></i>Edit</a>    
+        {{ include('utilisateur/_delete_form.html.twig') }}
     </div>
+    <br>
+    <a href="{{ path('app_utilisateur_index') }}" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Back to List</a>
+</div>
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -35,13 +36,13 @@ class Utilisateur
     #[ORM\Column(length:15)]
     private ?string $role = null;
 
-    #[Assert\NotBlank(message: 'Le champ "Âge" ne peut pas être vide.')]
-    #[Assert\Type(type: 'integer', message: 'Le champ "Âge" doit être un nombre entier.')]
+    #[Assert\NotBlank(message: 'Le champ "Image" ne peut pas être vide.')]
     #[ORM\Column(length:300 )]
     private ?string $image= null;
 
     
-    
+    #[Assert\NotBlank(message: 'Le champ "Âge" ne peut pas être vide.')]
+    #[Assert\Type(type: 'integer', message: 'Le champ "Âge" doit être un nombre entier.')]
     #[ORM\Column]
     private ?int $age= null;
     
@@ -51,7 +52,6 @@ class Utilisateur
  
     #[ORM\Column(type: "boolean", nullable: false, options: ["default" => true])]
     private ?bool $etat = true;
-
     public function getIdUser(): ?int
     {
         return $this->idUser;

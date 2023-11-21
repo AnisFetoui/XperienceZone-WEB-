@@ -1,11 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 
 {% block title %}New Traitements{% endblock %}
 
-{% block body %}
+{% block container %}
+<div class="text-center">
     <h1>Create new Traitements</h1>
-
+   </div>
+   
     {{ include('traitements/_form.html.twig') }}
 
+<div class="text-center mt-3">
     <a href="{{ path('app_traitements_index') }}">back to list</a>
+    </div>
 {% endblock %}

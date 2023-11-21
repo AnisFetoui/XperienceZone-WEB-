@@ -1,28 +1,32 @@
-{% extends 'utilisateur/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Channel index{% endblock %}
+{% block title %}{% endblock %}
+
+
+
 
 {% block  container  %}
-    <h1>Les Forum Disponible </h1>
+    <h1>Forum for Event </h1>
 
     <table class="table">
         <thead>
             <tr>
                
-                <th> Nom du Forum </th>
-                <th> Evenements </th>
+                <th> Nom Channel </th>
+                <th>Evenements </th>
             </tr>
         </thead>
         <tbody>
         {% for channel in channels %}
             <tr>
-                
+          
                 <td>{{ channel.nomCh }}</td>
-                <td>{{ channel.evenement.nomEvent }}</td>
+                 <td>{{ channel.evenement.nomEvent }}</td>
                 
                 <td>
                     <a href="{{ path('app_channel_show', {'idCh': channel.idCh}) }}">show channel</a>
                     <a href="{{ path('app_channel_edit', {'idCh': channel.idCh}) }}">edit channel</a>
+                   
                 
                 </td>
             </tr>
@@ -34,5 +38,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_channel_new') }}">Create new channel </a>
+	<a href="{{ path('app_channel_new') }}">Create new channel
+	</a>
 {% endblock %}

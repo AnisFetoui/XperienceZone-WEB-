@@ -1,56 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit {% endblock %}
+{% block title %}{% endblock %}
 
 {% block container %}
-    <h1>Produit </h1>
+	<h1>Produit
+	</h1>
 
-    <!-- Swiper-->
-    <div class="swiper-container swiper-slider swiper-slider_height-1 swiper-align-left swiper-align-left-custom context-dark bg-gray-darker" data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="fade">
-        <div class="swiper-wrapper">
-            {% for produit in produits %}
-                <div class="swiper-slide bg-dark">
-                    <img class="swiper-image" src="{{ asset('uploads/images/' ~ produit.image) }}" alt="{{ produit.nomProd }}">
-                    <div class="swiper-slide-caption">
-                        <div class="container container-bigger swiper-main-section">
-                            <div class="row row-fix justify-content-sm-center justify-content-md-start">
-                                <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
-                                    <h3>{{ produit.nomProd }}</h3>
-                                    <div class="divider divider-decorate"></div>
-                                    <p class="text-spacing-sm">{{ produit.descriptionProd }}</p>
-                                    <p>Prix: {{ produit.prixProd }}</p>
-                                    <p>Quantité: {{ produit.quantite }}</p>
-                                    <a href="{{ path('app_produit_show', {'idProd': produit.idProd}) }}" class="button button-default-outline button-nina button-sm" style="padding: 5px 10px;">Voir les détails</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <!-- Flèches de pagination -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <!-- Swiper controls-->
-        <div class="swiper-pagination-wrap">
-            <div class="container container-bigger">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="swiper-pagination"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<!-- Swiper-->
+	<div class="swiper-container swiper-slider swiper-slider_height-1 swiper-align-left swiper-align-left-custom context-dark bg-gray-darker" data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="fade">
+		<div class="swiper-wrapper">
+			{% for produit in produits %}
+				<div class="swiper-slide bg-dark">
+					<img class="swiper-image" src="{{ asset('uploads/images/' ~ produit.image) }}" alt="{{ produit.nomProd }}">
+					<div class="swiper-slide-caption">
+						<div class="container container-bigger swiper-main-section">
+							<div class="row row-fix justify-content-sm-center justify-content-md-start">
+								<div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
+									<h3>{{ produit.nomProd }}</h3>
+									<div class="divider divider-decorate"></div>
+									<p class="text-spacing-sm">{{ produit.descriptionProd }}</p>
+									<p>Prix:
+										{{ produit.prixProd }}</p>
+									<p>Quantité:
+										{{ produit.quantite }}</p>
+									<a href="{{ path('app_produit_show', {'idProd': produit.idProd}) }}" class="button button-default-outline button-nina button-sm" style="padding: 5px 10px;">Voir les détails</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<!-- Flèches de pagination -->
+		<div class="swiper-button-next"></div>
+		<div class="swiper-button-prev"></div>
+		<!-- Swiper controls-->
+		<div class="swiper-pagination-wrap">
+			<div class="container container-bigger">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <!-- Bouton "Create New" -->
-    <a href="{{ path('app_produit_new') }}" class="button button-default-outline button-nina button-sm" style="padding: 5px 10px;">Create New</a>
+	<!-- Bouton "Create New" -->
+	<a href="{{ path('app_produit_new') }}" class="button button-default-outline button-nina button-sm" style="padding: 5px 10px;">Create New</a>
 
-    <style>
-        /* Styles spécifiques pour réduire la taille de l'image */
-        .swiper-image {
-            max-width: 50%; /* Ajustez en fonction de vos besoins */
-            height: auto;
-        }
-    </style>
+	<style>
+		/* Styles spécifiques pour réduire la taille de l'image */
+		.swiper-image {
+			max-width: 50%; /* Ajustez en fonction de vos besoins */
+			height: auto;
+		}
+	</style>
 {% endblock %}

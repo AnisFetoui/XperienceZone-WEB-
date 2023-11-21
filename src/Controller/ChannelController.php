@@ -21,6 +21,7 @@ class ChannelController extends AbstractController
             'channels' => $channelRepository->findAll(),
         ]);
     }
+    
 
     #[Route('/new', name: 'app_channel_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
