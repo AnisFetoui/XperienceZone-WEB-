@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 
 {% block title %}Reclamations index{% endblock %}
 
-{% block body %}
+{% block container %}
     <h1>Reclamations index</h1>
 
     <table class="table">
@@ -12,6 +12,7 @@
                 <th>Daterec</th>
                 <th>Typerec</th>
                 <th>Refobject</th>
+                <th>Details</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,8 +23,9 @@
                 <td>{{ reclamation.daterec ? reclamation.daterec|date('Y-m-d') : '' }}</td>
                 <td>{{ reclamation.typerec }}</td>
                 <td>{{ reclamation.refobject }}</td>
+                <td>{{ reclamation.details }}</td>
                 <td>
-                    <a href="{{ path('app_reclamations_show', {'idr': reclamation.idr}) }}">show</a>
+                    <a href="{{ path('app_reclamations_show', {'idr': reclamation.idr} ) }}" class="btn">show</a>
                     <a href="{{ path('app_reclamations_edit', {'idr': reclamation.idr}) }}">edit</a>
                 </td>
             </tr>
@@ -35,5 +37,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_reclamations_new') }}">Create new</a>
+    
+    <a href="{{ path('app_traitements_index') }}">traitement</a>
 {% endblock %}

@@ -1,55 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Activites index{% endblock %}
-
+{% block title %}{% endblock %}
 {% block container %}
-    <h1>Activites index</h1>
+	<a href="{{ path('app_activites_new') }}">Create new</a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdAct</th>
-                <th>NomAct</th>
-                <th>Description</th>
-                <th>Organisateur</th>
-                <th>LieuAct</th>
-                <th>Adresse</th>
-                <th>Images</th>
-                <th>PlaceDiso</th>
-                <th>PrixAct</th>
-                <th>Duree</th>
-                <th>Periode</th>
-                <th>IdUser</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for activite in activites %}
-            <tr>
-                <td>{{ activite.idAct }}</td>
-                <td>{{ activite.nomAct }}</td>
-                <td>{{ activite.description }}</td>
-                <td>{{ activite.organisateur }}</td>
-                <td>{{ activite.lieuAct }}</td>
-                <td>{{ activite.adresse }}</td>
-                <td>{{ activite.images }}</td>
-                <td>{{ activite.placeDiso }}</td>
-                <td>{{ activite.prixAct }}</td>
-                <td>{{ activite.duree }}</td>
-                <td>{{ activite.periode }}</td>
-                <td>{{ activite.idUser }}</td>
-                <td>
-                    <a href="{{ path('app_activites_show', {'idAct': activite.idAct}) }}">show</a>
-                    <a href="{{ path('app_activites_edit', {'idAct': activite.idAct}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% endblock %}
 
-    <a href="{{ path('app_activites_new') }}">Create new</a>
+{% block card %}
+	<div class="row">
+		{% for activite in activites %}
+			<div class="col-md-4 col-sm-6">
+				<div class="single-explore-item">
+					<div class="single-explore-img">
+						<img
+						src="{{ asset('uploads/images/' ~ activite.images) }}" alt="activity image">
+						<!-- Other content for activite -->
+
+						<div class="single-explore-img-info">
+							<button onclick="window.location.href='#'">best rated</button>
+							<div class="single-explore-image-icon-box">
+								<ul>
+									<li>
+										<div class="single-explore-image-icon">
+											<a href="{{ path('app_activites_show', {'idAct': activite.idAct}) }}">
+												<i class="fa fa-arrows-alt"></i>
+											</a>
+
+										</div>
+									</li>
+									<li>
+										<div class="single-explore-image-icon">
+											<i class="fa fa-bookmark-o"></i>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+					<div class="single-explore-txt bg-theme-1">
+						<h2>
+							<a href="#">{{ activite.nomAct }}</a>
+						</h2>
+						<!-- Other content for activite -->
+						<p class="explore-rating-price">
+							<span class="explore-rating">5.0</span>
+							<a href="#">
+								{{ activite.lieuAct }}</a>
+
+							<span class="explore-price-box">
+								Price
+								<span class="explore-price">{{ activite.prixAct }}</span>
+							</span>
+							<a href="#">{{ activite.organisateur }}</a>
+						</p>
+
+						<div class="explore-person">
+							<div class="row">
+								<div class="col-sm-10">
+									<p>
+										{{ activite.description }}...
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="explore-open-close-part">
+							<div class="row">
+								<div class="col-sm-5">
+									<a href="{{ path('abonner_activite', {'id': activite.idAct}) }}">Abonner</a>
+								</div>
+								<div class="col-sm-7">
+									<div class="explore-map-icon">
+										<a href="#">
+											<i data-feather="map-pin"></i>
+										</a>
+										<a href="#">
+											<i data-feather="upload"></i>
+										</a>
+										<a href="#">
+											<i data-feather="heart"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 {% endblock %}

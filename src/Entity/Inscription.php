@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Repository\InscriptionRepository;
 use Doctrine\ORM\Mapping as ORM;
 USE Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\Common\Collections\Collection;
 
@@ -24,6 +25,11 @@ class Inscription
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $heureIns = null;
 
+    #[Assert\NotBlank(message: "Add a number of tickets")]
+#[Assert\Range(
+    min: 1,
+    minMessage: "Number of tickets should be at least 1"
+)]
     #[ORM\Column]
     private ?int $nbrTickes;
 
@@ -37,16 +43,13 @@ class Inscription
     #[ORM\Column]
     private ?int $userId;
 
-    /*#[ORM\OneToMany(mappedBy: 'inscription', targetEntity: Activites::class)]
-    #[ORM\JoinColumn(nullable : true)]
-    private Collection $activitesliste;
+   
+
     public function __construct()
     {
-        $this->activitesliste = new ArrayCollection();
+        $this->dateIns = new \DateTime();
+        $this->heureIns = new \DateTime();
     }
-        /**
-     * @return Collection<int, Activites>
-     */
 
     public function getIdIns(): ?int
     {

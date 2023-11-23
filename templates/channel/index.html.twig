@@ -1,35 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 
-{% block title %}Channel index{% endblock %}
+{% block title %}{% endblock %}
 
-{% block body %}
-    <h1>Channel index</h1>
+<<<<<<<HEAD<h1>Channelindex</h1>=======<h1>Channeldediscussion</h1>>> {% block container %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdCh</th>
-                <th>NomCh</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for channel in channels %}
-            <tr>
-                <td>{{ channel.idCh }}</td>
-                <td>{{ channel.nomCh }}</td>
-                <td>
-                    <a href="{{ path('app_channel_show', {'idCh': channel.idCh}) }}">show</a>
-                    <a href="{{ path('app_channel_edit', {'idCh': channel.idCh}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_channel_new') }}">Create new</a>
+{% block  container  %}>>>>> d00afe88a7cd55eb234c89439a559dc1b84f43e3
+
+	<table class="table">
+		<thead>
+			<tr>
+
+				<th>
+					Nom Channel
+				</th>
+				<th>Evenements
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for channel in channels %}
+				<tr>
+					<td>{{ channel.idCh }}</td>
+					<td>{{ channel.nomCh }}</td>
+
+					<td>
+						<a href="{{ path('app_channel_show', {'idCh': channel.idCh}) }}">show channel</a>
+						<a href="{{ path('app_channel_edit', {'idCh': channel.idCh}) }}">edit channel</a>
+
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_channel_new') }}">Create new channel
+	</a>
 {% endblock %}
