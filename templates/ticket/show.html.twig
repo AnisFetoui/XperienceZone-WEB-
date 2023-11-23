@@ -1,41 +1,59 @@
 {% extends 'base.html.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/stylemini.css') }}">
+{% endblock %}
 
 {% block title %}Ticket{% endblock %}
 
 {% block container %}
     <h2>Ticket</h2>
 
-    <table class="table">
-        <tbody>
-           
-            <tr>
-                <th>NumTicket</th>
-                <td>{{ ticket.numTicket }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>
-                {% if ticket.image %}
-                <img src="{{ asset('uploads/images/' ~ ticket.image) }}" alt="ticket image" style="width: 180px; height: auto;">
+    <div class="ticket">
+        <div class="ticket-image">
+            {% if ticket.evenement %}
+                {% if ticket.evenement.image %}
+                    <img src="{{ asset('uploads/images/' ~ ticket.evenement.image) }}" alt="Event Image">
                 {% else %}
-                No Image Available 
+                    <div class="no-image">No Image Available</div>
                 {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ ticket.prix }}</td>
-            </tr>
-            <tr>
-                <th>Categorie</th>
-                <td>{{ ticket.categorie }}</td>
-            </tr>
-        </tbody>
-    </table>
+            {% else %}
+                <div class="no-event">No Event Associated</div>
+            {% endif %}
+        </div>
 
-    <a href="{{ path('app_ticket_index') }}">back to list</a>
+        <div class="ticket-details">
+            <div class="ticket-info">
+                <div class="ticket-label">NumTicket:</div>
+                <div class="ticket-value">{{ ticket.numTicket }}</div>
+            </div>
+            <div class="ticket-info">
+                <div class="ticket-label">Prix:</div>
+                <div class="ticket-value">{{ ticket.prix }}</div>
+            </div>
+            <div class="ticket-info">
+                <div class="ticket-label">Nom de l'événement:</div>
+                <div class="ticket-value">{{ ticket.evenement.nomEvent }}</div>
+            </div>
+            <div class="ticket-info">
+                <div class="ticket-label">Lieu:</div>
+                <div class="ticket-value">{{ ticket.evenement.lieuEvent }}</div>
+            </div>
+            <div class="ticket-info">
+                <div class="ticket-label">Date de l'événement:</div>
+                <div class="ticket-value">{{ ticket.evenement.dateEvent|date('d/m/Y') }}</div>
+            </div>
+            <div class="ticket-info">
+                <div class="ticket-label">Heure:</div>
+                <div class="ticket-value">{{ ticket.evenement.heureEvent }}</div>
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('app_ticket_edit', {'idTicket': ticket.idTicket}) }}">edit</a>
+    <div class="ticket-actions">
+        <a href="{{ path('app_evenement_index') }}">Back to List</a>
+        <a href="{{ path('app_ticket_edit', {'idTicket': ticket.idTicket}) }}">Edit</a>
+    </div>
 
     {{ include('ticket/_delete_form.html.twig') }}
 {% endblock %}

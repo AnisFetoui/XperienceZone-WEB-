@@ -16,10 +16,10 @@ class TicketType extends AbstractType
     {
         $builder
             ->add('numTicket')
-            ->add('image',FileType::class,[
+         /* ->add('image',FileType::class,[
                 'label'=> 'ticket image',
                 'mapped'=> false,
-                'required'=> false ])
+                'required'=> false ])*/
     
          //   ->add('prix', NumberType::class, [
               //  'label' => 'Prix ,

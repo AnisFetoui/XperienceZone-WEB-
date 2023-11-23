@@ -88,4 +88,52 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+
+   /* #[Route('/evenements', name:'app_evenement_index', methods:['GET'])]
+    
+   public function indexx(Request $request, EvenementRepository $evenementRepository): Response
+   {
+       // Récupérer les paramètres de recherche depuis la requête
+       $query = $request->query->get('query');
+       $location = $request->query->get('location');
+
+       // Utiliser le repository pour effectuer la recherche
+       $evenements = $evenementRepository->search($query, $location);
+
+       return $this->render('evenement/index.html.twig', [
+           'evenements' => $evenements,
+       ]);
+   }*/
+
+    #[Route('/search', name:'app_search')]
+
+  public function search(Request $request): Response
+  {
+    $nomEvent = $request->query->get('nom_event');
+    $lieuEvent = $request->query->get('lieu_event');
+
+    // Ajoutez votre logique de recherche ici
+    // Par exemple, recherchez des événements en fonction de la requête de recherche
+    $em = $this->getDoctrine()->getManager();
+    
+    $evenements = $em->getRepository(Evenement::class)->findByNomAndLieu($nomEvent, $lieuEvent);
+
+    return $this->render('evenement/index.html.twig', [
+        'evenements' => $evenements,
+        'nomEvent' => $nomEvent,
+        'lieuEvent' => $lieuEvent,
+    ]);
 }
+  }
+
+
+
+
+
+
+
+
+
+
+
+

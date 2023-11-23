@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\EvenementRepository;
 
 #[Route('/ticket')]
 class TicketController extends AbstractController
@@ -23,25 +24,34 @@ class TicketController extends AbstractController
     }
 
     #[Route('/new', name: 'app_ticket_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, EvenementRepository $evenementRepository): Response
     {
         $ticket = new Ticket();
         $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
         $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; // Remplacez par le chemin réel de votre répertoire
         if ($form->isSubmitted() && $form->isValid()) {
-             //handle image apload 
-             $imageFile= $form->get('image')->getData();
-             if ($imageFile){
-                 //generate a unique name for the image 
-                 $newFilename = uniqid().'.'.$imageFile->guessExtension();
-                 $imageFile->move( $imagedirectory,$newFilename);
-                 $ticket->setImage($newFilename);
-             }
+            
+             // Si aucun fichier d'image n'est téléchargé, utiliser l'image de l'événement
+        $idEvent = $form->get('evenement')->getData();
+        $evenement = $evenementRepository->find($idEvent);
+        if (!$evenement) {
+            throw $this->createNotFoundException('Event not found');
+        }
+        $ticket->setImage($evenement->getImage());
+
+        // Associer l'événement au ticket
+        $idEvent = $form->get('evenement')->getData();
+        $evenement = $evenementRepository->find($idEvent);
+        if (!$evenement) {
+            throw $this->createNotFoundException('Event not found');
+        }
+        $ticket->setEvenement($evenement);
+
             $entityManager->persist($ticket);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
+            $idTicket = $ticket->getIdTicket();
+            return $this->redirectToRoute('app_ticket_show',  ['idTicket' => $idTicket], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('ticket/new.html.twig', [

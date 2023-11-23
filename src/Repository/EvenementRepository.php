@@ -45,4 +45,36 @@ class EvenementRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+/*public function search(?string $query, ?string $location): array
+{
+    $qb = $this->createQueryBuilder('e');
+
+    // Ajouter des conditions de recherche en fonction des paramètres
+    if ($query) {
+        $qb->andWhere('e.nom_event LIKE :query')
+            ->setParameter('query', '%' . $query . '%');
+    }
+
+    if ($location) {
+        $qb->andWhere('e.lieu_event LIKE :location')
+            ->setParameter('location', '%' . $location . '%');
+    }
+
+    // Exécutez la requête et retournez les résultats
+    return $qb->getQuery()->getResult();
+}
+
+
+*/
+
+public function findByNomAndLieu($searchQuery)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.nomEvent LIKE :query OR e.lieuEvent LIKE :query')
+            ->setParameter('query', '%' . $searchQuery . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 }

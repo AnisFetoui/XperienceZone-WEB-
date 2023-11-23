@@ -1,0 +1,101 @@
+
+/* Customize the primary button color */
+.btn.btn-primary {
+    color: #fff; /* Text color */
+    background-color: #60941a; /* Background color */
+    border-color: #60941a; /* Border color */
+}
+
+/* Customize the hover state */
+.btn.btn-primary:hover {
+    color: #fff;
+    background-color:  #60941a; /* Slightly darker color on hover */
+    border-color:  #60941a;
+}
+
+/* Customize the active state */
+.btn.btn-primary:active,
+.btn.btn-primary:focus {
+    color: #fff;
+    background-color:  #60941a; /* Slightly darker color on active/focus */
+    border-color: #60941a;
+}
+
+/* Ajoutez ces styles à votre fichier CSS */
+
+.search-and-create-container {
+    margin-bottom: 40px; /* Choisissez la valeur de la marge basse qui convient à votre mise en page */
+}
+
+/* Ticket Container */
+.ticket {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Ticket Image */
+  .ticket-image img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Ticket Details */
+  .ticket-details {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+  
+  .ticket-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .ticket-value {
+    margin-top: 5px;
+    color: #666;
+  }
+  
+  /* Ticket Actions */
+  .ticket-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .ticket-actions a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .ticket-actions a:hover {
+    color: #ff5722;
+  }
+  
+  /* No Image Placeholder */
+  .no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    background-color: #eee;
+    color: #999;
+    border-radius: 50%;
+    font-size: 24px;
+  }
+  
+  /* No Event Placeholder */
+  .no-event {
+    color: red;
+    font-style: italic;
+  }
