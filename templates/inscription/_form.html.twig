@@ -1,4 +1,14 @@
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-{{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{# inscription/_form.html.twig #}
+
+<div class="inscription-form">
+	{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+	{{ form_label(form.nbrTickes) }}
+	{{ form_widget(form.nbrTickes, {'attr': {'class': 'form-control'}}) }}
+	{{ form_errors(form.nbrTickes) }}
+	<label>price totale</label>
+	<label id="labelprix">{{prixactivite}}
+		DT</label>
+	<button class="btn">{{ button_label|default('Save') }}</button>
+	{{ form_end(form) }}
+
+</div>

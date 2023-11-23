@@ -1,15 +1,5 @@
-{% block title %}New Inscription
-{% endblock %}
+{% block title %}{% endblock %}
 
 {% block container %}
 
-	<div>
-		<div>
-			<h4>welcome to Inscription page</h4>
-		</div>
-	</br>
-	<h4>Create Inscription</h4>
-</br>
-
-
-{{ include('inscription/_form.html.twig') }}</br><a href="{{ path('app_inscription_index') }}">back to list</a></div>{% endblock %}
+	{{ include('inscription/_form.html.twig') }}</br></div>{% endblock %}

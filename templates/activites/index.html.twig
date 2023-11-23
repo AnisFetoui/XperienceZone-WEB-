@@ -3,9 +3,74 @@
 {% block title %}{% endblock %}
 {% block container %}
 	<a href="{{ path('app_activites_new') }}">Create new</a>
+	<section id="home" class="welcome-hero">
+		<div class="container">
+
+			<div class="welcome-hero-txt">
+				<h2>best place to find and explore
+					<br>
+					that all you need
+				</h2>
+				<p>
+					Find Best Event, Activity and many more in just One click
+				</p>
+			</div>
+
+			<div class="welcome-hero-serch-box">
+				<div class="welcome-hero-form">
+					<div class="single-welcome-hero-form">
+						<h3>what?</h3>
+						<form id="searchForm" action="{{ path('app_activites_name') }}" method="GET">
+							<input type="text" name="activityName" placeholder="Ex: parachute, padle, skydiving"/>
+						</form>
+						<div class="welcome-hero-form-icon">
+							<i class="flaticon-list-with-dots"></i>
+						</div>
+					</div>
+					<div class="single-welcome-hero-form">
+						<h3>location</h3>
+						<form action="index.html">
+							<input type="text" placeholder="Ex: london, newyork, rome"/>
+						</form>
+						<div class="welcome-hero-form-icon">
+							<i class="flaticon-gps-fixed-indicator"></i>
+						</div>
+					</div>
+				</div>
+				<div class="welcome-hero-serch">
+					<button class="welcome-hero-btn" onclick="submitForm()">
+						search
+						<i data-feather="search"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+	<script>
+		function submitForm() {
+
+document.getElementById('searchForm').submit();
+const cardSection = document.getElementById('cardSection');
+
+if (cardSection) {
+
+cardSection.scrollIntoView({behavior: 'smooth'});
+}
+
+
+}
+	</script>
+
 
 {% endblock %}
-
+{% block explore %}
+	<div id="cardSection" class="section-header">
+		<h2>explore</h2>
+		<p>Dive into a World of Discovery: Explore, Experience, and Elevate Your Moments with Our Diverse Range of Activities</p>
+	</div>
+{% endblock %}
 {% block card %}
 	<div class="row">
 		{% for activite in activites %}
