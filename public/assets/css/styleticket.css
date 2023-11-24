@@ -1,0 +1,62 @@
+.content {
+
+background-color: whitesmoke;
+    height:100%;
+    display: flex;
+    flex-direction: row;
+}
+.tickettable{
+background-color: #007bff;
+height :200px;
+width: 50%;
+}
+.inscription_list{
+    height:10px;
+}
+/* Apply basic styles to the table */
+.table2 {
+    width: 50%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Adjust as needed */
+}
+
+/* Style the table header */
+.table2 th {
+
+    padding: 10px;
+    text-align: left;
+    color: #2b2525;
+   
+}
+
+/* Style the table rows */
+.table2 td {
+    padding: 10px;
+    border: 1px solid #ddd; /* Border color */
+}
+
+/* Style alternating rows for better readability */
+
+/* Style links inside table cells */
+.table2 a {
+    text-decoration: none;
+    color: #007bff; /* Blue color for links, adjust as needed */
+}
+
+/* Add hover effect to links */
+.table2 a:hover {
+    text-decoration: underline;
+}
+
+/* Style the "you have no inscription right now" message */
+.table2 tbody tr:nth-last-child(2),
+.table2 tbody tr:last-child {
+    font-style: italic;
+    color: rgb(31, 28, 28); /* Gray color for the message */
+}
+
+/* Adjust styling for the "go back to the home page and make one" message */
+.table2 tbody tr:last-child {
+    font-weight: bold;
+    color: rgb(31, 28, 28); /* Darker color for emphasis */
+}

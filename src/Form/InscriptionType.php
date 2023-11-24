@@ -14,8 +14,8 @@ class InscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('nbrTickes', IntegerType::class) // Update this
-        
+        ->add('nbrTickes', IntegerType::class) // Update this   
+         
             
         ;
     }

@@ -37,11 +37,16 @@ class Inscription
     private ?float $fraitAbonnement;
 
     #[ORM\Column]
-    private ?int $activiteId;
+    private ?int $activite_id;
 
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $userId;
+
+    #[ORM\OneToOne]
+    #[ORM\JoinColumn(nullable: false, name: "activite_id", referencedColumnName: "id_act")]
+    private ?Activites $activite=null;
+
 
    
 
@@ -104,17 +109,7 @@ class Inscription
         return $this;
     }
 
-    public function getActiviteId(): ?int
-    {
-        return $this->activiteId;
-    }
 
-    public function setActiviteId(int $activiteId): static
-    {
-        $this->activiteId = $activiteId;
-
-        return $this;
-    }
 
     public function getUserId(): ?int
     {
@@ -127,4 +122,32 @@ class Inscription
 
         return $this;
     }
+
+
+    public function getActivite(): ?Activites
+    {
+        return $this->activite;
+    }
+ 
+    public function setActivite(?Activites $activite): static
+    {
+        $this->activite = $activite;
+ 
+        return $this;
+    }
+
+
+
+    public function getTicketData(): string
+    {
+        
+        $data = 'Inscription ID: ' . $this->Id_ins . ', Price: ' . $this->fraitAbonnement;
+
+       
+
+        return $data;
+    }
+
 }
+
+
