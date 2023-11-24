@@ -141,7 +141,10 @@ class Inscription
     public function getTicketData(): string
     {
         
-        $data = 'Inscription ID: ' . $this->Id_ins . ', Price: ' . $this->fraitAbonnement;
+        $data = 'Inscription ID: ' . $this->Id_ins . ', Price: ' . $this->fraitAbonnement . ',activity:' . $this->activite->getNomAct()
+        
+        . ',availablity:' . $this->activite->getDuree(). ',activity:' . $this->activite->getAdresse()
+        ;
 
        
 

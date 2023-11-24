@@ -60,3 +60,82 @@ width: 50%;
     font-weight: bold;
     color: rgb(31, 28, 28); /* Darker color for emphasis */
 }
+
+
+
+.qrcode #qrCodeImage{
+    height: 100px;
+    width: 100px;
+    margin-left: 10px;
+}
+.ticket{
+    border-radius: 4px;
+   
+    width: 600px;
+    margin-left: 50px;
+    height: 200px;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 280px;
+    background:url(../images/welcome-hero/Ticket.png)no-repeat;
+    
+    background-position:center;
+    background-size:cover;
+    background-color: #8D2649;
+    z-index: 1;
+}
+.ticket img{
+    max-height: 100px; /* Set the maximum desired height */
+    max-width: 120px;  /* Set the maximum desired width */
+    width: auto;       /* Allow the width to adjust proportionally */
+    height: auto;
+    object-fit: fill;
+}
+
+.ticket .nomactivte{
+
+
+    margin-top: 170px;
+
+}
+.ticket .nomactivte h4 {
+    color: #ddd;
+    font-size: 15px;
+    font-style: italic;
+}
+.content-ticket{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    gap:100px;
+}
+.leftside{
+
+    margin-left: 20px;
+}
+.leftside p {
+    font-size: 17px;
+}
+.leftside h1 {
+    font-size: 19px;
+    color: #8D2649;
+}
+.leftside #note{
+    color: #FF3131;
+    
+}
+.btndownload{
+    margin-top: 20px;
+    border-radius: 7px;
+    color: azure;
+    width: 120px;
+    height: 40px;
+    background-color: #8D2649;
+}
+.btndownload:hover{
+
+    background-color: #5e1f34;
+
+}
