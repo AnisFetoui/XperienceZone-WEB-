@@ -1,29 +1,79 @@
+
+
 <style>
+   .msform {
+    width: 400px;
+    margin: 50px auto;
+    text-align: center;
+    position: relative;
+}
+    .text {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    font-family: arial;
+    color: grey;
+    font-size: 18px;
+}
     .error-message {
         color: red;
     }
+    .fieldset1 {
+    background: white;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 150%;
+    margin: 0 10%;
+    left: 80%;
+    position: absolute;
+}
+.fs-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    position: absolute;
+    top: 0%;
+    left: 70%;
+    }
+
+
+
+    
 </style>
 
 
+
+<div class="msform" >
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     
+<fieldset class="fieldset1">
 
-{{ form_row(form.utilisateur) }}
+{{ form_row(form.utilisateur ,{'attr': {'class': 'text'}}) }}
 <span class="error-message">{{ form_errors(form.utilisateur) }}</span>
 
-{{ form_row(form.daterec) }}
+{{ form_row(form.daterec,{'attr': {'class': 'date-wrapper'}}) }}
 <span class="error-message">{{ form_errors(form.daterec) }}</span>
 
-{{ form_row(form.typerec) }}
+{{ form_row(form.typerec,{'attr': {'class': 'text'}}) }}
 <span class="error-message">{{ form_errors(form.typerec) }}</span>
 
 
-{{ form_row(form.refobject) }}
+{{ form_row(form.refobject,{'attr': {'class': 'text'}}) }}
 <span class="error-message">{{ form_errors(form.refobject) }}</span>
 
-{{ form_row(form.details) }}
+{{ form_row(form.details,{'attr': {'class': 'text'}}) }}
 <span class="error-message">{{ form_errors(form.details) }}</span>
 
 
     <button class="btn">{{ button_label|default('Save') }}</button>
+</fieldset>
 {{ form_end(form) }}
+</div>
