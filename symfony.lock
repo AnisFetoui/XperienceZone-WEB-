@@ -52,9 +52,6 @@
             "./migrations/.gitignore"
         ]
     },
-    "endroid/qr-code-bundle": {
-        "version": "5.0.1"
-    },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
     },
@@ -72,6 +69,8 @@
         "files": [
             "./config/packages/nelmio_cors.yaml"
         ]
+    "endroid/qr-code-bundle": {
+        "version": "5.0.1"
     },
     "phpunit/phpunit": {
         "version": "9.6",

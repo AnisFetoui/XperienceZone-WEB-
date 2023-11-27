@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% endblock %}
+{% block css %}
+	{{ parent() }}
+	<!--style.css-->
+	<link rel="stylesheet" href="{{asset('assets/css/styleticket.css' )}}">
+{% endblock %}
+{% block container %}
+
+	<div class="content">
+		<div class="inscription_list">
+
+
+			<div>
+				<table class="table2">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>Activity</th>
+							<th>Date</th>
+							<th>time</th>
+							<th>Personnes</th>
+							<th>Price</th>
+							<th>action</th>
+							<th>action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in inscription %}
+							<tr>
+
+								<td>{{ i.Idins }}</td>
+								<td>{{ i.activite.getnomAct }}</td>
+								<td>{{ i.dateIns ? i.dateIns|date('Y-m-d') : '' }}</td>
+								<td>{{ i.heureIns ? i.heureIns|date('H:i') : '' }}</td>
+								<td>{{ i.nbrTickes }}</td>
+								<td>{{ i.fraitAbonnement }}</td>
+								<td>
+									<a href="{{ path('load-ticket-content', {'inscriptionId': i.Idins}) }}">show and download my ticket</a>
+
+
+								</td>
+								<td>
+									<a>download ticket</a>
+								</td>
+							</tr>
+						</tr>
+					{% else %}
+						<tr>you have no inscription right now</tr>
+						<tr>go back to the home page and make one</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div></div>{% endblock %}{% block explore %}{% endblock %}{% block card %}{% endblock %}

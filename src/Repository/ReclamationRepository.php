@@ -45,4 +45,14 @@ class ReclamationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+public function findReclamationsByString($searchString)
+{
+    return $this->createQueryBuilder('r')
+        ->where('r.details LIKE :search')
+        ->setParameter('search', '%' . $searchString . '%')
+        ->getQuery()
+        ->getResult();
+}
 }

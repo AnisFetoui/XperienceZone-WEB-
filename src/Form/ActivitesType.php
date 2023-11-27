@@ -51,7 +51,7 @@ class ActivitesType extends AbstractType
             ])
             ->add('adresse')
             ->add('images', FileType::class,[
-                'label' => 'activity image',
+                
                 'mapped' => false,
                 'required' => false,
             ])

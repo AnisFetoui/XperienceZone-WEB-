@@ -194,8 +194,7 @@ public function rateProduct(Produit $produit, int $note, EntityManagerInterface 
     
 
 }
-
-    
+  
 
 
     

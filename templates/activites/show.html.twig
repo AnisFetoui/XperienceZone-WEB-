@@ -7,11 +7,16 @@
 	<link rel="stylesheet" href="{{asset('assets/css/styleaziz.css' )}}">
 {% endblock %}
 
+
 {% block container %}
 	<div class="navact">
 		<button class="first">Activity</button>
 		<button>Descripton</button>
 		<button>images</button>
+
+
+		<a href="{{ path('ticket', {'userId': userid}) }}">show and download my tickets</a>
+
 
 	</div>
 	<div class="section">
@@ -75,5 +80,8 @@
 			<img src="{{ asset('images/peice.png')}}"></img>
 
 	</div>
+	<div class="abon">
+		{{ include('inscription/_form.html.twig') }}</div>
 
-</div></div></div>{% endblock %}{% block explore %}{% endblock %}{% block card %}{% endblock %}
+</div></div></div>{% set successMessages = app.flashes('success') %}{% if successMessages is not empty %}<script>
+alert("{{ successMessages[0] }}");</script>{% endif %}{% endblock %}{% block explore %}{% endblock %}{% block card %}{% endblock %}

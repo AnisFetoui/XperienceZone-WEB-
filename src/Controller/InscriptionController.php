@@ -32,6 +32,7 @@ class InscriptionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $inscription -> setActiviteId($id);
+            $inscription -> setUserId(0);
             $entityManager->persist($inscription);
             $entityManager->flush();
 
