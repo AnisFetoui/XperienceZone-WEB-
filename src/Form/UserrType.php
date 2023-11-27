@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
+
 class UserrType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -59,6 +60,7 @@ class UserrType extends AbstractType
             
             ])
             ->add('etat')
+            
         ;
     }
 

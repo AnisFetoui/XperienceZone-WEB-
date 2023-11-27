@@ -5,10 +5,8 @@
 	{{ form_label(form.nbrTickes) }}
 	{{ form_widget(form.nbrTickes, {'attr': {'class': 'form-control'}}) }}
 	{{ form_errors(form.nbrTickes) }}
-	<label>price totale</label>
-	<label id="labelprix">{{prixactivite}}
-		DT</label>
-	<button class="btn">{{ button_label|default('Save') }}</button>
-	{{ form_end(form) }}
+	<label>prix totale =
+		{{prixactivite}}</label>
 
-</div>
+	<button class="btn">{{ button_label|default('abonner') }}</button>
+	{{ form_end(form) }}</div>

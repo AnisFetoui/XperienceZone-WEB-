@@ -140,6 +140,14 @@ flex-direction: column;
     margin-left: 70px;
 
 }
+.navact a{
+    font-size: 15px;
+    color: rgb(182, 174, 174);
+    margin-left: 560px;
+    margin-top: 10px;
+    color: rgb(207, 74, 74);
+
+}
 .navact .first{
     
     font-size: 17px;

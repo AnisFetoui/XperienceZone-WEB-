@@ -36,7 +36,7 @@
 					{% for activite in activites %}
 						<tr class="intro-x">
 							<td>{{ activite.idAct }}</td>
-							<td>{{ activite.idUser }}</td>
+							<td>{{ activite.user.getIdUser }}</td>
 							<td>{{ activite.nomAct }}</td>
 							<td>{{ activite.description }}</td>
 							<td>{{ activite.organisateur }}</td>

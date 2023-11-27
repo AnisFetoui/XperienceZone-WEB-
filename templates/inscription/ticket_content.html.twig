@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% endblock %}
+{% block css %}
+	{{ parent() }}
+	<!--style.css-->
+	<link rel="stylesheet" href="{{asset('assets/css/styleticket.css' )}}">
+{% endblock %}
+{% block container %}
+	<div class="content-ticket">
+		<div class="leftside">
+			<h1>Your Event Ticket</h1>
+			<p>Event:
+				{{ inscription.activite.getNomAct|upper}}</p>
+			<p>Date:
+				{{ inscription.activite.getPeriode }}</p>
+
+
+			<p id="note">Please present this ticket at the event entrance.</p>
+			<p id="note">Keep this ticket in a safe place and do not share it with others.</p>
+			<p id="note">You can download you ticket Now.</p>
+			<button class="btndownload" id="downloadTicketBtn">Download Ticket</button>
+
+		</div>
+		<div class="ticket">
+			<div class="nomactivte">
+				<h4>ticket for
+					{{inscription.activite.getnomAct }}</h4>
+			</div>
+			<div class="logo">
+				<img src="{{ asset('images/xperiencelogo.png') }}" alt="Xperience Zone Logo">
+				<div class="qrcode">
+					<img id="qrCodeImage" src="data:image/png;base64,{{ qrCodeImage }}" alt="QR Code">
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+function downloadTicket() {
+const ticketElement = document.querySelector('.ticket');
+
+html2canvas(ticketElement).then(function (canvas) {
+const imageData = canvas.toDataURL('image/png');
+const downloadLink = document.createElement('a');
+downloadLink.href = imageData;
+downloadLink.download = 'ticket.png';
+downloadLink.click();
+});
+}
+
+const downloadTicketBtn = document.getElementById('downloadTicketBtn');
+downloadTicketBtn.addEventListener('click', downloadTicket);
+});
+	</script>
+
+{% endblock %}
+{% block explore %}{% endblock %}
+{% block card %}{% endblock %}

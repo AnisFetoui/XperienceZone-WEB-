@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
 
 class RegisterType extends AbstractType
 {
@@ -58,6 +59,7 @@ class RegisterType extends AbstractType
             
             
             ])
+            ->add("captcha", ReCaptchaType::class)
             
         ;
     }

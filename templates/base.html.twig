@@ -61,16 +61,16 @@
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 
 		<!--[if lt IE 9]>
-																																																																																																																																																																																																																																	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-																																																																																																																																																																																																																																	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-																																																																																																																																																																																																																														        <![endif]-->
+																																																																																																																																																																																																																																			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+																																																																																																																																																																																																																																			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+																																																																																																																																																																																																																																        <![endif]-->
 
 	</head>
 
 	<body>
 		<!--[if lte IE 9]>
-																																																																																																																																																																																																																																																			            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-																																																																																																																																																																																																																																																			        <![endif]-->
+																																																																																																																																																																																																																																																					            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+																																																																																																																																																																																																																																																					        <![endif]-->
 
 		<!--header-top start -->
 			<header id="header-top" class="header-top"> <ul>
@@ -78,10 +78,10 @@
 					<div class="header-top-right">
 						<ul>
 							<li class="select-opt">
-								<a href="#">facebook</a>
+								
 							</li>
 							<li class="select-opt">
-								<a href="#">Instagram</a>
+								
 							</li>
 
 						</ul>
@@ -90,14 +90,12 @@
 				<li class="head-responsive-right pull-right">
 					<div class="header-top-right">
 						<ul>
+							
 							<li class="header-top-contact">
-								+216 29 843 730
+								<a href="#">Profile</a>
 							</li>
 							<li class="header-top-contact">
-								<a href="#">sign in</a>
-							</li>
-							<li class="header-top-contact">
-								<a href="#">register</a>
+								<a href="{{path('app_logout')}}">Logout</a>
 							</li>
 						</ul>
 					</div>
@@ -154,6 +152,9 @@
 								<li class="scroll">
 									<a href="{{ path('app_panier_index') }}">Shop Now</a>
 								</li>
+								<li class="scroll">
+									<a href="{{ path('app_reclamations_new') }}">Reclamation</a>
+								</li>
 							</ul>
 							<!--/.nav -->
 						</div>
@@ -174,7 +175,7 @@
 		<!--welcome-hero start -->
 			{% block container %}
 				<section id="home" class="welcome-hero"> <div class="container">
-
+					
 					<div class="welcome-hero-txt">
 						<h2>best place to find and explore
 							<br>
@@ -220,7 +221,7 @@
 		{% endblock %}
 		<!--explore start -->
 		<section id="explore" class="explore">
-
+			
 			<div class="container">
 				{% block explore %}
 					<div class="section-header">
