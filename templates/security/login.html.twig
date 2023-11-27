@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <!--
 Template Name: Tinker - HTML Admin Dashboard Template
@@ -24,7 +26,10 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
-    <body class="login">
+
+{% block body %}
+
+<body class="login">
         <div class="container sm:px-10">
             <div class="block xl:grid grid-cols-2 gap-4">
                 <!-- BEGIN: Login Info -->
@@ -44,37 +49,45 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                 </div>
                 <!-- END: Login Info -->
-                <!-- BEGIN: Login Form -->
                 <div class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
                     <div class="my-auto mx-auto xl:ml-20 bg-white dark:bg-darkmode-600 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
                         <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
                             Sign In
                         </h2>
-                        <div class="intro-x mt-2 text-slate-400 xl:hidden text-center">A few more clicks to sign in to your account. Manage all your e-commerce accounts in one place</div>
+                         <div class="intro-x mt-2 text-slate-400 xl:hidden text-center">A few more clicks to sign in to your account. Manage all your e-commerce accounts in one place</div>
                         <div class="intro-x mt-8">
-                            <input type="text" class="intro-x login__input form-control py-3 px-4 block" placeholder="Email">
-                            <input type="password" class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Password">
-                        </div>
-                        <div class="intro-x flex text-slate-600 dark:text-slate-500 text-xs sm:text-sm mt-4">
+
+                            <form novalidate="" method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <label for="inputMail">Email</label>
+    <input type="text" value="{{ last_username }}" name="mail" id="inputMail" class="form-control" autocomplete="mail" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+  <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+    <button class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top" type="submit">
+        Login
+    </button>
+    <a href="{{ path('registration') }}" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Sign in</a>
+</div>
+</form>
+</div>
+<div class="intro-x flex text-slate-600 dark:text-slate-500 text-xs sm:text-sm mt-4">
                             <div class="flex items-center mr-auto">
                                 </div>
-                            <a href="">Forgot Password?</a> 
+                            <a href="{{path('forgot')}}">Forgot Password?</a> 
                         </div>
-                        <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
-                            
-                            <a href="" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Login</a>                        
 
-                            <a href="{{ path('app_register') }}" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Sign in</a>                        </div>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Login Form -->
-            </div>
-        </div>
-        
-        <!-- BEGIN: JS Assets-->
-        <script src="{{asset('assetsAdmin/dist/js/app.js')}}"></script>
-        <!-- END: JS Assets-->
-    </body>
-</html>
+{% endblock %}

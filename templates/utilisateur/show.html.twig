@@ -22,15 +22,13 @@
             </tr>
             <tr>
                 <th>Mdp</th>
-                <td>{{ utilisateur.mdp }}</td>
+                <td>{{ utilisateur.password }}</td>
             </tr>
             <tr>
                 <th>Role</th>
-                <td>{{ utilisateur.role }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ utilisateur.image }}</td>
+                <td>{% for role in utilisateur.roles %}
+                {{ role }}
+                {%endfor%}</td>
             </tr>
             <tr>
                 <th>Age</th>

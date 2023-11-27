@@ -5,56 +5,83 @@
 {% block container %}
     <h2 class="text-lg font-medium mr-auto">Liste d'utilisateurs</h1>
     <br>
+    <br>
 
-    <br>
     <a href="{{ path('app_utilisateur_new') }}" class="btn btn-primary shadow-md mr-2">Create new User</a>
-    <br>
-    <br>
+    <a href="{{ path('excel') }}" class="btn btn-primary shadow-md mr-2">Générer Excel  <i class="fa fa-table" aria-hidden="true"></i></a>
+    <a href="{{ path('app_statistique') }}" class="btn btn-primary shadow-md mr-2">Stats</a>
+    <a href="{{ path('app_users_search') }}" class="btn">Search</a>
+    
+
+    <div class="mb-3 mt-5">
+        <strong>Sort by:</strong>
+        <a href="{{ path('app_user_tri', {'criteria': 'username'}) }}">Username</a> |
+        <a href="{{ path('app_user_tri', {'criteria': 'mail'}) }}">Email</a> |
+        <a href="{{ path('app_user_tri', {'criteria': 'age'}) }}">Age</a> 
+    </div>
     <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-    <div class="table-responsive" >
-    <table class="table table-report -mt-2">
-        <thead>
-            <tr>
-                <th class="whitespace-nowrap">IdUser</th>
-                <th class="whitespace-nowrap">Username</th>
-                <th class="whitespace-nowrap">Mail</th>
-                <th class="whitespace-nowrap">Mdp</th>
-                <th class="whitespace-nowrap">Role</th>
-                <th class="whitespace-nowrap">Image</th>
-                <th class="whitespace-nowrap">Age</th>
-                <th class="whitespace-nowrap">Sexe</th>
-                <th class="whitespace-nowrap">Etat</th>
-                <th class="whitespace-nowrap">actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for utilisateur in utilisateurs %}
-            <tr class="intro-x">
-                <td>{{ utilisateur.idUser }}</td>
-                <td>{{ utilisateur.username }}</td>
-                <td>{{ utilisateur.mail }}</td>
-                <td>{{ utilisateur.mdp }}</td>
-                <td>{{ utilisateur.role }}</td>
-                <td>{{ utilisateur.image }}</td>
-                <td>{{ utilisateur.age }}</td>
-                <td>{{ utilisateur.sexe }}</td>
-                <td class="w-40">
-                    <div class="{{ utilisateur.etat ? 'flex items-center justify-center text-success' : 'flex items-center justify-center text-danger' }}">
-                        <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
-                        {{ utilisateur.etat ? 'Yes' : 'No' }}
-                    </div>
-                </td>
-                <td>
-                    <a href="{{ path('app_utilisateur_show', {'idUser': utilisateur.idUser}) }}">show</a>
-                    <a href="{{ path('app_utilisateur_edit', {'idUser': utilisateur.idUser}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="table-responsive">
+            <div class="intro-x mt-8 overflow-x-auto">
+                <table class="table table-report -mt-2">
+                    <thead>
+                        <tr>
+                            <th class="whitespace-nowrap">IdUser</th>
+                            <th class="whitespace-nowrap">Username</th>
+                            <th class="whitespace-nowrap">Email</th>
+                            <th class="whitespace-nowrap">Password</th>
+                            <th class="whitespace-nowrap">Role</th>
+                            <th class="whitespace-nowrap">Age</th>
+                            <th class="whitespace-nowrap">Sexe</th>
+                            <th class="whitespace-nowrap">Etat</th>
+                            <th class="whitespace-nowrap">actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for utilisateur in users %}
+                            <tr class="intro-x">
+                                <td>{{ utilisateur.idUser }}</td>
+                                <td>{{ utilisateur.username }}</td>
+                                <td>{{ utilisateur.mail }}</td>
+                                <td>{{ utilisateur.password }}</td>
+                                <td>
+                                    {% for role in utilisateur.roles %}
+                                        {{ role }}
+                                    {% endfor %}
+                                </td>
+                                <td>{{ utilisateur.age }}</td>
+                                <td>{{ utilisateur.sexe }}</td>
+                                <td class="w-40">
+                                    <div class="{{ utilisateur.etat ? 'flex items-center justify-center text-success' : 'flex items-center justify-center text-danger' }}">
+                                        <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
+                                        {{ utilisateur.etat ? 'Yes' : 'No' }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="{{ path('app_utilisateur_show', {'idUser': utilisateur.idUser}) }}" class="flex items-center text-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="eye" data-lucide="eye" class="lucide lucide-eye w-4 h-4 mr-1">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        Show
+                                    </a>                                    
+                                    <div class="flex mt-4 xl:mt-0">
+                                            <a href="{{ path('app_utilisateur_edit', {'idUser': utilisateur.idUser}) }}" class="flex items-center mr-3"><i data-lucide="check-square" class="w-4 h-4 mr-1"></i>Edit</a>    
+                                        </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="10">no records found</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-3">
+        <div class="pagination">
+            {{ knp_pagination_render(users,'pagination/custom_pagination.html.twig') }}
+        </div>
     </div>
 {% endblock %}

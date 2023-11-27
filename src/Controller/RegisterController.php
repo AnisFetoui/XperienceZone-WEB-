@@ -14,7 +14,7 @@ namespace App\Controller;
     
     class RegisterController extends AbstractController
     {
-        #[Route('/register', name: 'app_register')]
+        #[Route('/registerr', name: 'app_register')]
         public function index(Request $request, EntityManagerInterface $entityManager): Response
         {
             $utilisateur = new Utilisateur();

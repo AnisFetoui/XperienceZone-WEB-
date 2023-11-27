@@ -12,6 +12,9 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN: Head -->
     <head>
         <meta charset="utf-8">
+        {% block head %}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% endblock %}
         <link href="{{asset('assetsAdmin/dist/images/logo.png')}}" rel="shortcut icon">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Tinker admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
@@ -109,7 +112,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                     <div class="ml-2 overflow-hidden">
                                         <div class="flex items-center">
-                                            <a href="javascript:;" class="font-medium truncate mr-5">Keanu Reeves</a> 
+                                        {% if app.user !=null%}
+                                            <a href="javascript:;" class="font-medium truncate mr-5">{{app.user.username}}</a> 
+                                            {% endif %}
                                             <div class="text-xs text-slate-400 ml-auto whitespace-nowrap">05:09 AM</div>
                                         </div>
                                         <div class="w-full truncate text-slate-500 mt-0.5">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem </div>
@@ -201,7 +206,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <hr class="dropdown-divider border-white/[0.08]">
                                 </li>
                                 <li>
-                                    <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
+                                    <a href="{{path('app_logout')}}" class="dropdown-item hover:bg-white/5"> <i data-lucide="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
                                 </li>
                             </ul>
                         </div>

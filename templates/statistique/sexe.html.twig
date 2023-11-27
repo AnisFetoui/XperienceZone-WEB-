@@ -1,0 +1,84 @@
+{% extends 'utilisateur/base.html.twig' %}
+
+{% block title %}Edit Utilisateur{% endblock %}
+
+{% block container %}
+<a href="{{ path('app_utilisateur_index') }}" class="btn btn-primary py-3 px-4 d-block d-xl-inline-block text-right align-top mb-3 mb-xl-0">
+    back to list
+</a>
+<div class="tab-content mt-6">
+    <div class="tab-pane active" id="active-users" role="tabpanel" aria-labelledby="active-users-tab">
+        <div class="text-base 2xl:text-lg justify-center sm:justify-start flex items-center text-slate-600 dark:text-slate-300 leading-3 mt-14 2xl:mt-24">
+            Sexe Stats <i data-lucide="alert-circle" class="tooltip w-5 h-5 ml-1.5 mt-0.5" title="Stats Gender"></i>
+        </div>
+        <div class="relative mt-8">
+            <canvas id="gender-chart"></canvas>
+        </div>
+
+        <div class="text-base 2xl:text-lg justify-center sm:justify-start flex items-center text-slate-600 dark:text-slate-300 leading-3 mt-14 2xl:mt-24">
+            Age Range Stats <i data-lucide="alert-circle" class="tooltip w-5 h-5 ml-1.5 mt-0.5" title="Stats Age"></i>
+        </div>
+        <div class="mt-8">
+            <canvas id="age-range-chart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Use Chart.js to render a pie chart for gender
+    document.addEventListener('DOMContentLoaded', function () {
+        var genderCtx = document.getElementById('gender-chart').getContext('2d');
+        var genderChart = new Chart(genderCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Male', 'Female'],
+                datasets: [{
+                    data: [{{ pourcentageHommes }}, {{ pourcentageFemmes }}],
+                    backgroundColor: ['#3498db', '#e74c3c'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
+    });
+
+    // Use Chart.js to render a bar chart for age ranges
+    document.addEventListener('DOMContentLoaded', function () {
+        var ageRangeCtx = document.getElementById('age-range-chart').getContext('2d');
+        var ageRangeChart = new Chart(ageRangeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Between 0-20', 'Between 20-40', '>=40'],
+                datasets: [{
+                    label: 'Percentage of Users',
+                    data: [{{pourcentageAge20}}, {{pourcentageAge40}}, {{pourcentageAge60}}],
+                    backgroundColor: ['#3498db', '#e74c3c', '#f39c12'],
+                }]
+
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100,
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+
+{% endblock %}

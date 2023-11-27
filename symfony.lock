@@ -38,6 +38,9 @@
             "./migrations/.gitignore"
         ]
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.9.0"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -215,6 +218,9 @@
         "files": [
             "./config/packages/security.yaml"
         ]
+    },
+    "symfony/swiftmailer-bundle": {
+        "version": "v2.3.8"
     },
     "symfony/translation": {
         "version": "5.4",
