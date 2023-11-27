@@ -44,7 +44,8 @@ class Produit
     #[ORM\JoinColumn(nullable: false, name: "Id_categorie", referencedColumnName: "Id_categorie")]
     private ?Categorie $categorie = null;
  
-
+    #[ORM\Column]
+    private ?float $noteProd = null;
    
 
     public function getIdProd(): ?int
@@ -133,6 +134,18 @@ class Produit
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getNoteProd(): ?float
+    {
+        return $this->noteProd;
+    }
+
+    public function setNoteProd(float $noteProd): static
+    {
+        $this->noteProd = $noteProd;
 
         return $this;
     }
