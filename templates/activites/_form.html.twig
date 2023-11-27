@@ -1,13 +1,60 @@
-<style>
-	.error-message {
-		color: red;
-	}
-</style>
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-{{form_row(form.nomAct)}}
-<span class="error_message">{{form_errors(form.nomAct)}}</span>
-{{ form_widget(form) }}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'custom-form'}}) }}
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="form-group">
+			{{ form_row(form.nomAct, {'attr': {'class': 'form-control'}}) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_row(form.organisateur, {'attr': {'class': 'form-control'}}) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_row(form.lieuAct, {'attr': {'class': 'form-control'}}) }}
+		</div>
 
 
-<button class="btn">{{ button_label|default('Save') }}</button>
+	</div>
+
+	<div class="col-md-4">
+
+		<div class="form-group">
+			{{ form_row(form.adresse, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="form-group">
+			{{ form_row(form.placeDiso, {'attr': {'class': 'form-control'}}) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_row(form.prixAct, {'attr': {'class': 'form-control'}}) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_row(form.duree, {'attr': {'class': 'form-control'}}) }}
+		</div>
+
+
+	</div>
+
+	<div class="col-md-4">
+		<div class="form-group">
+			{{ form_row(form.periode, {'attr': {'class': 'form-control'}}) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_row(form.user, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="form-group">
+			{{ form_row(form.images, {'attr': {'class': 'custom-file-input'}}) }}
+		</div>
+	</div>
+</div>
+
+<button class="btn1">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

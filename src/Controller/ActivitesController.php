@@ -4,13 +4,26 @@ namespace App\Controller;
 
 use App\Entity\Activites;
 use App\Form\ActivitesType;
-use App\Repository\ActivitesRepository;
+use App\Entity\Inscription;
+use App\Form\InscriptionType;
 use App\Repository\InscriptionRepository;
+use App\Repository\ActivitesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode;
+
+use Endroid\QrCode\Writer\ValidationException;
 
 #[Route('/activites')]
 class ActivitesController extends AbstractController
@@ -22,6 +35,18 @@ class ActivitesController extends AbstractController
             'activites' => $activitesRepository->findAll(),
         ]);
     }
+
+    #[Route('/name', name: 'app_activites_name', methods: ['GET'])]
+    public function namefind(Request $request,ActivitesRepository $activitesRepository): Response
+    {
+        /*$name = "padle";*/
+        $name = $request->query->get('activityName');
+        $act = $activitesRepository->findBy(['nomAct' => $name]);
+
+    return $this->render('activites/index.html.twig', ['activites' => $act]);
+    }
+
+
     #[Route('/back', name: 'activitesback_index', methods: ['GET'])]
     public function backofficeact(ActivitesRepository $activitesRepository, InscriptionRepository $inscriptionRepository): Response
     {
@@ -65,13 +90,75 @@ class ActivitesController extends AbstractController
         ]);
     }
 
-    #[Route('/{idAct}', name: 'app_activites_show', methods: ['GET'])]
-    public function show(Activites $activite): Response
+
+
+    #[Route('/{idAct}', name: 'app_activites_show', methods: ['GET', 'POST'])]
+    public function show(Activites $activite , Request $request, EntityManagerInterface $entityManager,$idAct): Response
     {
-        return $this->render('activites/show.html.twig', [
+        $isFormSubmitted = false;
+        $inscription = new Inscription();
+        $inscription->setNbrTickes(1);
+        $prix = $activite->getPrixAct();
+        $form = $this->createForm(InscriptionType::class, $inscription);
+        $form->handleRequest($request);
+        $userId=0;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $inscription->setActivite($activite);
+            $inscription -> setUserId(0);
+            $inscription -> setFraitAbonnement(20.00);
+            dump($inscription);
+            $entityManager->persist($inscription);
+            $entityManager->flush();
+            
+            $this->addFlash('success', 'Reservation made successfully');
+
+            return $this->redirectToRoute('app_activites_show', ['idAct' => $idAct], Response::HTTP_SEE_OTHER);
+
+        }
+        return $this->renderForm('activites/show.html.twig', [
             'activite' => $activite,
+            'inscription' => $inscription,
+            'form' => $form,
+            'id'=>$idAct,
+            'prixactivite'=>$prix,
+            'userid'=> $userId,
+            
         ]);
     }
+
+        
+    #[Route('/ticket/{userId}', name: 'ticket', methods: ['GET', 'POST'])]
+    public function showTicket(InscriptionRepository $inscriptionRepository,ActivitesRepository $activitesRepository , $userId): Response
+    {
+        $inscriptions = $inscriptionRepository->findByUserId($userId);
+        return $this->render('inscription/ticket.html.twig', [
+            'inscription' => $inscriptions,
+            
+        ]);
+    }
+    #[Route('/load-ticket-content/{inscriptionId}', name: 'load-ticket-content', methods: ['GET'])]
+public function loadTicketContent(InscriptionRepository $inscriptionRepository, $inscriptionId): Response
+{   $writer = new PngWriter();
+
+    $inscription = $inscriptionRepository->find($inscriptionId);
+    $ticketData = $inscription->getTicketData();
+    $qrCode = new QrCode($ticketData);
+   //$qrCode = new QrCode("heelo world");
+
+  
+    $pngResult = $writer->write($qrCode);
+
+    $qrCodeImage = base64_encode($pngResult->getString());
+
+    
+    return $this->render('inscription/ticket_content.html.twig', [
+        'inscription' => $inscription,
+        'qrCodeImage' => $qrCodeImage,
+    ]);
+}
+
+
 
     #[Route('/{idAct}/edit', name: 'app_activites_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Activites $activite, EntityManagerInterface $entityManager): Response
@@ -80,6 +167,7 @@ class ActivitesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('app_activites_index', [], Response::HTTP_SEE_OTHER);
@@ -101,4 +189,11 @@ class ActivitesController extends AbstractController
 
         return $this->redirectToRoute('app_activites_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+    
+
+
+
 }

@@ -17,6 +17,7 @@
             </tr>
         </thead>
         <tbody>
+        
         {% for reclamation in reclamations %}
             <tr>
                 <td>{{ reclamation.idr }}</td>
@@ -26,7 +27,8 @@
                 <td>{{ reclamation.details }}</td>
                 <td>
                     <a href="{{ path('app_reclamations_show', {'idr': reclamation.idr} ) }}" class="btn">show</a>
-                    <a href="{{ path('app_reclamations_edit', {'idr': reclamation.idr}) }}">edit</a>
+                    <a href="{{ path('app_reclamations_edit', {'idr': reclamation.idr}) }}" class="btn">edit</a>
+                    
                 </td>
             </tr>
         {% else %}
@@ -37,6 +39,6 @@
         </tbody>
     </table>
 
-    
-    <a href="{{ path('app_traitements_index') }}">traitement</a>
+    <a href="{{ path('app_traitements_index') }}" class="btn">traitement</a>
+    <a href="{{ path('app_reclamations_search') }}" class="btn">Search</a>
 {% endblock %}

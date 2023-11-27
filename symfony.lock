@@ -69,6 +69,8 @@
         "files": [
             "./config/packages/nelmio_cors.yaml"
         ]
+    "endroid/qr-code-bundle": {
+        "version": "5.0.1"
     },
     "phpunit/phpunit": {
         "version": "9.6",
