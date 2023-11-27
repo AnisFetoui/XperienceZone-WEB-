@@ -3,23 +3,45 @@
 {% block title %}Panier index{% endblock %}
 
 {% block container %}
+<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
     <h1>Panier index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>IdPanier</th>
                 <th>Total</th>
                 <th>QuantitePanier</th>
+                <th>Produit</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
+        
+        <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+
+   {% for message in app.flashes('mercuryseries_flashy_notification') %}
+    <div class="flashy flashy--success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+
+
         {% for panier in paniers %}
             <tr>
-                <td>{{ panier.idPanier }}</td>
                 <td>{{ panier.total }}</td>
                 <td>{{ panier.quantitePanier }}</td>
+                <td>
+                    {% if panier.produit %}
+                        <img src="{{ asset('uploads/images/' ~ panier.produit.image) }}" alt="{{ panier.produit.nomProd }}" style="max-width: 100px;">
+                        {{ panier.produit.nomProd }}
+                    {% else %}
+                        Aucun produit
+                    {% endif %}
+                    
+                </td>
                 <td>
                     <a href="{{ path('app_panier_show', {'idPanier': panier.idPanier}) }}">show</a>
                     <a href="{{ path('app_panier_edit', {'idPanier': panier.idPanier}) }}">edit</a>
