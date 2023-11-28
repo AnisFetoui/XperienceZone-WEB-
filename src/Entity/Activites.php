@@ -11,7 +11,8 @@ class Activites
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-   #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
+
     private ?int $idAct;
     
     #[Assert\NotBlank(message: "Le nom ne peut pas être vide" )]
@@ -74,6 +75,7 @@ class Activites
     #[ORM\Column]
     private ?int $idUser;
 
+    
     
     #[ORM\OneToOne]
    #[ORM\JoinColumn(nullable: false, name: "id_user", referencedColumnName: "id_user")]
@@ -204,17 +206,7 @@ class Activites
         return $this;
     }
 
-    public function getIdUser(): ?int
-    {
-        return $this->idUser;
-    }
 
-    public function setIdUser(int $idUser): static
-    {
-        $this->idUser = $idUser;
-
-        return $this;
-    }
     public function getUser(): ?Utilisateur
     {
         return $this->user;
@@ -226,5 +218,5 @@ class Activites
  
         return $this;
     }
- 
+
 }

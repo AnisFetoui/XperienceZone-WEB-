@@ -30,6 +30,7 @@ class Evenement
   
   #[Assert\NotBlank(message: "La description de l'événement ne peut pas être vide")]
    #[ORM\Column(length:200)]
+ 
    private ?string $descript=null;
 
    #[ORM\Column(type: Types:: DATETIME_MUTABLE, nullable:true)]

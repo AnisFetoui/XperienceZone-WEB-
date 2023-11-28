@@ -14,6 +14,7 @@
             <div class="bloc2">
             
            
+<<<<<<< HEAD
                 <h2>{{ evenement.nomEvent }}</h2>
                 <div class="desc">
                 <h2> more Details about our Event </h2>
@@ -64,6 +65,48 @@
         <a href="{{ path('app_evenement_edit', {'idEvent': evenement.idEvent}) }}" class="btn btn-primary">Edit your event</a>
           <a href="{{ path('app_evenement_index') }}" class="btn btn-primary">Back to List</a>
    
+=======
+            <tr>
+                <th>NomEvent</th>
+                <td>{{ evenement.nomEvent }}</td>
+            </tr>
+            <tr>
+                <th>Descript</th>
+                <td>{{ evenement.descript }}</td>
+            </tr>
+            <tr>
+                <th>DateEvent</th>
+                <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>HeureEvent</th>
+                <td>{{ evenement.heureEvent }}</td>
+            </tr>
+            <tr>
+                <th>LieuEvent</th>
+                <td>{{ evenement.lieuEvent }}</td>
+            </tr>
+            <tr>
+                <th>NbParticipants</th>
+                <td>{{ evenement.nbParticipants }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                {% if evenement.image %}
+                <img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="event image" style="width: 180px; height: auto;">
+                {% else %}
+                No Image Available 
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Organisateur</th>
+                <td>{{ evenement.organisateur }}</td>
+            </tr>
+        </tbody>
+    </table>
+>>>>>>> f298a121a6cbb3b3d2874b1ea941eed10c309b82
 
    {{ include('evenement/_delete_form.html.twig')  }}
 
