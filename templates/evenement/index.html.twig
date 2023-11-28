@@ -1,31 +1,40 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %} Evenement {% endblock %}
 {% block container %}
 
-  <div class="search-and-create-container">
-        <div class="welcome-hero-search-box">
-        <form action="{{ path('app_search') }}" method="get">
-            <label for="search">Search :</label>
-            <input type="text" id="search" name="query" placeholder="Entrez votre recherche">
-            <button type="submit">Rechercher</button>
-        </form>
-
-
+<div class="search-and-create-container">
+    <div class="welcome-hero-search-box">
+      <form action="{{ path('app_evenement_index') }}" method="get">
+        <label for="searchTerm">search :</label>
+        <input type="text" id="searchTerm" name="searchTerm" placeholder="Entrez votre recherche" value="{{ searchTerm }}">
+        <button type="submit">search</button>
+      </form>
     </div>
 	<a href="{{ path('app_evenement_new') }}" class="btn btn-primary">Create new Event</a>
-
-
+{# Afficher la notification Flash le cas échéant #}
+    {% for flashMessage in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %} 
 {% endblock %}
 
 {% block card %}
+{# Afficher la notification Flash le cas échéant #}
+    {% for flashMessage in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
 	<div class="row">
 		{% for evenement in evenements %}
 			<div class="col-md-4 col-sm-6">
 				<div class="single-explore-item">
 					<div class="single-explore-img">
                          <img
-                          src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="event image" >
+                         src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="event image" >
 						<!-- Other content for events -->
 
 						<div class="single-explore-img-info">
@@ -50,7 +59,6 @@
 								</ul>
 							</div>
 						</div>
-
 					</div>
 					<div class="single-explore-txt bg-theme-1">
 						<h2>
@@ -61,7 +69,6 @@
 							<span class="explore-rating">E</span>
 							<a href="#">
 								{{evenement.lieuEvent }}</a>
-
 							<span class="explore-price-box">
 								Nb participants
 								<span class="explore-price">{{ evenement.nbParticipants }}</span>
@@ -99,11 +106,24 @@
 								</div>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
 			</div>
 		{% endfor %}
 	</div>
+	<div class="pagination">
+    {{ knp_pagination_render(evenements) }}
+</div>
+<style>
+    /* Pagination container */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+	</style>
+	
 {% endblock %}
+
+
+

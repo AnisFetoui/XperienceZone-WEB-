@@ -56,4 +56,7 @@
     </div>
 
     {{ include('ticket/_delete_form.html.twig') }}
+   
+    <a href="{{ path('app_pdf_generator', {'idTicket': ticket.idTicket}) }}" class="btn btn-info">export PDF</a>
+    
 {% endblock %}

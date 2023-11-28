@@ -5,7 +5,8 @@ namespace App\Repository;
 use App\Entity\Evenement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
  * @extends ServiceEntityRepository<Evenement>
  *
@@ -76,5 +77,57 @@ public function findByNomAndLieu($searchQuery)
             ->getQuery()
             ->getResult();
     }
+
+
+
+/*public function countEventsByLocation($wileya)
+    {
+        return $this->createQueryBuilder('e')
+            ->select('e.lieuEvent, COUNT(e.idEvent) as eventCount')
+            ->groupBy('e.lieuEvent')
+            ->getQuery()
+            ->getResult();
+    }*/
+    public function countEventsByLocation()
+    {
+        return $this->createQueryBuilder('e')
+            ->select('e.lieuEvent AS lieuEvent, COUNT(e.idEvent) AS eventCount')
+            ->groupBy('e.lieuEvent')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+  /*  public function findEvenementByString($searchString)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.nomEvent LIKE :search')
+            ->setParameter('search', '%' . $searchString . '%')
+            ->getQuery()
+            ->getResult();
+    }*/
+
+   // EvenementRepository.php
+
+   public function search($searchTerm)
+   {
+       return $this->createQueryBuilder('e')
+           ->where('e.nomEvent LIKE :searchTerm')
+           ->setParameter('searchTerm', '%' . $searchTerm . '%')
+           ->getQuery()
+           ->getResult();
+   }
+   
+   public function searchByTerm($searchTerm)
+   {
+       $queryBuilder = $this->createQueryBuilder('e');
+   
+       if ($searchTerm) {
+           $queryBuilder->andWhere('e.nomEvent LIKE :searchTerm OR e.lieuEvent LIKE :searchTerm')
+               ->setParameter('searchTerm', '%' . $searchTerm . '%');
+       }
+   
+       return $queryBuilder->getQuery();
+   }
 
 }

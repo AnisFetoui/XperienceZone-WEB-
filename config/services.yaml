@@ -4,7 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-
+    twilio_account_sid: 'AC43011fd5642c2860d02bc20c118f8a0c'
+    twilio_auth_token: '3ec51df7ad84f0d181ada240ffeedd4f'
+    twilio_phone_number: '92103963'
 services:
     # default configuration for services in *this* file
     _defaults:

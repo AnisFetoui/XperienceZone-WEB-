@@ -1,4 +1,93 @@
+
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<style>
+    /* Styles du formulaire */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 30%;
+        padding: 7px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 50px;
+        transition: border-color 0.3s, box-shadow 0.3s, width 0.3s; /* Ajout d'une transition pour l'animation */
+    }
+
+    .form-control:focus {
+        border-color:#60941a; /* Couleur de la bordure lorsqu'un champ est en focus */
+        outline: none;
+        box-shadow: 0 0 5px #007bff; /* Ajout d'une ombre lorsqu'un champ est en focus */
+        width: 37%; /* Agrandissement de la largeur du champ lorsqu'il est en focus */
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        background-color: #60941a;
+        color: #fff;
+    }
+
+    .btn-primary {
+        background-color: #60941a;
+    }
+
+    .btn-outline-secondary {
+        background-color: transparent;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+
+    /* Styles pour les erreurs de formulaire */
+    .error {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="form-group">
+    {{ form_label(form.numTicket) }}
+    {{ form_widget(form.numTicket, {'attr': {'class': 'form-control', 'placeholder': 'num ticket'}}) }}
+   
+</div>
+
+<div class="form-group">
+    {{ form_label(form.categorie) }}
+    {{ form_widget(form.categorie, {'attr': {'class': 'form-control', 'placeholder': 'category'}}) }}
+  
+</div>
+
+<div class="form-group">
+    {{ form_label(form.prix) }}
+    {{ form_widget(form.prix, {'attr': {'class': 'form-control', 'placeholder': 'price'}}) }}
+  
+</div>
+<div class="form-group">
+    {{ form_label(form.evenement) }}
+    {{ form_widget(form.evenement, {'attr': {'class': 'form-control', 'placeholder': 'Event time'}}) }}
+   
+</div>
+
+<div class="form-group">
+    {{ form_label(form.user) }}
+    {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+   
+</div>
+
+
+
+
+
+
+
+<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

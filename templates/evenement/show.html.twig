@@ -1,58 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Evenement
+{% block title %}Evenement{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <!--style.css-->
+    <link rel="stylesheet" href="{{ asset('assets/css/stylemini.css' )}}">
 {% endblock %}
 
 {% block container %}
-    <h2>Evenement</h2>
-
-    <table class="table">
-        <tbody>
+    <div class="section">
+        <div class="presentation">
+            <div class="bloc2">
+            
            
-            <tr>
-                <th>NomEvent</th>
-                <td>{{ evenement.nomEvent }}</td>
-            </tr>
-            <tr>
-                <th>Descript</th>
-                <td>{{ evenement.descript }}</td>
-            </tr>
-            <tr>
-                <th>DateEvent</th>
-                <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>HeureEvent</th>
-                <td>{{ evenement.heureEvent }}</td>
-            </tr>
-            <tr>
-                <th>LieuEvent</th>
-                <td>{{ evenement.lieuEvent }}</td>
-            </tr>
-            <tr>
-                <th>NbParticipants</th>
-                <td>{{ evenement.nbParticipants }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>
-                {% if evenement.image %}
-                <img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="event image" style="width: 180px; height: auto;">
-                {% else %}
-                No Image Available 
-                {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Organisateur</th>
-                <td>{{ evenement.organisateur }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <h2>{{ evenement.nomEvent }}</h2>
+                <div class="desc">
+                <h2> more Details about our Event </h2>
+                    <p>{{ evenement.descript }}</p>
+                </div>
+                <div class="image">
+                    {% if evenement.image %}
+                        <img src="{{ asset('uploads/images/' ~ evenement.image )}}" alt="event image" style="width: 350px; height: auto;; margin-left: 80px">
+                    {% else %}
+                        <p>NO IMAGE AVAILABLE FOR THIS EVENT</p>
+                    {% endif %}
+                </div>
+                <div class="bloc">
+                    <div class="b1">
+                        <h4>Date</h4>
+                        <img src="{{ asset('uploads/images/date.png')}}" alt="calendar">
+                        <h4>{{ evenement.dateEvent|date('Y-m-d') }}</h4>
+                    </div>
+                    <div class="b2">
+                        <h4>it starts at</h4>
+                        <h4 >{{ evenement.heureEvent }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rightside">
+            <div class="rightbloc">
+                <div class="org">
+                    <h4>The event is organized by :</h4>
+                    <span>{{ evenement.organisateur }}</span>
+                </div>
+                <div class="place">
+                <div class="container">
+                  <img class="icon"src="{{ asset('uploads/images/loc.png')}}" alt="cal"style="width: 30px; height: 30%;"> 
+                   <h3>It has taken place at :</h3>
+                <span style="font-size:15px;">{{ evenement.lieuEvent }}</span>
+                </div>
+                </div>
+                <div class="part">
+                    <h3> It had :</h3>
+                  <div class="time-container">  <span>{{ evenement.nbParticipants }}</span> <h4>participants</h4></div>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+       
+        <a href="{{ path('app_evenement_edit', {'idEvent': evenement.idEvent}) }}" class="btn btn-primary">Edit your event</a>
+          <a href="{{ path('app_evenement_index') }}" class="btn btn-primary">Back to List</a>
+   
 
-	<a href="{{ path('app_evenement_index') }}">back to list</a>
+   {{ include('evenement/_delete_form.html.twig')  }}
 
-	<a href="{{ path('app_evenement_edit', {'idEvent': evenement.idEvent}) }}">edit</a>
-
-	{{ include('evenement/_delete_form.html.twig') }}
+  
 {% endblock %}
+
+
+{% block explore %}{% endblock %}
+{% block card %}{% endblock %}
