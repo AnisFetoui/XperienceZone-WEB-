@@ -7,10 +7,16 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "api-platform/core": "^2.7",
+        "cmen/google-charts-bundle": "^5.0",
         "doctrine/annotations": "^2.0",
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.16",
+        "dompdf/dompdf": "^2.0",
+        "eckinox/tinymce-bundle": "^0.1.5",
+        "knplabs/knp-paginator-bundle": "^5.9",
+        "nelmio/cors-bundle": "^2.3",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.24",
         "sensio/framework-extra-bundle": "^6.2",
@@ -37,11 +43,17 @@
         "symfony/string": "5.4.*",
         "symfony/translation": "5.4.*",
         "symfony/twig-bundle": "5.4.*",
+        "symfony/ux-chartjs": "^2.13",
         "symfony/validator": "5.4.*",
+        "symfony/var-dumper": "5.4.*",
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
+        "tigitz/php-spellchecker": "^0.6.0",
+        "tinymce/tinymce": "^6.8",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "twilio/sdk": "^7.12",
+        "victor-prdh/recaptcha-bundle": "^1.7"
     },
     "config": {
         "allow-plugins": {
@@ -102,4 +114,6 @@
         "symfony/stopwatch": "5.4.*",
         "symfony/web-profiler-bundle": "5.4.*"
     }
+
+    
 }

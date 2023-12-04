@@ -78,80 +78,88 @@
         }
     </style>
 
-    <div class="overlay" id="overlay"></div>
+ <div class="overlay" id="overlay"></div>
 
-    <div class="explore-items-wrapper">
-        <div class="explore-items">
-            {% for message in messages %}
-                <div class="single-explore-item">
-                    <div class="single-explore-img">
-                        <div class="single-explore-img-info">
-                            <button onclick="window.location.href='#'">best rated</button>
-                            <div class="single-explore-image-icon-box">
-                                <ul>
-                                    <li>
-                                        <div class="single-explore-image-icon">
-                                            <a href="{{ path('app_message_show', {'idMsg': message.idMsg}) }}">
-                                                <i class="fa fa-arrows-alt"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="single-explore-image-icon">
-                                            <i class="fa fa-bookmark-o"></i>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+<div class="explore-items-wrapper">
+    <div class="explore-items">
+        {% for message in messages %}
+            <div class="single-explore-item">
+                <div class="single-explore-img">
+                    <div class="single-explore-img-info">
+                        <button onclick="window.location.href='#'">best rated</button>
+                        <div class="single-explore-image-icon-box">
+                            <ul>
+                                <li>
+                                    <div class="single-explore-image-icon">
+                                        <a href="{{ path('app_message_show', {'idMsg': message.idMsg}) }}">
+                                            <i class="fa fa-arrows-alt"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="single-explore-image-icon">
+                                        <i class="fa fa-bookmark-o"></i>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="single-explore-txt bg-theme-1">
-                        <h2>
-                            <a href="#">{{ message.utilisateur.username }}</a>
-                        </h2>
-                        <div class="message-content">
-                            {% if message.contenuMsg|length < 2 %}
-                                <p>{{ message.contenuMsg }}</p>
-                            {% else %}
-                                <p class="short-content">{{ message.contenuMsg|slice(0, 30) }}...</p>
-                                <a href="#" class="show-more-link" onclick="toggleContent({{ message.idMsg }})">View more</a>
-                                <div id="messageModal{{ message.idMsg }}" class="message-modal">
-                                    <span class="close-btn" onclick="closeContent('{{ message.idMsg }}')">&times;</span>
-                                    <div class="message-container">
-                                        <p>Comment sent on : {{ message.heurEnvoiMsg ? message.heurEnvoiMsg|date('Y-m-d H:i:s') : ''}}</p>
-                                        <p>From:   {{ message.utilisateur.username }}</p>
-                                        <p>Message: {{ message.contenuMsg }}</p>
-                                        <td>
-                                    <a href="{{ path('app_message_edit', {'idMsg': message.idMsg}) }}">edit</a>
-                                      </td>
-                                    </div>
+                </div>
+                <div class="single-explore-txt bg-theme-1">
+                    <h2>
+                        <a href="#">{{ message.utilisateur.username }}</a>
+                    </h2>
+                    <div class="message-content">
+                        {% if message.contenuMsg|length < 2 %}
+                            <p>{{ message.contenuMsg | raw }}</p>
+                        {% else %}
+                            <p class="short-content">{{ message.contenuMsg|raw |slice(0, 30) }}...</p>
+                            <a href="#" class="show-more-link" onclick="toggleContent({{ message.idMsg }})">View more</a>
+                            <div id="messageModal{{ message.idMsg }}" class="message-modal">
+                                <span class="close-btn" onclick="closeContent('{{ message.idMsg }}')">&times;</span>
+                                <div class="message-container">
+                                    <p>Comment sent on: {{ message.heurEnvoiMsg ? message.heurEnvoiMsg|date('Y-m-d H:i:s') : ''}}</p>
+                                    <p>From:   {{ message.utilisateur.username }}</p>
+                                    <p>Message: {{ message.contenuMsg |raw }}</p>
+                                    <td>
+                                        <a href="{{ path('app_message_edit', {'idMsg': message.idMsg}) }}">edit</a>
+                                    </td>
                                 </div>
-                            {% endif %}
-                        </div>
-                        <div class="explore-open-close-part">
-                            <div class="row">
-                                <div class="col-sm-7">
-                                    <div class="explore-map-icon">
-                                        <a href="#">
-                                            <i data-feather="map-pin"></i>
-                                        </a>
-                                        <a href="#">
-                                            <i data-feather="upload"></i>
-                                        </a>
-                                        <a href="#">
-                                            <i data-feather="heart"></i>
-                                        </a>
-
-                                    </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="explore-open-close-part">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="explore-map-icon">
+                                    <a href="#">
+                                        <i data-feather="map-pin"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i data-feather="upload"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i data-feather="heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="comment-buttons">
+                                    <button class="comment-button">Like</button>
+                                    <button class="comment-button">Reply</button>
+                                    <button class="comment-button">Report</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-             {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
+</div>
      <a href="{{ path('app_message_new') }}">Add new</a>
+
+</script>
 
     <script>
         function toggleContent(messageId) {
@@ -170,6 +178,11 @@
             document.body.classList.remove('modal-open');
         }
     </script>
+
+
+
+   {{ knp_pagination_render(messages) }}
+   
 {% endblock %}
 
 

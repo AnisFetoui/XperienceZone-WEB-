@@ -9,13 +9,13 @@
         <tbody>
             <tr>
                 <th>ContenuMsg</th>
-                <td>{{ message.contenuMsg }}</td>
+                <td>{{ message.contenuMsg | raw }}</td>
             </tr>
             <tr>
                 <th>HeurEnvoiMsg</th>
                 <td>{{ message.heurEnvoiMsg ? message.heurEnvoiMsg|date('Y-m-d H:i:s') : ''}}</td>
             </tr>
-         
+           
         </tbody>
     </table>
 
@@ -24,4 +24,6 @@
     <a href="{{ path('app_message_edit', {'idMsg': message.idMsg}) }}">edit</a>
 
     {{ include('message/_delete_form.html.twig') }}
+    
+
 {% endblock %}

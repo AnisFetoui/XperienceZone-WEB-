@@ -45,4 +45,17 @@ class ChannelRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+public function findChannelByNom($nomCh)
+{
+    return $this->createQueryBuilder('c')
+        ->leftJoin('c.evenement', 'e') 
+        ->andWhere('c.nomCh LIKE :nom')
+        ->setParameter('nom', '%' . $nomCh . '%')
+        ->getQuery()
+        ->getResult();
+}
+
+
 }

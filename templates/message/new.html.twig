@@ -1,11 +1,63 @@
+
+
 {% extends 'base.html.twig' %}
 
 {% block title %}New Message{% endblock %}
 
-{% block container  %}
-   <h2> <i>Create New Message</h2>
+{% block container %}
 
-    {{ include('message/_form.html.twig') }}
+<h2><i>Create your New Message</i></h2>
 
-    <a href="{{ path('app_message_index') }}">back to list</a>
+   {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+   {{ form_row(form.contenuMsg,  {'attr': {'class': 'tinymce-editor'}})  }}
+    
+    <button class="btn">{{ button_label|default('Save') }}</button>
+ 
+     <a href="{{ path('app_message_index') }}">Back to List</a>
+{{ form_end(form) }}
+
+ 
+  
+
+<script src="https://cdn.tiny.cloud/1/adgqpc201sqv1tsnpixlr4xanu0tqz8v33s3og9t6is60tgk/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+   
+   <script>
+  tinymce.init({
+    selector: '.tinymce-editor',
+    forced_root_block: false,   
+ 
+  });
+</script>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('app_message_new') }}',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Message enregistré avec succès');
+                        } else {
+                            alert('Erreur côté serveur: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Une erreur s\'est produite lors de l\'envoi de la requête Ajax');
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}
+
+
+

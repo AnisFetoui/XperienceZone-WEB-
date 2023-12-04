@@ -1,5 +1,5 @@
 
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 {% block title %} Channel {% endblock %}
 
 {% block container %}
@@ -23,9 +23,9 @@
 
         <div class="navigation-links">
             <a href="{{ path('app_channel_index') }}">Back to List</a>
+            <a href="{{ path('app_channel_edit', {'idCh': channel.idCh}) }}">Edit</a>
+            {{ include('channel/_delete_form.html.twig') }}
         </div>
-
-        
     </div>
 
     <style>
