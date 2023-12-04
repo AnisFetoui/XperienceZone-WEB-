@@ -10,6 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\EvenementRepository;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Service\TwilioService;
+
+
+
 
 #[Route('/ticket')]
 class TicketController extends AbstractController
@@ -23,17 +31,37 @@ class TicketController extends AbstractController
     }
 
     #[Route('/new', name: 'app_ticket_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, EvenementRepository $evenementRepository,TwilioService $twilioService): Response
     {
         $ticket = new Ticket();
         $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
-
+        $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; // Remplacez par le chemin réel de votre répertoire
         if ($form->isSubmitted() && $form->isValid()) {
+            
+             // Si aucun fichier d'image n'est téléchargé, utiliser l'image de l'événement
+        $idEvent = $form->get('evenement')->getData();
+        $evenement = $evenementRepository->find($idEvent);
+        if (!$evenement) {
+            throw $this->createNotFoundException('Event not found');
+        }
+        $ticket->setImage($evenement->getImage());
+
+        // Associer l'événement au ticket
+        $idEvent = $form->get('evenement')->getData();
+        $evenement = $evenementRepository->find($idEvent);
+        if (!$evenement) {
+            throw $this->createNotFoundException('Event not found');
+        }
+        $ticket->setEvenement($evenement);
+
             $entityManager->persist($ticket);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
+            //$to = '+21692103963'; // Static phone number
+           // $message = 'Hello We are excited to inform you that your ticket for the event has been successfully added.Thank you for choosing our platform! If you have any questions or concerns, feel free to reach out see you there'; // Modify the message as needed
+           // $twilioService->sendSMS($to, $message);
+            $idTicket = $ticket->getIdTicket();
+            return $this->redirectToRoute('app_ticket_show',  ['idTicket' => $idTicket], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('ticket/new.html.twig', [
@@ -59,7 +87,7 @@ class TicketController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('ticket/edit.html.twig', [
@@ -76,6 +104,103 @@ class TicketController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    /*#[Route('/pdf', name: 'ticket_pdf',methods: ['GET'])]
+    public function ticket_pdf(TicketRepository $Repository ): Response
+    {
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+        // Instantiate Dompdf with our options
+        $dompdf =new Dompdf($pdfOptions);
+
+        $ticket = $repository->findAll();
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('ticket/pdf.html.twig', [
+            'ticket' => $ticket,
+        ]);
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("ticket.pdf", ["Attachment" => true]);
+           // Return a Response object instead
+    return new Response();
+    }*/
+
+  /*  #[Route('/pdf', name: 'ticket_pdf', methods: ['GET'])]
+    public function ticket_pdf(Ticket $ticket): Response
+    {
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('ticket/pdf.html.twig', [
+            'ticket' => $ticket,
+        ]);
+        $dompdf->loadHtml($html);
+        
+        $dompdf->setPaper('A4', 'portrait');
+        
+        // Render the HTML as PDF
+        $dompdf->render();
+        
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("ticket.pdf", ["Attachment" => true]);
+        
+        // Return a Response object instead
+        return new Response();
+    }*/
+
+    /*#[Route('/{idTicket}/pdf', name: 'app_ticket_pdf', methods: ['GET'])]
+    public function generatePdf(Ticket $ticket): Response
+    {
+        if (!$ticket) {
+            throw $this->createNotFoundException('Ticket not found');
+        }
+        // Créer une instance de Dompdf
+        $dompdf = new Dompdf();
+    
+        // Options de configuration (optionnelles)
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+    
+        $dompdf->setOptions($options);
+    
+        // Générer le contenu HTML du PDF
+        $html = $this->renderView('ticket/pdf.html.twig', ['ticket' => $ticket]);
+    
+        // Charger le HTML dans Dompdf
+        $dompdf->loadHtml($html);
+    
+        // Rendre le document PDF
+        $dompdf->render();
+    
+        // Générer une réponse avec le contenu PDF
+        $response = new Response($dompdf->output());
+        $response->headers->set('Content-Type', 'application/pdf');
+    
+        // Télécharger le fichier PDF au lieu de l'afficher dans le navigateur (facultatif)
+        //$response->headers->set('Content-Disposition', 'inline; filename="ticket.pdf"');
+    
+        return $response;
+    }
+
+*/
+
+
+
 }

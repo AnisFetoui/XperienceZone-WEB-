@@ -1,0 +1,126 @@
+{% extends 'utilisateur/base.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block container %}
+	{% block css %}
+		<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+	{% endblock %}
+
+	<div class="allgraph">
+		<div class="titre2">
+			<h1>Statistics for Places provided
+			</h1>
+		</div>
+		<div class="grapheplace">
+
+			<div class="chartcontainer">
+
+				<canvas id="pieCanvas" aria-label="chart" role="img"></canvas>
+			</div>
+
+			<div class="chartcontainer1">
+
+				<canvas id="barCanvas" aria-label="chart" role="img"></canvas>
+			</div>
+		</div>
+		<div class="titre2">
+			<h1>Our top orgnisers
+			</h1>
+		</div>
+		<div class="graphorganisateur">
+			<div class="chartcontainer2">
+				<canvas id="barCanvas2" aria-label="chart" role="img"></canvas>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<script>
+		const pieCanvas = document.getElementById("pieCanvas");
+const barCanvas = document.getElementById("barCanvas");
+const barCanvas2 = document.getElementById("barCanvas2");
+
+fetch("{{ path('app_get_activity_count_by_place') }}").then(response => response.json()).then(data => {
+console.log(data);
+
+// Pie Chart
+const pieChart = new Chart(pieCanvas, {
+type: "pie",
+data: {
+labels: Object.keys(data),
+datasets: [
+{
+data: Object.values(data),
+backgroundColor: [
+"crimson", "lightblue", "violet", "lightgreen"
+],
+hoverOffset: 4
+}
+]
+}
+});
+
+// Bar Chart
+const barChart = new Chart(barCanvas, {
+type: "bar",
+data: {
+labels: Object.keys(data),
+datasets: [
+{
+data: Object.values(data),
+backgroundColor: [
+"crimson", "lightblue", "violet", "lightgreen"
+],
+hoverOffset: 4
+}
+]
+},
+options: {
+scales: {
+y: {
+beginAtZero: true,
+suggestedMin: 0,
+suggestedMax: Math.ceil(Math.max(...Object.values(data))) + 1,
+stepSize: 1
+}
+}
+}
+});
+});
+
+fetch("{{ path('app_get_activity_count_by_org') }}").then(response => response.json()).then(data => { // Bar Chart organizer
+const barChart2 = new Chart(barCanvas2, {
+type: "bar",
+data: {
+labels: Object.keys(data),
+datasets: [
+{
+data: Object.values(data),
+backgroundColor: [
+"orange", "lightgreen", "purple", "pink"
+],
+hoverOffset: 4
+}
+]
+},
+options: {
+scales: {
+y: {
+beginAtZero: true,
+suggestedMin: 0,
+suggestedMax: Math.ceil(Math.max(...Object.values(data))) + 1,
+stepSize: 1
+
+}
+},
+plugins: {
+legend: {
+display: true,
+position: 'top', // Adjust the position as needed
+}
+}
+}
+});
+});
+	</script>
+{% endblock %}

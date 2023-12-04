@@ -5,7 +5,7 @@
 {% block container %}
     <style>
         /* Votre style CSS */
-         .suggestion {
+        .suggestion {
             padding: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -44,6 +44,9 @@
                 searchInput.value = selectedSuggestion.textContent;
                 searchInput.focus(); // Focus sur le champ de recherche après la sélection
 
+                // Vider la zone des suggestions après avoir affiché les détails
+                suggestionsDiv.innerHTML = '';
+
                 performSearch(searchInput.value.trim());
             }
         });
@@ -52,8 +55,8 @@
             const searchString = searchInput.value.trim();
 
             if (searchString === '') {
-                suggestionsDiv.innerHTML = ''; // Efface les suggestions si le champ est vide
-                return; // Arrête la fonction pour éviter de faire la recherche vide
+                suggestionsDiv.innerHTML = ''; 
+                return; 
             }
 
             fetch(`/reclamations/search?q=${searchString}`)

@@ -1,25 +1,44 @@
-{% extends 'base.html.twig' %}
 
+{% extends 'base.html.twig' %}
 {% block title %} Channel {% endblock %}
 
 {% block container %}
-    <h1>Channel</h1>
+    <div class="container">
+        <h1>Channel</h1>
 
-    <table class="table">
-    
-
-          
-            <tr>
-                <th>Nom Channel </th>
-                <td>{{ channel.nomCh }}</td>
-                
-            </tr>
+        <table class="table">
+             <tr>
+        <th>Nom Forum</th>
+         <th>Nom Evenement</th>
+        <th>Nombre de Participants</th>
+    </tr>
+     
       
-    </table>
+    <tr>
+        <td>{{ channel.nomCh }}</td>
+        <td>{{ channel.evenement.nomEvent }}</td>
+        <td>{{ channel.evenement.nbParticipants }}</td>
+    </tr>
+</table>
 
-    <a href="{{ path('app_channel_index') }}">back to list</a>
+        <div class="navigation-links">
+            <a href="{{ path('app_channel_index') }}">Back to List</a>
+            <a href="{{ path('app_channel_edit', {'idCh': channel.idCh}) }}">Edit</a>
+            {{ include('channel/_delete_form.html.twig') }}
+        </div>
+    </div>
 
-    <a href="{{ path('app_channel_edit', {'idCh': channel.idCh}) }}">edit channel</a>
+    <style>
+        .container {
+            margin-bottom: 50px; /* Ajoutez la marge inférieure désirée pour déplacer les liens vers le bas */
+        }
 
-    {{ include('channel/_delete_form.html.twig') }}
+        .navigation-links {
+            margin-top: 100px; /* Ajoutez la marge supérieure désirée pour déplacer les liens vers le bas */
+        }
+
+        .navigation-links a {
+            margin-right: 50px; /* Ajoutez une marge entre les liens si nécessaire */
+        }
+    </style>
 {% endblock %}

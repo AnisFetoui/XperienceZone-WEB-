@@ -28,9 +28,6 @@ class Message extends AbstractController
     private ?string $contenuMsg = null;
 
    
-    
-    
-   
    #[ORM\Column(name: "heurEnvoiMsg")] 
    private ?\DateTime $heurEnvoiMsg = null;
 

@@ -3,7 +3,22 @@
 {% block title %}Traitements index{% endblock %}
 
 {% block container %}
+<style>
+
+        .tri {
+            color:blue;
+        }
+    </style>
     <h1>Traitements index</h1>
+     <strong>Sort by:</strong>
+<a href="{{ path('app_traitements_index', {'criteria': 'idt'}) }}" class="tri"> ID</a> |
+<a href="{{ path('app_traitements_index', {'criteria': 'refobj'}) }}" class="tri"> Reference</a> |
+<a href="{{ path('app_traitements_index', {'criteria': 'dater'}) }}" class="tri"> Date</a> |
+<a href="{{ path('app_traitements_index', {'criteria': 'typer'}) }}" class="tri"> Type</a> |
+<a href="{{ path('app_traitements_index', {'criteria': 'resume'}) }}" class="tri"> Resume</a> |
+<a href="{{ path('app_traitements_index', {'criteria': 'stat'}) }}" class="tri"> Status</a>
+
+
 
     <table class="table">
         <thead>
@@ -29,8 +44,8 @@
                 <td>{{ traitement.resume }}</td>
                 <td>{{ traitement.stat }}</td>
                 <td>
-                    <a href="{{ path('app_traitements_show', {'idt': traitement.idt}) }}">show</a>
-                    <a href="{{ path('app_traitements_edit', {'idt': traitement.idt}) }}">edit</a>
+                    <a href="{{ path('app_traitements_show', {'idt': traitement.idt}) }}" class="btn">show</a>
+                    <a href="{{ path('app_traitements_edit', {'idt': traitement.idt}) }}" class="btn">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -40,10 +55,15 @@
         {% endfor %}
         </tbody>
     </table>
-    <table >
-    <tr>
-    <a href="{{ path('app_traitements_new') }}">Create new</a></tr>
-    <tr>
-    <a href="{{ path('app_reclamations_index') }}">back </a></tr>
-    </table>
+    <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-3">
+        <div class="pagination">
+            {{ knp_pagination_render(traitements,'traitements/custom_pagination.html.twig') }}
+        </div>
+    </div>
+    
+    <a href="{{ path('app_traitements_new') }}" class="btn">Create new</a></tr>
+    <a href="{{ path('app_traitements_search') }}" class="btn">Search</a>
+    <a href="{{ path('app_traitements_stats') }}" class="btn">Statistiques </a>
+    <a href="{{ path('app_reclamations_index') }}" class="btn">back </a>
+   <a  href="{{ path('excelt') }}" class="btn btn-primary m-2" style="display:block ; margin-bottom: 2.5em; background-color: #00A8B3;">Générer Excel  <i aria-hidden="true"></i></a>
 {% endblock %}

@@ -3,7 +3,21 @@
 {% block title %}Reclamations index{% endblock %}
 
 {% block container %}
+
+    <style>
+
+        .tri {
+            color:blue;
+        }
+    </style>
     <h1>Reclamations index</h1>
+    <strong>Sort by:</strong>
+<a href="{{ path('app_reclamations_index', {'criteria': 'idr'}) }}" class="tri"> ID</a> |
+<a href="{{ path('app_reclamations_index', {'criteria': 'daterec'}) }}" class="tri"> Date</a> |
+<a href="{{ path('app_reclamations_index', {'criteria': 'typerec'}) }}" class="tri"> Type</a> |
+<a href="{{ path('app_reclamations_index', {'criteria': 'refobject'}) }}" class="tri"> Référence</a> |
+<a href="{{ path('app_reclamations_index', {'criteria': 'details'}) }}" class="tri"> Détails</a>
+
 
     <table class="table">
         <thead>
@@ -39,6 +53,14 @@
         </tbody>
     </table>
 
+    <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-3">
+        <div class="pagination">
+            {{ knp_pagination_render(reclamations,'reclamations/custom_pagination.html.twig') }}
+        </div>
+    </div>
+  
     <a href="{{ path('app_traitements_index') }}" class="btn">traitement</a>
     <a href="{{ path('app_reclamations_search') }}" class="btn">Search</a>
+    <a href="{{ path('app_reclamations_stat') }}" class="btn">Statistiques </a>
+    <a  href="{{ path('excel') }}" class="btn btn-primary m-2" style="display:block ; margin-bottom: 2.5em; background-color: #00A8B3;">Générer Excel  <i aria-hidden="true"></i></a>
 {% endblock %}

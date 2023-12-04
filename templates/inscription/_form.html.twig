@@ -3,10 +3,38 @@
 <div class="inscription-form">
 	{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 	{{ form_label(form.nbrTickes) }}
-	{{ form_widget(form.nbrTickes, {'attr': {'class': 'form-control'}}) }}
+	{{ form_widget(form.nbrTickes, {'attr': {'class': 'form-control','id': 'inscription_nbrTickes'}}) }}
 	{{ form_errors(form.nbrTickes) }}
-	<label>prix totale =
-		{{prixactivite}}</label>
-
+	<label id="prixLabel">Total Price =
+		{{prixactivite}}
+		DT</label>
 	<button class="btn">{{ button_label|default('abonner') }}</button>
-	{{ form_end(form) }}</div>
+	{{ form_end(form) }}
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+
+	$(document).ready(function () {
+var prixActivite = {{ prixactivite }};
+console.log('prix dact :', prixActivite);
+document.getElementById('inscription_nbrTickes').addEventListener('input', function () {
+console.log('prix dactivite :', prixActivite);
+
+updatePriceLabel();
+});
+
+function updatePriceLabel() {
+var nbrTickets = parseInt($('#inscription_nbrTickes').val(), 10);
+console.log(nbrTickets);
+if (isNaN(nbrTickets)) {
+console.log('Invalid number entered!');
+return;
+}
+
+var totalPrice = nbrTickets * prixActivite;
+$('#prixLabel').text('Total Price = ' + totalPrice + 'Dt');
+}
+});
+</script>

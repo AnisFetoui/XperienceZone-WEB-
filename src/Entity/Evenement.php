@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EvenementRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass:EvenementRepository::class)]
 class Evenement
@@ -14,16 +15,22 @@ class Evenement
    #[ORM\Column]
    private ?int $idEvent=null;
 
+
+
+
+
+   #[Assert\NotBlank(message: "Le nom de l'événement ne peut pas être vide")]
+   #[Assert\Length(
+     max: 255,
+     maxMessage: 'Le nom de l\'événement ne peut pas dépasser {{ limit }} caractères.'
+ )]
    #[ORM\Column(length:150)]
   private ?string $nomEvent=null;
-  #[Assert\NotBlank(message: "Le nom de l'événement ne peut pas être vide")]
-  #[Assert\Length(
-    max: 255,
-    maxMessage: 'Le nom de l\'événement ne peut pas dépasser {{ limit }} caractères.'
-)]
+ 
   
   #[Assert\NotBlank(message: "La description de l'événement ne peut pas être vide")]
    #[ORM\Column(length:200)]
+ 
    private ?string $descript=null;
 
    #[ORM\Column(type: Types:: DATETIME_MUTABLE, nullable:true)]

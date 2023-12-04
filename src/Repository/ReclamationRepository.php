@@ -55,4 +55,39 @@ public function findReclamationsByString($searchString)
         ->getQuery()
         ->getResult();
 }
+
+public function getCountByType(): array
+{
+    return $this->createQueryBuilder('r')
+        ->select('r.typerec, COUNT(r.idr) as count')
+        ->groupBy('r.typerec')
+        ->getQuery()
+        ->getResult();
+}
+
+public function getCountByTypeAndMonth(): array
+{
+    $reclamations = $this->createQueryBuilder('r')
+        ->select('r.typerec, r.daterec')
+        ->andWhere('r.daterec BETWEEN :start AND :end')
+        ->setParameter('start', new \DateTime('2023-01-01')) // Date de début pour l'année 2023
+        ->setParameter('end', new \DateTime('2023-12-31')) // Date de fin pour l'année 2023
+        ->getQuery()
+        ->getResult();
+
+    $stats = [];
+    foreach ($reclamations as $reclamation) {
+        $month = $reclamation['daterec']->format('n'); // Extraction du mois (1 à 12)
+        $type = $reclamation['typerec'];
+
+        $stats[] = [
+            'typerec' => $type,
+            'mois' => $month
+        ];
+    }
+
+    return $stats;
+}
+
+
 }

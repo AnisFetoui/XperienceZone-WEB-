@@ -141,9 +141,9 @@ class Inscription
     public function getTicketData(): string
     {
         
-        $data = 'Inscription ID: ' . $this->Id_ins . ', Price: ' . $this->fraitAbonnement . ',activity:' . $this->activite->getNomAct()
+        $data = 'Inscription ID: ' . $this->Id_ins . '| Total Price: ' . $this->fraitAbonnement . ' |activity:' . $this->activite->getNomAct()
         
-        . ',availablity:' . $this->activite->getDuree(). ',activity:' . $this->activite->getAdresse()
+        . ' |availablity:' . $this->activite->getDuree(). ' |Adress:' . $this->activite->getAdresse()
         ;
 
        
