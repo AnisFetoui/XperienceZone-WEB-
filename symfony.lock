@@ -82,19 +82,14 @@
             "./config/packages/nelmio_cors.yaml"
         ]
     },
-<<<<<<< HEAD
     "endroid/qr-code-bundle": {
         "version": "5.0.1"
-=======
     "eckinox/tinymce-bundle": {
         "version": "v0.1.5"
->>>>>>> f298a121a6cbb3b3d2874b1ea941eed10c309b82
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
     },
-<<<<<<< HEAD
-=======
     "nelmio/cors-bundle": {
         "version": "2.3",
         "recipe": {
@@ -139,7 +134,6 @@
     "endroid/qr-code-bundle": {
         "version": "5.0.1"
     },
->>>>>>> f298a121a6cbb3b3d2874b1ea941eed10c309b82
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
