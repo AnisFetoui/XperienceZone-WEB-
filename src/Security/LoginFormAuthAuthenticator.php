@@ -33,7 +33,6 @@ class LoginFormAuthAuthenticator extends AbstractLoginFormAuthenticator implemen
     }
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        // Customize the behavior when authentication fails
         $errorMessage = $exception->getMessage();
         $url = $this->urlGenerator->generate('app_login', ['error' => $errorMessage]);
 
@@ -61,14 +60,13 @@ class LoginFormAuthAuthenticator extends AbstractLoginFormAuthenticator implemen
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-        if (in_array('ADMIN', $user->getRoles(), true)) {
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_utilisateur_index'));
         }
         
     
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
-        // Redirect to the home route if no target path is set
-      //  return new RedirectResponse($this->urlGenerator->generate('home'));
+     
     }
 
     protected function getLoginUrl(Request $request): string

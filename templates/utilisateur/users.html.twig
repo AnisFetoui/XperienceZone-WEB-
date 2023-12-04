@@ -1,0 +1,69 @@
+{% extends 'utilisateur/base.html.twig' %}
+
+{% block title %}Utilisateur ffff{% endblock %}
+
+{% block container %}
+    <h2 class="text-lg font-medium mr-auto">Liste d'utilisateurs</h1>
+    <br>
+
+    <br>
+    <a href="{{ path('app_utilisateur_new') }}" class="btn btn-primary shadow-md mr-2">Create new User</a>
+    <a  href="{{ path('excel') }}" class="btn btn-primary shadow-md mr-2">Générer Excel  <i class="fa fa-table" aria-hidden="true"></i></a>
+    <br>
+    <br>
+    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+    <div class="table-responsive" >
+    <div class="intro-x mt-8 overflow-x-auto">
+    <table class="table table-report -mt-2">
+        <thead>
+            <tr>
+                <th class="whitespace-nowrap">IdUser</th>
+                <th class="whitespace-nowrap">Username</th>
+                <th class="whitespace-nowrap">Mail</th>
+                <th class="whitespace-nowrap">Password</th>
+                <th class="whitespace-nowrap">Role</th>
+                <th class="whitespace-nowrap">Age</th>
+                <th class="whitespace-nowrap">Sexe</th>
+                <th class="whitespace-nowrap">Etat</th>
+                <th class="whitespace-nowrap">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in users %}
+            <tr class="intro-x">
+                <td>{{ utilisateur.idUser }}</td>
+                <td>{{ utilisateur.username }}</td>
+                <td>{{ utilisateur.mail }}</td>
+                <td>{{ utilisateur.password }}</td>
+                <td>{% for role in utilisateur.roles %}
+                {{ role }}
+                {%endfor%}</td>
+                <td>{{ utilisateur.age }}</td>
+                <td>{{ utilisateur.sexe }}</td>
+                <td class="w-40">
+                    <div class="{{ utilisateur.etat ? 'flex items-center justify-center text-success' : 'flex items-center justify-center text-danger' }}">
+                        <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
+                        {{ utilisateur.etat ? 'Yes' : 'No' }}
+                    </div>
+                </td>
+                <td>
+                    <a href="{{ path('app_utilisateur_show', {'idUser': utilisateur.idUser}) }}">show</a>
+                    <a href="{{ path('app_utilisateur_edit', {'idUser': utilisateur.idUser}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-3">
+    <div class="pagination">
+        {{ knp_pagination_render(users,'pagination/custom_pagination.html.twig') }}
+    </div>
+    </div>
+{% endblock %}

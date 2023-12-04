@@ -7,10 +7,10 @@
     <br>
     <br>
 
-    <a href="{{ path('app_utilisateur_new') }}" class="btn btn-primary shadow-md mr-2">Create new User</a>
+   
     <a href="{{ path('excel') }}" class="btn btn-primary shadow-md mr-2">Générer Excel  <i class="fa fa-table" aria-hidden="true"></i></a>
     <a href="{{ path('app_statistique') }}" class="btn btn-primary shadow-md mr-2">Stats</a>
-    <a href="{{ path('app_users_search') }}" class="btn">Search</a>
+    <a href="{{ path('app_users_search') }}" class="btn btn-primary shadow-md mr-2">Search</a>
     
 
     <div class="mb-3 mt-5">
@@ -67,6 +67,11 @@
                                     <div class="flex mt-4 xl:mt-0">
                                             <a href="{{ path('app_utilisateur_edit', {'idUser': utilisateur.idUser}) }}" class="flex items-center mr-3"><i data-lucide="check-square" class="w-4 h-4 mr-1"></i>Edit</a>    
                                         </div>
+                                    <div class="flex mt-4 xl:mt-0">
+
+<button class="btn btn-primary shadow-md mr-2" onclick="window.location.href='{{ path('load_user_content', {'iduser': utilisateur.idUser}) }}'">QR Code </button>
+                                        </div>
+
                                 </td>
                             </tr>
                         {% else %}

@@ -2,6 +2,8 @@
 <html class="no-js" lang="en">
 
 	<head>
+	               
+
 		<!-- meta data -->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +13,7 @@
 		{% block title %}
 			<title>Directory Landing Page</title>
 		{% endblock %}
+		 
 		<!--font-family-->
 		{% block css %}
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-kpWBOvK74S4ltoRO5ekQ6LI+8IvGd2cEzG0/f6BcPwHpdIjheRo1LJ2RGtHU93jyMaWyg3dbuK3eKrjG9RWdVg==" crossorigin="anonymous"/>
@@ -92,7 +95,7 @@
 						<ul>
 							
 							<li class="header-top-contact">
-								<a href="#">Profile</a>
+								<a href="{{path('app_ProfileClient', {'idUser': app.user.idUser})}}">Profile</a>
 							</li>
 							<li class="header-top-contact">
 								<a href="{{path('app_logout')}}">Logout</a>
@@ -120,8 +123,13 @@
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 								<i class="fa fa-bars"></i>
 							</button>
-							<a class="navbar-brand" href="index.html">Xperience<span>Zone</span>
-							</a>
+							
+							<div class="d-flex align-items-center">
+							 <a href="https://www.facebook.com/profile.php?id=61553926414737&is_tour_dismissed=true">
+							 <img src="{{asset('assets/logo/capture.png')}}" alt="Code QR" style="width: 50px; margin-right: 10px;"></a>
+    						<a class="navbar-brand" href="index.html">Xperience<span>Zone</span></a>
+    
+							</div>
 
 						</div>
 						<!--/.navbar-header-->
@@ -173,6 +181,7 @@
 		<!-- top-area End -->
 
 		<!--welcome-hero start -->
+		{% block anis %}
 			{% block container %}
 				<section id="home" class="welcome-hero"> <div class="container">
 					
@@ -398,6 +407,7 @@
 			</footer>
 			<!--/.footer-->
 			<!--footer end-->
+			{% endblock %}
 			{% block js %}
 				<!-- Include all js compiled plugins (below), or include individual files as needed -->
 

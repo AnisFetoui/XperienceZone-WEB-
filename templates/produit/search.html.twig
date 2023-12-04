@@ -1,6 +1,6 @@
 {% extends 'utilisateur/base.html.twig' %}
 
-{% block title %}Search Users{% endblock %}
+{% block title %}Search{% endblock %}
 
 {% block container %}
     <style>
@@ -16,38 +16,33 @@
         }
     </style>
 
-    <h1>Search Users</h1>
-<div style="display: flex; align-items: center;">
+    <h1>Search Produits</h1>
+
     <form id="searchForm">
-                        <div class="search hidden sm:block">
-        <input type="text" class="search__input form-control border-transparent" id="searchInput" placeholder="Search for a user...">
-                            <i data-lucide="search" class="search__icon dark:text-slate-500"></i> 
-                        </div>
+        <input type="text" id="searchInput" placeholder="Rechercher un Produit...">
     </form>
-    <a href="{{ path('app_utilisateur_index') }}" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">back to list</a>
-</div>
 
     <div id="suggestions"></div>
-    <div id="userDetails"></div>
+    <div id="nomProd"></div>
 
     <script>
         const searchInput = document.getElementById('searchInput');
         const suggestionsDiv = document.getElementById('suggestions');
-        const userDetailsDiv = document.getElementById('userDetails');
+        const nomProdDiv = document.getElementById('nomProd');
 
         suggestionsDiv.addEventListener('click', function(event) {
             if (event.target && event.target.nodeName === 'DIV') {
                 const selectedSuggestion = event.target;
-                const userId = selectedSuggestion.dataset.userId;
+                const idProd = selectedSuggestion.dataset.idProd;
 
-                fetch(`/utilisateur/details/${userId}`)
+                fetch(`/produits/details/${idProd}`)
                     .then(response => response.text())
                     .then(detailsHtml => {
-                        userDetailsDiv.innerHTML = detailsHtml;
+                        nomProdDiv.innerHTML = detailsHtml;
                     });
 
                 searchInput.value = selectedSuggestion.textContent;
-                searchInput.focus(); // Focus on the search input after selection
+                searchInput.focus(); // Focus sur le champ de recherche après la sélection
 
                 performSearch(searchInput.value.trim());
             }
@@ -57,19 +52,19 @@
             const searchString = searchInput.value.trim();
 
             if (searchString === '') {
-                suggestionsDiv.innerHTML = ''; // Clear suggestions if the input is empty
-                return; // Stop the function to avoid empty searches
+                suggestionsDiv.innerHTML = ''; // Efface les suggestions si le champ est vide
+                return; // Arrête la fonction pour éviter de faire la recherche vide
             }
 
-            fetch(`/utilisateur/search?q=${searchString}`)
+            fetch(`/produits/search?q=${searchString}`)
                 .then(response => response.json())
                 .then(data => {
                     suggestionsDiv.innerHTML = '';
-                    data.users.forEach(user => {
+                    data.produits.forEach(produit => {
                         const suggestion = document.createElement('div');
-                        suggestion.textContent = user.username;
+                        suggestion.textContent = produit.nomProd;
                         suggestion.classList.add('suggestion');
-                        suggestion.dataset.userId = user.idUser;
+                        suggestion.dataset.idProd = produit.idProd;
 
                         suggestionsDiv.appendChild(suggestion);
                     });
@@ -77,13 +72,13 @@
         });
 
         function performSearch(searchString) {
-            fetch(`/utilisateur/search?q=${searchString}`)
+            fetch(`/produits/search?q=${searchString}`)
                 .then(response => response.json())
                 .then(data => {
-                    // Logic to handle the search response
+                    // Logique pour gérer la réponse de la recherche
                     // ...
 
-                    // For example, display the data in the console
+                    // Pour l'exemple, affichage des données dans la console
                     console.log(data);
                 });
         }

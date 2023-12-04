@@ -29,11 +29,12 @@ class Panier
 
     #[ORM\ManyToOne]
    #[ORM\JoinColumn(nullable: false, name: "id_user", referencedColumnName: "id_user")]
-    private ?Utilisateur $utilisateur = null;
+    private ?Userr $utilisateur = null;
 
     #[ORM\ManyToOne]
    #[ORM\JoinColumn(nullable: false, name: "id_prod", referencedColumnName: "id_prod")]
     private ?Produit $produit = null;
+
 
     public function getIdPanier(): ?int
     {
@@ -64,12 +65,12 @@ class Panier
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getUtilisateur(): ?Userr
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): static
+    public function setUtilisateur(?Userr $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
 
@@ -87,4 +88,6 @@ class Panier
 
         return $this;
     }
+
+   
 }

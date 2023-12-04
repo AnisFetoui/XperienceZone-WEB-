@@ -30,7 +30,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $email = $form->get('mail')->getData(); // Assuming 'email' is the name of your email field in the form
+            $email = $form->get('mail')->getData();
 
             $userA = $userRepository->findOneBy(['mail' => $email]);
     
@@ -38,14 +38,11 @@ class RegistrationController extends AbstractController
                 $form->get('mail')->addError(new FormError('Cette adresse existe déjà.'));
 
             }else{
-            // Encode the new users password
+                
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
 
-            // Set their role
-            $user->setRoles(['CLIENT']);
-            $user->setResetToken("anis");
+            $user->setRoles(['ROLE_CLIENT']);
 
-            // Save
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

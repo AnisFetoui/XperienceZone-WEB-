@@ -118,7 +118,7 @@ public function findAllSortedBy(string $criteria): array
 public function findUsersByString($searchString)
 {
     return $this->createQueryBuilder('u')
-        ->where('u.username LIKE :search')
+        ->where('u.mail LIKE :search')
         ->setParameter('search', '%' . $searchString . '%')
         ->getQuery()
         ->getResult();

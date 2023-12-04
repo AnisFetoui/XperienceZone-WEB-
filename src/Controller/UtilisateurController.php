@@ -6,6 +6,8 @@ namespace App\Controller;
     use App\Entity\Userr;
     use App\Form\UtilisateurType;
     use App\Form\UserrType;
+    use App\Form\UserModifType;
+    use App\Form\UserProfileType;
     use Knp\Component\Pager\PaginatorInterface;
     use App\Repository\UserrRepository;
     use Doctrine\ORM\EntityManagerInterface;
@@ -18,6 +20,8 @@ namespace App\Controller;
     use Symfony\Component\HttpFoundation\BinaryFileResponse;
     use App\Form\SortingFormType;
     use Symfony\Component\HttpFoundation\JsonResponse;
+    use Endroid\QrCode\Writer\PngWriter;
+    use Endroid\QrCode\QrCode;
 
 
     #[Route('/utilisateur')]
@@ -41,10 +45,41 @@ namespace App\Controller;
     
             return $this->render('utilisateur/index.html.twig', [
                 'users' => $pagination,
-              /*  'searchForm' => $searchForm->createView(),*/
             ]);
         }
+        #[Route('/search', name: 'user_search', methods: ['GET'])]
+public function search(Request $request, UserrRepository $userRepository): JsonResponse
+{
+    $searchString = $request->query->get('q');
+    $users = $userRepository->findUsersByString($searchString);
 
+    $userDetails = [];
+    foreach ($users as $user) {
+        $userDetails[] = [
+            'idUser' => $user->getIdUser(),
+            'username' => $user->getMail(),
+        ];
+    }
+
+    return new JsonResponse(['users' => $userDetails]);
+}
+
+        #[Route('/searchAnis', name: 'app_users_search')]
+        public function searchPage(): Response
+        {
+            return $this->render('utilisateur/search.html.twig');
+        }
+        #[Route('/details/{idr}', name: 'app_serachAnis_details', methods: ['GET'])]
+        public function details(string $idr, UserrRepository $UserRepository): Response
+        {
+            $user = $UserRepository->find($idr);
+        
+            return $this->render('utilisateur/detailSearch.html.twig', [
+                'user' => $user,
+            ]);
+        }
+        
+        
         #[Route('/generateExcel', name: 'excel')]
         public function generateExcel(UserrRepository $evepo): BinaryFileResponse
 {
@@ -56,20 +91,20 @@ namespace App\Controller;
     $sheet->setCellValue('C1', 'Mail');
     $sheet->setCellValue('D1', 'Password');
    // $sheet->setCellValue('E1', 'role');
-    $sheet->setCellValue('F1', 'age');
-    $sheet->setCellValue('G1', 'sexe');
-    $sheet->setCellValue('H1', 'etat');
+    $sheet->setCellValue('E1', 'age');
+    $sheet->setCellValue('F1', 'sexe');
+    $sheet->setCellValue('G1', 'etat');
 
-    $sn = 1;
+    $sn = 2;
     foreach ($evenements as $p) {
         $sheet->setCellValue('A' . $sn, $p->getIdUser());
         $sheet->setCellValue('B' . $sn, $p->getUsername());
         $sheet->setCellValue('C' . $sn, $p->getMail());
         $sheet->setCellValue('D' . $sn, $p->getPassword());
     //    $sheet->setCellValue('A' . $sn, $p->getRoles());
-        $sheet->setCellValue('B' . $sn, $p->getAge());
-        $sheet->setCellValue('C' . $sn, $p->getSexe());
-        $sheet->setCellValue('D' . $sn, $p->isEtat());
+        $sheet->setCellValue('E' . $sn, $p->getAge());
+        $sheet->setCellValue('F' . $sn, $p->getSexe());
+        $sheet->setCellValue('G' . $sn, $p->isEtat());
 
         $sn++;
     }
@@ -97,7 +132,7 @@ namespace App\Controller;
 
         if ($form->isSubmitted() && $form->isValid()) {
             $utilisateur->setRoles(['CLIENT']);
-            $utilisateur->setResetToken("anis");
+          //  $utilisateur->setResetToken("anis");
             $entityManager->persist($utilisateur);
             $entityManager->flush();
 
@@ -110,12 +145,7 @@ namespace App\Controller;
         ]);
     }
 
-    #[Route('/search', name: 'app_users_search')]
-    public function searchPage(): Response
-    {
-        return $this->render('utilisateur/search.html.twig');
-    }
-    
+   
     #[Route('/{idUser}', name: 'app_utilisateur_show', methods: ['GET'])]
     public function show(Userr $utilisateur): Response
     {
@@ -124,10 +154,28 @@ namespace App\Controller;
         ]);
     }
 
+    #[Route('/{idUser}/editProfileA', name: 'app_ProfileAdmin', methods: ['GET', 'POST'])]
+    public function ProfileAdmin(Request $request, Userr $utilisateur, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(UserProfileType::class, $utilisateur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('utilisateur/ProfileAdmin.html.twig', [
+            'utilisateur' => $utilisateur,
+            'form' => $form,
+        ]);
+    }
+
+    
     #[Route('/{idUser}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Userr $utilisateur, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UserrType::class, $utilisateur);
+        $form = $this->createForm(UserModifType::class, $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -172,52 +220,25 @@ namespace App\Controller;
         ]);
     }
 
-   /* public function yourAction(Request $request, UserrRepository $userRepository): Response
-    {
-        $form = $this->createForm(SortingFormType::class);
-        $form->handleRequest($request);
 
-        $sortOption = $form->get('sortOption')->getData() ?? 'default';
+#[Route('/load-user-content/{iduser}', name: 'load_user_content', methods: ['GET'])]
+public function loadUserContent(UserrRepository $userRepository, $iduser): Response
+{   
+    $writer = new PngWriter();
 
-        switch ($sortOption) {
-            case 'username':
-                $users = $userRepository->findBy([], ['username' => 'ASC']);
-                break;
-            case 'age':
-                $users = $userRepository->findBy([], ['age' => 'ASC']);
-                break;
-            case 'mail':
-                $users = $userRepository->findBy([], ['mail' => 'ASC']);
-                break;
-            default:
-                $users = $userRepository->findAll();
-                break;
-        }
+    $user = $userRepository->find($iduser);
+    $userData = $user->getUserDataForQrCode();
+    $qrCode = new QrCode($userData);
 
-        return $this->render('utilisateur/tri.html.twig', [
-            'form' => $form->createView(),
-            'users' => $users,
-        ]);
-    }
-*/
+    $pngResult = $writer->write($qrCode);
+    $qrCodeImage = base64_encode($pngResult->getString());
 
-#[Route('/usersearch', name: 'user_search', methods: ['GET'])]
-public function search(Request $request, UserrRepository $userRepository): JsonResponse
-{
-    $searchString = $request->query->get('q');
-    $users = $userRepository->findUsersByString($searchString);
-
-    $userDetails = [];
-    foreach ($users as $user) {
-        $userDetails[] = [
-            'idUser' => $user->getIdUser(),
-            'username' => $user->getUsername(),
-            // Add other user details if necessary
-        ];
-    }
-
-    return new JsonResponse(['users' => $userDetails]);
+    return $this->render('utilisateur/qr.html.twig', [  
+        'user'        => $user,
+        'qrCodeImage' => $qrCodeImage,
+    ]);
 }
+
 
 
 }

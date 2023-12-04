@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 class UserrType extends AbstractType
@@ -34,13 +35,28 @@ class UserrType extends AbstractType
             'type' => PasswordType::class,
             'first_options' => [
                 'label' => 'Password',
-                'attr' => ['class' => 'search__input form-control border-transparent', 
-                'placeholder' => 'Password'],
+                'attr' => [
+                    'class' => 'search__input form-control border-transparent',
+                    'placeholder' => 'Password',
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'Le champ "Mot de passe" ne peut pas être vide.']),
+                    new Assert\Length([
+                        'min' => 6,
+                        'minMessage' => 'Le mot de passe doit avoir au moins {{ limit }} caractères.',
+                    ]),
+                    new Assert\Regex([
+                        'pattern' => '/^[0-9a-zA-Z]*$/',
+                        'message' => 'Le mot de passe doit contenir uniquement des chiffres et des lettres.',
+                    ]),
+                ],
             ],
             'second_options' => [
                 'label' => 'Confirm Password',
-                'attr' => ['class' => 'search__input form-control border-transparent', 
-                'placeholder' => 'Confirm Password'],
+                'attr' => [
+                    'class' => 'search__input form-control border-transparent',
+                    'placeholder' => 'Confirm Password',
+                ],
             ],
         ])
             ->add('age', null, [

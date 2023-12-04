@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+			<title style="color: #000000;">Profile {{app.user.username}}</title>
+		{% endblock %}
+{% block anis %}
+<style>
+   .msform {
+    width: 400px;
+    margin: 50px auto;
+    text-align: center;
+    position: relative;
+}
+    .text {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    font-family: arial;
+    color: grey;
+    font-size: 18px;
+}
+    .error-message {
+        color: red;
+    }
+    .fieldset1 {
+    background: white;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 50%;
+    margin: 0 10%;
+    left: 15%;
+    position: absolute;
+}
+.fs-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    position: absolute;
+    top: 0%;
+    left: 70%;
+    }
+
+ table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    tr {
+        margin-bottom: 10px;
+    }
+
+    td {
+        padding: 5px;
+    }
+
+
+    
+</style>
+<section class="welcome-hero" position="center">
+<div style="padding-left: 100px;" classe="fils">
+<br><br>
+ <fieldset class="fieldset1">
+    <div classe ="row">
+    <h2 class="text-lg font-medium mr-auto">Profile {{app.user.username}}</h1>
+    <br>
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div classe ="msform">
+
+  
+    <table>
+    <tr>
+        <td>{{ form_label(form.username) }}</td>
+        <td>{{ form_widget(form.username, {'attr': {'class': 'custom-input'}}) }}</td>
+        <td>{{ form_errors(form.username) }}</td>
+    </tr>
+
+    <tr>
+        <td>{{ form_label(form.mail) }}</td>
+        <td>{{ form_widget(form.mail, {'attr': {'class': 'custom-input'}}) }}</td>
+        <td>{{ form_errors(form.mail) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.age) }}</td>
+        <td>{{ form_widget(form.age, {'attr': {'class': 'custom-input'}}) }}</td>
+        <td>{{ form_errors(form.age) }}</td>
+    </tr>
+
+    </table>
+
+</div>
+       
+        <br>
+        <br>
+        
+        <div class="w-full mt-3 xl:mt-0 flex-1">
+        <div class="flex flex-col sm:flex-row">
+            <div class="form-check mr-4">
+                {{ form_widget(form.sexe.0, {'attr': {'class': 'form-check-input', 'id': 'condition-new'}}) }}
+                <label class="form-check-label" for="condition-new">Male</label>
+            </div>
+            <div class="form-check mr-4 mt-2 sm:mt-0">
+                {{ form_widget(form.sexe.1, {'attr': {'class': 'form-check-input', 'id': 'condition-second'}}) }}
+                <label class="form-check-label" for="condition-second">Female</label>
+            </div>
+            {{ form_errors(form.sexe) }}
+        </div>
+        
+
+
+    </div>
+<br><br>
+    <button class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">{{ button_label|default('Save') }}</button>
+    <a href="{{ path('app_home') }}" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">back to list</a>
+    </div>
+{{ form_end(form) }}
+
+<!-- Add classes to center the text -->
+    <div class="justify-content-center" style="margin-top: 20px; padding-left: 100px;">
+        <p class="small mb-0" style="font-size: 18px;">
+            {% if app.user.resetToken is not empty %}
+                <a href="{{ path('app_reset_password_Client', {'token': app.user.resetToken}) }}" style="color: #007bff; text-decoration: underline;">Change my Password?</a>
+            {% else %}
+                <!-- Handle the case where resetToken is empty -->
+                <a href="{{ path('generate_and_redirectClient') }}" style="color: #007bff; text-decoration: underline;">Generate and Change Password</a>
+            {% endif %}
+        </p>
+    </div>
+    </fieldset>
+        </div>
+        </section>  
+
+    
+{% endblock %}

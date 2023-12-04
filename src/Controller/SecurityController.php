@@ -29,15 +29,13 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request,TokenGeneratorInterface  $tokenGenerator): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
     
-        // Check if there's a token parameter in the request
         $token = $request->query->get('token');
     
-        // Check if the token is valid and not expired
         if ($token) {
             $user = $this->getDoctrine()->getRepository(Userr::class)->findOneBy(['reset_token' => $token]);
     
@@ -52,6 +50,27 @@ class SecurityController extends AbstractController
             } else {
                 $this->addFlash('danger', 'Invalid or expired reset token.');
             }
+        }else {
+            
+            $user = $this->getUser();
+    
+            if ($user instanceof Userr) {
+                $token = $tokenGenerator->generateToken();
+                if (in_array('ROLE_CLIENT', $user->getRoles())) {
+                    return $this->redirectToRoute('app_home');
+                }
+                if (in_array('ROLE_ADMIN', $user->getRoles())) {
+                    return $this->redirectToRoute('app_utilisateur_index');
+                }
+    
+                $user->setResetToken($token);
+                
+    
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+            
         }
         
         return $this->render('security/login.html.twig', [
@@ -80,7 +99,7 @@ class SecurityController extends AbstractController
 
             $user = $userRepository->findOneBy(['mail'=>$donnees]);
             if(!$user) {
-                $this->addFlash('danger','cette adresse n\'existe pas');
+                $this->addFlash('danger','This email address does not exist.');
                 return $this->redirectToRoute("forgot");
 
             }
@@ -96,7 +115,7 @@ class SecurityController extends AbstractController
 
 
             }catch(\Exception $exception) {
-                $this->addFlash('warning','une erreur est survenue :'.$exception->getMessage());
+                $this->addFlash('warning','An error occurred :'.$exception->getMessage());
                 return $this->redirectToRoute("app_login");
 
 
@@ -105,18 +124,16 @@ class SecurityController extends AbstractController
             $url = $this->generateUrl('app_reset_password',array('token'=>$token),UrlGeneratorInterface::ABSOLUTE_URL);
 
             //BUNDLE MAILER
-            $message = (new Swift_Message('Mot de password oublié'))
+            $message = (new Swift_Message('Forgotten Password'))
                 ->setFrom('anis.fetoui@esprit.tn')
                 ->setTo($user->getMail())
-                ->setBody("<p> Bonjour</p> unde demande de réinitialisation de mot de passe a été effectuée. Veuillez cliquer sur le lien suivant :".$url,
+                ->setBody("<p> Hello,</p> a password reset request has been made. Please click on the following link:".$url,
                 "text/html");
 
             //send mail
             $mailer->send($message);
-            $this->addFlash('message','E-mail  de réinitialisation du mp envoyé :');
+            $this->addFlash('message','Password reset email sent:');
         //    return $this->redirectToRoute("app_login");
-
-
 
         }
 
@@ -126,7 +143,37 @@ class SecurityController extends AbstractController
 
     #[Route('/resetpassword/{token}', name: 'app_reset_password')]
     public function resetpassword(Request $request,string $token, UserPasswordEncoderInterface  $passwordEncoder)
+    {   
+
+        $user = $this->getDoctrine()->getRepository(Userr::class)->findOneBy(['reset_token' => $token]);
+        if($user == null ) {
+            $this->addFlash('danger','TOKEN INCONNU');
+            return $this->redirectToRoute("app_login");
+
+        }
+
+        if($request->isMethod('POST')) {
+            $user->setResetToken(null);
+
+            $user->setPassword($passwordEncoder->encodePassword($user,$request->request->get('password')));
+            $entityManger = $this->getDoctrine()->getManager();
+            $entityManger->persist($user);
+            $entityManger->flush();
+
+            $this->addFlash('message','Password Updated :');
+            return $this->redirectToRoute("app_login");
+
+        }
+        else {
+            return $this->render("security/resetPassword.html.twig",['token'=>$token]);
+
+        }
+    }
+
+    #[Route('/resetpasswordC/{token}', name: 'app_reset_password_Client')]
+    public function resetpasswordClient(Request $request,string $token, UserPasswordEncoderInterface  $passwordEncoder)
     {
+
         $user = $this->getDoctrine()->getRepository(Userr::class)->findOneBy(['reset_token'=>$token]);
 
         if($user == null ) {
@@ -143,8 +190,38 @@ class SecurityController extends AbstractController
             $entityManger->persist($user);
             $entityManger->flush();
 
-            $this->addFlash('message','Mot de passe mis à jour :');
+            $this->addFlash('message','Password Updated :');
+            return $this->redirectToRoute("app_home");
+
+        }
+        else {
+            return $this->render("security/resetPasswordClient.html.twig",['token'=>$token]);
+
+        }
+    }
+
+    #[Route('/resetpasswordA/{token}', name: 'app_reset_password_Admin')]
+    public function resetpasswordAdmin(Request $request,string $token, UserPasswordEncoderInterface  $passwordEncoder)
+    {
+ 
+        $user = $this->getDoctrine()->getRepository(Userr::class)->findOneBy(['reset_token'=>$token]);
+
+        if($user == null ) {
+            $this->addFlash('danger','TOKEN INCONNU');
             return $this->redirectToRoute("app_login");
+
+        }
+
+        if($request->isMethod('POST')) {
+            $user->setResetToken(null);
+
+            $user->setPassword($passwordEncoder->encodePassword($user,$request->request->get('password')));
+            $entityManger = $this->getDoctrine()->getManager();
+            $entityManger->persist($user);
+            $entityManger->flush();
+
+            $this->addFlash('message','Password Updated :');
+            return $this->redirectToRoute("app_utilisateur_index");
 
         }
         else {
@@ -152,4 +229,55 @@ class SecurityController extends AbstractController
 
         }
     }
+
+    #[Route(path: '/generate_and_redirect_Admin', name: 'generate_and_redirectAdmin')]
+    public function generateAndRedirectActionAdmin(TokenGeneratorInterface $tokenGenerator): Response
+    {
+        $user = $this->getUser();
+    
+        if ($user instanceof Userr) {
+            // Generate a new token
+            $token = $tokenGenerator->generateToken();
+    
+            // Set the generated token in the user entity
+            $user->setResetToken($token);
+    
+            // Persist the changes to the database
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+    
+            // Redirect to the reset password page with the generated token
+            return $this->redirectToRoute('app_reset_password_Admin', ['token' => $user->getResetToken()]);
+        }
+    
+        // Handle the case where the user is not authenticated
+        return $this->redirectToRoute('app_utilisateur_index');
+    }
+
+    #[Route(path: '/generate_and_redirect_Client', name: 'generate_and_redirectClient')]
+    public function generateAndRedirectActionClient(TokenGeneratorInterface $tokenGenerator): Response
+    {
+        $user = $this->getUser();
+    
+        if ($user instanceof Userr) {
+            // Generate a new token
+            $token = $tokenGenerator->generateToken();
+    
+            // Set the generated token in the user entity
+            $user->setResetToken($token);
+    
+            // Persist the changes to the database
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+    
+            // Redirect to the reset password page with the generated token
+            return $this->redirectToRoute('app_reset_password_Client', ['token' => $user->getResetToken()]);
+        }
+    
+        // Handle the case where the user is not authenticated
+        return $this->redirectToRoute('app_home');
+    }
+
 }

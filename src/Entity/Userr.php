@@ -36,16 +36,14 @@ class Userr implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Le champ "Mot de passe" ne peut pas être vide.')]
     #[Assert\Length(min: 6, minMessage: 'Le mot de passe doit avoir au moins {{ limit }} caractères.')]
     #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
-   /* #[Assert\NotBlank(message: 'Veuillez confirmer votre mot de passe.')]
-    #[Assert\Expression(
-        "this.getPassword() === this.getConfirmPassword()",
-        message:"Les mots de passe ne correspondent pas."
-    )]*/
+    #[Assert\Regex(
+        pattern:"/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}/",
+        message: 'Your password must be Strength',
+    )]    private ?string $password = null;
 
 
-    #[ORM\Column(length: 100)]
+
+    #[ORM\Column(length: 150)]
     private ?string $reset_token = null;
 
     #[Assert\NotBlank(message: 'Le champ "Âge" ne peut pas être vide.')]
@@ -223,5 +221,12 @@ class Userr implements UserInterface, PasswordAuthenticatedUserInterface
     public function setResetToken($reset_token): void
     {
         $this->reset_token = $reset_token;
+    }
+
+    public function getUserDataForQrCode(): string
+    {
+        $data = "Username: {$this->username}, Email: {$this->mail}, Age: {$this->age}, Gender: {$this->sexe}, Etat: {$this->etat}";
+    
+        return $data;
     }
 }

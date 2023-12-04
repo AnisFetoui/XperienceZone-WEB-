@@ -1,0 +1,39 @@
+{% extends 'utilisateur/base.html.twig' %}
+
+{% block title %}Edit Utilisateur{% endblock %}
+
+{% block container %}
+    <h2 class="text-lg font-medium mr-auto">Edit {{app.user.username}}</h1>
+    <br>
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+   
+    <div class="search hidden sm:block">
+            {{ form_widget(form.username) }}
+            {{ form_errors(form.username) }}
+            <br><br>
+            {{ form_widget(form.mail) }}
+            {{ form_errors(form.mail) }}
+            <br><br>
+            {{ form_widget(form.age) }}
+            {{ form_errors(form.age) }}
+    </div>
+        <br>
+        <br>
+        <div class="w-full mt-3 xl:mt-0 flex-1">
+        <div class="flex flex-col sm:flex-row">
+            <div class="form-check mr-4">
+                {{ form_widget(form.sexe.0, {'attr': {'class': 'form-check-input', 'id': 'condition-new'}}) }}
+                <label class="form-check-label" for="condition-new">Male</label>
+            </div>
+            <div class="form-check mr-4 mt-2 sm:mt-0">
+                {{ form_widget(form.sexe.1, {'attr': {'class': 'form-check-input', 'id': 'condition-second'}}) }}
+                <label class="form-check-label" for="condition-second">Female</label>
+            </div>
+            {{ form_errors(form.sexe) }}
+        </div>
+    </div>
+<br><br>
+    <button class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">{{ button_label|default('Save') }}</button>
+    <a href="{{ path('app_utilisateur_index') }}" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">back to list</a>
+{{ form_end(form) }}
+{% endblock %}
