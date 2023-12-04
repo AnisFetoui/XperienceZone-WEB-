@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-    use App\Form\UserProfileType;
-    use App\Entity\Userr;
-    use Symfony\Component\Routing\Annotation\Route;
-    use Doctrine\ORM\EntityManagerInterface;
-    use Symfony\Component\HttpFoundation\Request;
+use App\Form\UserProfileType;
+use App\Entity\Userr;
+use App\Repository\UserrRepository;
+use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
     
 #[Route('/home')]
 class HomeController extends AbstractController
@@ -22,8 +23,9 @@ class HomeController extends AbstractController
     }
 
     #[Route('/ProfileC/{idUser}', name: 'app_ProfileClient', methods: ['GET', 'POST'])]
-    public function ProfileClient(Request $request, Userr $utilisateur, EntityManagerInterface $entityManager): Response
+    public function ProfileClient(Request $request,UserrRepository $UR, EntityManagerInterface $entityManager, $idUser ): Response
     {
+        $utilisateur = $UR->find($idUser);
         $form = $this->createForm(UserProfileType::class, $utilisateur);
         $form->handleRequest($request);
 

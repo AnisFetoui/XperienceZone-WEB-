@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 {% block title %}Edit Activites
 {% endblock %}
 {% block container %}
@@ -10,5 +10,4 @@
 
 	<a href="{{ path('app_activites_index') }}">back to list</a>
 
-	{{ include('activites/_delete_form.html.twig') }}
 </div>{% endblock %}

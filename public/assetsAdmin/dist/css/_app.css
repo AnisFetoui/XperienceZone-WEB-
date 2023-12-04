@@ -364,6 +364,7 @@ input::placeholder,textarea::placeholder{
     color: #6b7280;
     opacity: 1;
 }
+
 ::-webkit-datetime-edit-fields-wrapper{
     padding: 0;
 }

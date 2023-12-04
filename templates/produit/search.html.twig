@@ -5,7 +5,7 @@
 {% block container %}
     <style>
         /* Votre style CSS */
-         .suggestion {
+        .suggestion {
             padding: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -30,12 +30,12 @@
         const suggestionsDiv = document.getElementById('suggestions');
         const nomProdDiv = document.getElementById('nomProd');
 
-        suggestionsDiv.addEventListener('click', function(event) {
+        suggestionsDiv.addEventListener('click', function (event) {
             if (event.target && event.target.nodeName === 'DIV') {
                 const selectedSuggestion = event.target;
                 const idProd = selectedSuggestion.dataset.idProd;
 
-                fetch(`/produits/details/${idProd}`)
+                fetch(`/produit/details/${idProd}`)
                     .then(response => response.text())
                     .then(detailsHtml => {
                         nomProdDiv.innerHTML = detailsHtml;
@@ -48,7 +48,7 @@
             }
         });
 
-        searchInput.addEventListener('input', function() {
+        searchInput.addEventListener('input', function () {
             const searchString = searchInput.value.trim();
 
             if (searchString === '') {
@@ -56,7 +56,7 @@
                 return; // Arrête la fonction pour éviter de faire la recherche vide
             }
 
-            fetch(`/produits/search?q=${searchString}`)
+            fetch(`/produit/search?q=${searchString}`)
                 .then(response => response.json())
                 .then(data => {
                     suggestionsDiv.innerHTML = '';
@@ -72,7 +72,7 @@
         });
 
         function performSearch(searchString) {
-            fetch(`/produits/search?q=${searchString}`)
+            fetch(`/produit/search?q=${searchString}`)
                 .then(response => response.json())
                 .then(data => {
                     // Logique pour gérer la réponse de la recherche

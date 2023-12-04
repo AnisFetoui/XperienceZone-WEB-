@@ -1,3 +1,14 @@
 #app_utilisateur_index:
 #   path: /
 #   controller: App\Controller\UtilisateurController::index
+
+# config/routes.yaml
+
+send_sms:
+  path: /send-sms
+  controller: App\Controller\SmsController::sendSms
+  methods: ["GET", "POST"]
+# validation_mots_indesirables:
+#   path: /validation-mots-indesirables
+#  controller: App\Controller\VotreController::validationMotsIndesirables
+#  methods: [POST]

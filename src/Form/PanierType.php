@@ -18,9 +18,9 @@ class PanierType extends AbstractType
         $builder
         ->add('total', HiddenType::class)
         ->add('quantitePanier')
-        ->add('utilisateur', null, [
-            'choice_label' => 'username'
-        ])
+       // ->add('utilisateur', null, [
+         //   'choice_label' => 'username'
+        //])
         ->add('produit', null, [
             'choice_label' => 'nomProd'
         ])

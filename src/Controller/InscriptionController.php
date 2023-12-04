@@ -80,6 +80,7 @@ class InscriptionController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_inscription_index', [], Response::HTTP_SEE_OTHER);
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
 }

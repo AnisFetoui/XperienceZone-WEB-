@@ -79,7 +79,7 @@ class Activites
     
     #[ORM\OneToOne]
    #[ORM\JoinColumn(nullable: false, name: "id_user", referencedColumnName: "id_user")]
-   private ?Utilisateur $user=null;
+   private ?Userr $user=null;
 
     public function getIdAct(): ?int
     {
@@ -207,12 +207,12 @@ class Activites
     }
 
 
-    public function getUser(): ?Utilisateur
+    public function getUser(): ?Userr
     {
         return $this->user;
     }
  
-    public function setUser(?Utilisateur $user): static
+    public function setUser(?Userr $user): static
     {
         $this->user = $user;
  

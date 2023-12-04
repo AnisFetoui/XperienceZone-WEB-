@@ -3,11 +3,15 @@
 {% block title %}Activity
 {% endblock %}
 {% block container %}
+	{% block css %}
+		<link rel="stylesheet" href="{{asset('assets/css/style.css' )}}">
+	{% endblock %}
 	<h2 class="text-lg font-medium mr-auto">Liste d'activites</h1>
 	<br>
 
 	<br>
 	<a href="{{ path('app_activites_new') }}" class="btn btn-primary shadow-md mr-2">Create new activity</a>
+	<a href="{{ path('stat_activite') }}" class="btn btn-primary shadow-md mr-2">stat activity</a>
 	<br>
 	<br>
 	<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
@@ -59,8 +63,9 @@
 
 
 							<td>
-								<a href="{{ path('app_activites_show', {'idAct': activite.idAct}) }}" style="color:blue; font-size:12px ">show</a>
-								<a href="{{ path('app_activites_edit', {'idAct': activite.idAct}) }}" style="color:red; font-size:12px">edit</a>
+								<div class="formdelete">
+									{{ include('activites/_delete_form.html.twig') }}</div>
+								<a href="{{ path('app_activites_edit', {'idAct': activite.idAct}) }}" style="color:red; font-size:12px">Edit</a>
 							</td>
 						</tr>
 					{% else %}
@@ -104,11 +109,11 @@
 								<td>{{ inscription.heureIns ? inscription.heureIns|date('H:i') : '' }}</td>
 								<td>{{ inscription.nbrTickes }}</td>
 								<td>{{ inscription.fraitAbonnement }}</td>
-								<td>{{ inscription.activiteId }}</td>
+								<td>{{ inscription.activite.getIdAct() }}</td>
 								<td>{{ inscription.userId }}</td>
 								<td>
 									<a href="{{ path('app_inscription_show', {'Id_ins': inscription.Idins}) }}">show</a>
-									<a href="{{ path('app_inscription_edit', {'Id_ins': inscription.Idins}) }}">edit</a>
+									{{ include('inscription/_delete_form.html.twig') }}
 								</td>
 							</tr>
 						{% else %}

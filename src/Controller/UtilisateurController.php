@@ -10,6 +10,10 @@ namespace App\Controller;
     use App\Form\UserProfileType;
     use Knp\Component\Pager\PaginatorInterface;
     use App\Repository\UserrRepository;
+    use App\Repository\ActivitesRepository;
+    use App\Repository\ProduitRepository;
+
+    use App\Repository\InscriptionRepository;
     use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +26,7 @@ namespace App\Controller;
     use Symfony\Component\HttpFoundation\JsonResponse;
     use Endroid\QrCode\Writer\PngWriter;
     use Endroid\QrCode\QrCode;
+    use Doctrine\Persistence\ObjectManager;
 
 
     #[Route('/utilisateur')]
@@ -45,6 +50,95 @@ namespace App\Controller;
     
             return $this->render('utilisateur/index.html.twig', [
                 'users' => $pagination,
+            ]);
+        }
+        #[Route('/back', name: 'activitesback_index', methods: ['GET'])]
+    public function backofficeact(ActivitesRepository $activitesRepository, InscriptionRepository $inscriptionRepository): Response
+    {
+        return $this->render('activites/backoffice.html.twig', [
+            'activites' => $activitesRepository->findAll(),
+            'inscriptions' => $inscriptionRepository->findAll(),
+            
+        ]);
+    }
+
+    #[Route('/backProduit', name: 'produitback_index', methods: ['GET'])]
+    public function backofficeprod(Request $request,ProduitRepository $produitRepository,PaginatorInterface $paginator): Response
+    {
+        $criteria = $request->query->get('criteria', 'idProd'); 
+            
+            
+            $validCriteria = ['idProd', 'nomProd', 'DescriptionProd', ]; 
+            
+            if (!in_array($criteria, $validCriteria)) {
+                $criteria = 'idProd';
+            }
+    
+            $produits = $produitRepository->findBy([], [$criteria => 'ASC']);
+            $produitsQuery=$produits;
+            //$produitsQuery = $produitRepository->createQueryBuilder('p')->getQuery();
+        
+            $produits = $paginator->paginate(
+                $produitsQuery,
+                $request->query->getInt('page', 1),
+                5 
+            );
+        
+            if ($request->query->get('excel')) {
+                
+                $spreadsheet = new Spreadsheet();
+                $sheet = $spreadsheet->getActiveSheet();
+        
+                $sheet->setCellValue('A1', 'ID')->getStyle('A1')->applyFromArray([
+                    'font' => ['bold' => true],
+                    'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'FFCC00']],
+                ]);
+                $sheet->setCellValue('B1', 'Nom')->getStyle('B1')->applyFromArray(['font' => ['bold' => true]]);
+                $sheet->setCellValue('C1', 'Prix')->getStyle('C1')->applyFromArray(['font' => ['bold' => true]]);
+                $sheet->setCellValue('D1', 'Description')->getStyle('D1')->applyFromArray(['font' => ['bold' => true]]);
+                $sheet->setCellValue('E1', 'Quantité')->getStyle('E1')->applyFromArray(['font' => ['bold' => true]]);
+                $sheet->setCellValue('F1', 'Catégorie')->getStyle('F1')->applyFromArray(['font' => ['bold' => true]]);
+                $sheet->setCellValue('G1', 'Note')->getStyle('G1')->applyFromArray(['font' => ['bold' => true]]);
+        
+                $row = 2;
+                foreach ($produits as $produit) {
+                    $sheet->setCellValue('A' . $row, $produit->getIdProd());
+                    $sheet->setCellValue('B' . $row, $produit->getNomProd());
+                    $sheet->setCellValue('C' . $row, $produit->getPrixProd());
+                    $sheet->setCellValue('D' . $row, $produit->getDescriptionProd());
+                    $sheet->setCellValue('E' . $row, $produit->getQuantite());
+                    $sheet->setCellValue('F' . $row, $produit->getCategorie()->getNomCategorie()); 
+                    $sheet->setCellValue('G' . $row, $produit->getNoteProd());
+        
+                    $style = $row % 2 == 0 ? ['fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'F2F2F2']]] : [];
+                    $sheet->getStyle('A' . $row . ':G' . $row)->applyFromArray($style);
+        
+                    $row++;
+                }
+        
+                foreach (range('A', 'G') as $col) {
+                    $sheet->getColumnDimension($col)->setAutoSize(true);
+                }
+        
+                
+                $writer = new Xlsx($spreadsheet);
+                $excelFilePath = tempnam(sys_get_temp_dir(), 'produits_export') . '.xlsx';
+                $writer->save($excelFilePath);
+        
+                
+                $response = new Response(file_get_contents($excelFilePath));
+                $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                $response->headers->set('Content-Disposition', 'attachment;filename="produits_export.xlsx"');
+                $response->headers->set('Cache-Control', 'max-age=0');
+                $response->headers->set('Pragma', 'public');
+        
+                unlink($excelFilePath); 
+        
+                return $response;
+            }
+        
+            return $this->render('produit/indexadmin.html.twig', [
+                'produits' => $produits,
             ]);
         }
         #[Route('/search', name: 'user_search', methods: ['GET'])]
@@ -147,16 +241,18 @@ public function search(Request $request, UserrRepository $userRepository): JsonR
 
    
     #[Route('/{idUser}', name: 'app_utilisateur_show', methods: ['GET'])]
-    public function show(Userr $utilisateur): Response
+    public function show(UserrRepository $UserRepository,$idUser): Response
     {
+        $utilisateur = $UserRepository->find($idUser);
         return $this->render('utilisateur/show.html.twig', [
             'utilisateur' => $utilisateur,
         ]);
     }
 
     #[Route('/{idUser}/editProfileA', name: 'app_ProfileAdmin', methods: ['GET', 'POST'])]
-    public function ProfileAdmin(Request $request, Userr $utilisateur, EntityManagerInterface $entityManager): Response
+    public function ProfileAdmin(Request $request,$idUser,UserrRepository $UserRepository, EntityManagerInterface $entityManager): Response
     {
+        $utilisateur = $UserRepository->find($idUser);
         $form = $this->createForm(UserProfileType::class, $utilisateur);
         $form->handleRequest($request);
 
@@ -238,6 +334,7 @@ public function loadUserContent(UserrRepository $userRepository, $iduser): Respo
         'qrCodeImage' => $qrCodeImage,
     ]);
 }
+
 
 
 

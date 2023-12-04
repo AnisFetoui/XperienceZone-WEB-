@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/stylemini.css') }}">
+  
+{% endblock %}
+
+{% block container %}
+
+<div class="card">
+    <div class="card-body">
+
+        <h5 class="card-title">Ticket</h5>
+        <hr>
+        <table id="myTable" class="table table-striped ticket-details">
+            <thead>
+            <tr>
+                <th scope="col">Name of Event</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Place</th>
+                <th scope="col">Price</th>
+                <th scope="col">image</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>{{ ticket.evenement.nomEvent }}</td>
+                <td>{{ ticket.evenement.dateEvent }}</td>
+                <td>{{ ticket.evenement.heureEvent }}</td>
+                <td>{{ ticket.evenement.lieuEvent }}</td>
+                <td>{{ ticket.evenement.prix }}</td>
+                 <td>{{ticket.evenement.image }}
+                    <img src="{{ asset('uploads/images/' ~ ticket.evenement.image) }}" alt="Event Image"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

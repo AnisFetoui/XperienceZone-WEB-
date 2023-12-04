@@ -1,43 +1,79 @@
-{% extends 'utilisateur/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{% endblock %}
 
-<h1>Channeldediscussion</h1>
+{% block container %}
+    <h1>Forum for Event</h1>
 
+    <table class="table" id="channelTable">
+        <thead>
+            <tr>
+                <th>Nom Channel</th>
+                <th>Evenements</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="channelBody">
+            {% for channel in channels %}
+                <tr>
+                    <td>{{ channel.nomCh }}</td>
+                    <td>{{ channel.evenement.nomEvent }}</td>
+                    <td>
+                        <a href="{{ path('app_channel_show', {'idCh': channel.idCh}) }}">show channel</a>
+                       
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">No records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-{% block  container  %}
+    <a href="{{ path('app_channel_new') }}">Create new channel</a>
 
-	<table class="table">
-		<thead>
-			<tr>
+    <div>
+        <label for="search">Search:</label>
+        <input type="text" id="search" class="form-control" placeholder="Search by channel name">
+    </div>
 
-				<th>
-					Nom Channel
-				</th>
-				<th>Evenements
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for channel in channels %}
-				<tr>
-					<td>{{ channel.idCh }}</td>
-					<td>{{ channel.nomCh }}</td>
+    <table class="table" id="searchTable">
+        <tbody id="searchBody"></tbody>
+    </table>
+</div>
 
-					<td>
-						<a href="{{ path('app_channel_show', {'idCh': channel.idCh}) }}">show channel</a>
-						<a href="{{ path('app_channel_edit', {'idCh': channel.idCh}) }}">edit channel</a>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("search").addEventListener("keyup", function (e) {
+            var value = this.value;
+console.log(" befor the fetch");
+            fetch("{{ path('channel_searchx') }}?search=" + value, {
+                method: "GET",
+            })
+                .then(response => response.json())
+                .then(data => {
+                    var searchBody = document.getElementById("searchBody");
+                    searchBody.innerHTML = ''; 
 
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="3">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
-	<a href="{{ path('app_channel_new') }}">Create new channel
-	</a>
+                    if (data.length > 0) {
+                        document.getElementById('channelTable').style.display = 'none';
+                        data.forEach(function (obj) {
+                            console.log(obj);
+                            var row = document.createElement("tr");
+                            row.innerHTML = '<td>' + obj.nomCh +'</td> <td>'+ obj.evenement.nomEvent +'</td> <td><a href="app_channel_show/' + obj.idCh + '">show channel</a> <br><a href="editChannel/' + obj.idCh + '">edit channel</a></td>';
+                          
+                            searchBody.appendChild(row);                                                            
+                        }); 
+                        document.getElementById('searchTable').style.display = 'block';
+                    } else {
+                        searchBody.innerHTML = '<tr><td colspan="3">No records found</td></tr>';
+                        document.getElementById('searchTable').style.display = 'none';
+                    }
+                })
+               .catch(error => console.error("Error:", error));
+        });
+    });
+</script>
+{{ knp_pagination_render(channels) }}
 {% endblock %}

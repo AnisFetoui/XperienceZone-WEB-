@@ -5,6 +5,7 @@ security:
     access_control:
         - { path: ^/utilisateur/, roles: 'ROLE_ADMIN' }
         - { path: ^/home/, roles: 'ROLE_CLIENT' }
+        - { path: ^/activites/, roles: 'ROLE_CLIENT' }
     
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords

@@ -18,14 +18,17 @@ class ChannelType extends AbstractType
     {
         $builder
         ->add('nomCh', null, [
-            'constraints' => [
-                new NotBlank([
-                    'message' => 'Le champ "name channel " field cannot be empty.',
+              'constraints' => [
+               new NotBlank([
+               'message' => 'Le champ "name channel " field cannot be empty.',
                 ]),
             ],
         ])
         ->add('evenement',EntityType::class,[ 'class' => Evenement::class,  'choice_label' => 'nomEvent',  
-                             ])  ;
+        'attr' => [
+            'style' => 'margin-top: 15px;', 
+        ],                   
+        ])  ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

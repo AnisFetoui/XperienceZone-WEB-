@@ -25,7 +25,7 @@
 					<td>{{ inscription.heureIns ? inscription.heureIns|date('H:i') : '' }}</td>
 					<td>{{ inscription.nbrTickes }}</td>
 					<td>{{ inscription.fraitAbonnement }}</td>
-					<td>{{ inscription.activiteId }}</td>
+					<td>{{ inscription.activite.getIdAct() }}</td>
 					<td>{{ inscription.userId }}</td>
 					<td>
 						<a href="{{ path('app_inscription_show', {'Id_ins': inscription.Idins}) }}">show</a>

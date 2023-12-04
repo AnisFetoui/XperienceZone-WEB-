@@ -1,0 +1,92 @@
+{% block container %}
+
+<div class="card">
+    <div class="card-body">
+
+        <h5 class="card-title">Ticket of {{ ticket.evenement.nomEvent }}</h5>
+       
+        <hr>
+        <table id="myTable" class="table table-striped ticket-details">
+            <thead>
+            <tr>
+                <th scope="col">Num</th>
+                <br><br>
+                <th scope="col">Date</th>
+                <br><br>
+                <th scope="col">Time</th>
+                <br><br>
+                <th scope="col">Place</th>
+                <br><br>
+                <th scope="col">Price</th>
+               <br>
+                <th scope="col">category</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>{{ ticket.numTicket }}</td><br><br>
+                <td>{{ ticket.evenement.dateEvent|date('Y-m-d') }}</td><br><br>
+                <td>{{ ticket.evenement.heureEvent|date('H:i:s') }}</td><br><br>
+                <td>{{ ticket.evenement.lieuEvent }}</td>br><br>
+                <td>{{ ticket.prix }}</td><br><br>
+                <td>{{ ticket.categorie }}</td><br>
+               
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+<style>
+/* Add this CSS to your existing styles or create a new stylesheet */
+
+.card {
+    width: 80%;
+    margin: 50px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th, .table td {
+    padding: 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f3f4f7;
+}
+
+/* Optional: Add some spacing between the table cells */
+.table td, .table th {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Optional: Adjust spacing between table rows */
+.table tbody tr {
+    margin-bottom: 10px;
+}
+</style>
