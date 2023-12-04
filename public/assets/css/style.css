@@ -607,3 +607,49 @@ nav.navbar.bootsnav .navbar-toggle i{color: #7FFF00;}
 .single-explore-item:hover{box-shadow: 0 10px 20px rgba(21,19,19,.2);}
 
 
+.formdelete .btn{
+   color: rgb(168, 56, 56);
+}
+/*************************************/
+.allgraph{
+display: flex;
+flex-direction: column;
+gap: 5px;
+
+}
+.grapheplace{
+    display: flex;
+    flex-direction: row;
+}
+.chartcontainer{
+    width: 500px;
+    height: 300px;
+}
+.chartcontainer1{
+margin-left: 80px;
+margin-top: 40px;
+width: 600px;
+height: 300px;
+}
+.graphorganisateur{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chartcontainer2{
+
+    width: 600px;
+    height: 600px;
+}
+.titre2{
+    text-align: center;
+}
+.titre2 h1 {
+    margin-top: 30px;
+    color: #505866;
+    font-size:24px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+}

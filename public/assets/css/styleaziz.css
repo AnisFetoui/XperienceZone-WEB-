@@ -1,10 +1,15 @@
+
 .navact{
+    background-color: white;
     display: flex;
     gap: 20px;
     height: 40px;
     border-top: 1px rgb(250, 245, 245) solid;
     border-bottom: 1px rgb(250, 245, 245)solid;
     
+}
+.all{
+    background: #f8fafb;
 }
 .section{
     margin-left: 30px;
@@ -33,7 +38,7 @@ padding-left: 20px;
     padding-top: 20px;
     padding-left: 30px;
     padding-right: 30px;
-    background-color: #fafafa;
+    background-color: #ffffff;
     width:600px;
     color: white;
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
@@ -88,7 +93,7 @@ padding-left: 20px;
     display: flex;
     align-items: flex-start;
     justify-content:space-around;
-    background-color: white;
+    background-color: #ffffff;
     height: 200px;
     width:600px;
     color: white;
@@ -104,11 +109,17 @@ padding-left: 20px;
     align-items: center;
     gap:30px;
     flex-direction: column;
-    background-color: white;
-    height: 300px;
+    background-color: #ffffff;
+    padding-bottom: 10px;
     width:600px;
     color: white;
 
+}
+.desc{
+    padding: 10px 10px 10px;
+}
+.desc p{
+    padding-top: 10px;
 }
 
 .b1{
@@ -264,3 +275,7 @@ justify-content: center;
     margin-top: 50px;
 }
 /************************************************/
+.image img{
+    width: 400px;
+}
+
