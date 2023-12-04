@@ -1,0 +1,2 @@
+<td>{{ ticket.idUser }}</td>
+                <td>{{ ticket.idEvent }}</td>

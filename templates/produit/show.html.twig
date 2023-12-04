@@ -1,46 +1,106 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit{% endblock %}
+{% block title %}Product{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <!-- Ajoutez votre propre feuille de style -->
+    <link rel="stylesheet" href="{{ asset('assets/css/styleaziz.css') }}">
+    <style>
+        /* Ajoutez vos styles CSS personnalisés ici */
+
+        .product-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .presentation {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .image {
+            max-width: 40%; /* Assurez-vous que l'image ne dépasse pas sa taille originale */
+        }
+
+        .details {
+            flex: 1;
+            max-width: 300px; /* Définissez une largeur maximale pour les détails du produit */
+            margin-left: auto; /* Placez les détails à droite pour améliorer la lisibilité */
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+        }
+    </style>
+  
+{% endblock %}
 
 {% block container %}
-    <h1>Produit</h1>
+    <div class="navact">
+        <button class="first">Product</button>
+        <button>Description</button>
+        <button>Picture</button>
+    </div>
 
-    <table class="table">
-        <tbody>
+    <div class="product-container">
+        <div class="presentation">
+            <h1>{{ produit.nomProd }}</h1>
            
-            <tr>
-                <th>NomProd</th>
-                <td>{{ produit.nomProd }}</td>
-            </tr>
-            <tr>
-                <th>PrixProd</th>
-                <td>{{ produit.prixProd }}</td>
-            </tr>
-            <tr>
-                <th>DescriptionProd</th>
-                <td>{{ produit.descriptionProd }}</td>
-            </tr>
-            <tr>
-                <th>Quantite</th>
-                <td>{{ produit.quantite }}</td>
-            </tr>
-           <tr>
-    <th>Image</th>
-    <td>
-            {% if produit.image %}
-                <img src="{{ asset('uploads/images/' ~ produit.image) }}" alt="Product Image">
-            {% else %}
-                No Image Available
-            {% endif %}
-        </td>
-</tr>
 
-        </tbody>
-    </table>
+            <div class="desc">
+                <h5>Description:</h5>
+                <p>{{ produit.descriptionProd }}</p>
+            </div>
 
-    <a href="{{ path('app_produit_index') }}">back to list</a>
+            <div class="image">
+                {% if produit.image %}
+                    <img src="{{ asset('uploads/images/' ~ produit.image) }}" alt="Product Image">
+                {% else %}
+                    <p class="no-image">Pas d'image disponible</p>
+                {% endif %}
+            </div>
+        </div>
 
-    <a href="{{ path('app_produit_edit', {'idProd': produit.idProd}) }}">edit</a>
+        <div class="details">
+            <div class="info-item">
+                <span class="info-label">Price:</span>
+                <span class="info-value">{{ produit.prixProd }}</span>
+            </div>
 
-    {{ include('produit/_delete_form.html.twig') }}
-{% endblock %}
+            <div class="info-item">
+                <span class="info-label">Quantity:</span>
+                <span class="info-value">{{ produit.quantite }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Category:</span>
+                <span class="info-value">{{ produit.categorie.nomCategorie }}</span>
+            </div>
+        </div>
+    </div>
+    
+ <style>
+    .rating {
+        font-size: 24px; /* Ajustez la taille des étoiles selon vos besoins */
+    }
+
+    .rating .star {
+        text-decoration: none;
+        color: gray; /* Couleur des étoiles initialement */
+    }
+
+    .rating .star.filled {
+        color: gold; /* Couleur des étoiles remplies */
+    }
+</style>
+
+<div class="rating">
+    {% for star in 1..5 %}
+        {% set isFilled = isNoteProdDefined and star <= produit.noteProd %}
+        <a href="{{ path('rate_product', {'idProd': produit.idProd, 'note': star}) }}" class="star {{ isFilled ? 'filled' : 'empty' }}">⭐</a>
+    {% endfor %}
+</div>
+{%endblock%}

@@ -152,8 +152,10 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
 
 
     #[Route('/{idAct}', name: 'app_activites_show', methods: ['GET', 'POST'])]
-    public function show(Activites $activite , Request $request, EntityManagerInterface $entityManager,$idAct): Response
+    public function show(ActivitesRepository $activitesRepository , Request $request, EntityManagerInterface $entityManager,$idAct): Response
     {
+
+        $activite = $activitesRepository->find($idAct);
         $isFormSubmitted = false;
         $inscription = new Inscription();
         $inscription->setNbrTickes(1);

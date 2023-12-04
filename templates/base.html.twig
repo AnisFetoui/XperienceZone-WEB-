@@ -2,15 +2,22 @@
 <html class="no-js" lang="en">
 
 	<head>
+	               
+
+	               
+
 		<!-- meta data -->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta
 		name="viewport" content="width=device-width, initial-scale=1">
+		
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		
 		{% block title %}
 			<title>Directory Landing Page</title>
 		{% endblock %}
+		 
 		<!--font-family-->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
 		{% block css %}
@@ -77,12 +84,13 @@
 																																																																																																																																																																																																																																																																							        <![endif]-->
 
 		<!--header-top start -->
+	
 			<header id="header-top" class="header-top"> <ul>
 				<li>
 					<div class="header-top-right">
 						<ul>
 							<li class="select-opt">
-								<a href="#">facebook</a>
+								<a href="https://www.facebook.com/">facebook</a>
 							</li>
 							<li class="select-opt">
 								<a href="#">Instagram</a>
@@ -139,9 +147,7 @@
 									<a href="{{path('app_home')}}">Home</a>
 								</li>
 								<li class="scroll">
-
 									<a href="{{ path('app_activites_index') }}">Activity</a>
-
 								</li>
 								<li class="scroll">
 									<a href="{{ path('app_evenement_index') }}">Events</a>
@@ -153,10 +159,16 @@
 									<a href="{{ path('app_channel_index') }}">Channel</a>
 								</li>
 								<li class="scroll">
+									<a href="{{ path('app_message_index') }}">message</a>
+								</li>
+								<li class="scroll">
 									<a href="{{ path('app_reclamations_index') }}">contact</a>
 								</li>
 								<li class="scroll">
 									<a href="{{ path('app_panier_index') }}">Shop Now</a>
+								</li>
+								<li class="scroll">
+									<a href="{{ path('app_reclamations_new') }}">Reclamation</a>
 								</li>
 							</ul>
 							<!--/.nav -->
@@ -178,7 +190,8 @@
 		<!--welcome-hero start -->
 			{% block container %}
 				<section id="home" class="welcome-hero"> <div class="container">
-
+					
+>>>>>>> f298a121a6cbb3b3d2874b1ea941eed10c309b82
 					<div class="welcome-hero-txt">
 						<h2>best place to find and explore
 							<br>
@@ -194,7 +207,7 @@
 							<div class="single-welcome-hero-form">
 								<h3>what?</h3>
 								<form action="index.html">
-									<input type="text" placeholder="Ex: palce, resturent, food, automobile"/>
+									<input type="text" placeholder="Ex: paddle, camping, parachute, skydiving"/>
 								</form>
 								<div class="welcome-hero-form-icon">
 									<i class="flaticon-list-with-dots"></i>
@@ -203,7 +216,7 @@
 							<div class="single-welcome-hero-form">
 								<h3>location</h3>
 								<form action="index.html">
-									<input type="text" placeholder="Ex: london, newyork, rome"/>
+									<input type="text" placeholder="Ex: Bizerte, Sousse, Mahdia, Touzeur"/>
 								</form>
 								<div class="welcome-hero-form-icon">
 									<i class="flaticon-gps-fixed-indicator"></i>
@@ -224,12 +237,13 @@
 		{% endblock %}
 		<!--explore start -->
 		<section id="explore" class="explore">
-
+			
 			<div class="container">
 				{% block explore %}
 					<div class="section-header">
 						<h2>explore</h2>
-						<p>Explore our activities, food, culture around the world and many more</p>
+						<p>
+Discover exciting activities, explore vibrant events,  and find unique products</p>
 					</div>
 				{% endblock %}
 				<!--/.section-header-->

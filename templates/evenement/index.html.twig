@@ -1,49 +1,117 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Evenement index
+{% endblock %}
 
+{% block title %}
+	Evenement
+{% endblock %}
 {% block container %}
-	<h1>Evenement index</h1>
+<<<<<<<HEAD<divclass="search-and-create-container"><divclass="welcome-hero-search-box"><formaction="{{path('app_evenement_index')}}"method="get"><labelfor="searchTerm">search:</label><inputtype="text"id="searchTerm"name="searchTerm"placeholder="Entrezvotrerecherche"value="{{searchTerm}}"><buttontype="submit">search</button></form></div><ahref="{{path('app_evenement_new')}}"class="btnbtn-primary">CreatenewEvent</a><divclass="alertalert-success">{{flashMessage}}</div>=======<h3>Evenement</h3><tableclass="table"><thead><tr><th>NomEvent</th><th>Descript</th><th>DateEvent</th><th>HeureEvent</th><th>LieuEvent</th><th>NbParticipants</th><th>Image</th><th>Organisateur</th><th>actions</th></tr></thead><tbody><tr><td>{{evenement.nomEvent}}</td><td>{{evenement.descript}}</td><td>{{evenement.dateEvent?evenement.dateEvent|date('Y-m-dH:i:s'):''}}</td><td>{{evenement.heureEvent}}</td><td>{{evenement.lieuEvent}}</td><td>{{evenement.nbParticipants}}</td><td><imgsrc="{{asset('uploads/images/'~evenement.image)}}"alt="eventimage"style="width:180px;height:auto;">NoImageAvailable</td><td>{{evenement.organisateur}}</td><td><ahref="{{path('app_evenement_show',{'idEvent':evenement.idEvent})}}">show</a><ahref="{{path('app_evenement_edit',{'idEvent':evenement.idEvent})}}">edit</a></td></tr><tr><tdcolspan="10">norecordsfound</td></tr></tbody></table><ahref="{{path('app_evenement_new')}}">Createnew</a>Evenementindex{%endblock%}<h3>Evenement</h3><tableclass="table"><thead><tr><th>NomEvent</th><th>Descript</th><th>DateEvent</th><th>HeureEvent</th><th>LieuEvent</th><th>NbParticipants</th><th>Image</th><th>Organisateur</th><th>actions</th></tr></thead><tbody><tr><td>{{evenement.nomEvent}}</td><td>{{evenement.descript}}</td><td>{{evenement.dateEvent?evenement.dateEvent|date('Y-m-dH:i:s'):''}}</td><td>{{evenement.heureEvent}}</td><td>{{evenement.lieuEvent}}</td><td>{{evenement.nbParticipants}}</td><td><imgsrc="{{asset('uploads/images/'~evenement.image)}}"alt="eventimage"style="width:180px;height:auto;">NoImageAvailable</td><td>{{evenement.organisateur}}</td><td><ahref="{{path('app_evenement_show',{'idEvent':evenement.idEvent})}}">show</a><ahref="{{path('app_evenement_edit',{'idEvent':evenement.idEvent})}}">edit</a></td></tr><tr><tdcolspan="10">norecordsfound</td></tr></tbody></table><ahref="{{path('app_evenement_new')}}">Createnew</a>>> {# Afficher la notification Flash le cas échéant #} {% for flashMessage in app.flashes('success') %} {% endfor %} {% for evenement in evenements %} {% if evenement.image %} {% else %} {% endif %} {% else %} {% endfor %} {% block title %}
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>IdEvent</th>
-				<th>NomEvent</th>
-				<th>Descript</th>
-				<th>DateEvent</th>
-				<th>HeureEvent</th>
-				<th>LieuEvent</th>
-				<th>NbParticipants</th>
-				<th>Image</th>
-				<th>Organisateur</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for evenement in evenements %}
-				<tr>
-					<td>{{ evenement.idEvent }}</td>
-					<td>{{ evenement.nomEvent }}</td>
-					<td>{{ evenement.descript }}</td>
-					<td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ evenement.heureEvent }}</td>
-					<td>{{ evenement.lieuEvent }}</td>
-					<td>{{ evenement.nbParticipants }}</td>
-					<td>{{ evenement.image }}</td>
-					<td>{{ evenement.organisateur }}</td>
-					<td>
-						<a href="{{ path('app_evenement_show', {'idEvent': evenement.idEvent}) }}">show</a>
-						<a href="{{ path('app_evenement_edit', {'idEvent': evenement.idEvent}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="10">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+{% block container %} {% for evenement in evenements %} {% if evenement.image %} {% else %} {% endif %} {% else %} {% endfor %}>>>>> f298a121a6cbb3b3d2874b1ea941eed10c309b82
+{% endblock %}
 
-	<a href="{{ path('app_evenement_new') }}">Create new</a>
+{% block card %}
+	{# Afficher la notification Flash le cas échéant #}
+	{% for flashMessage in app.flashes('success') %}
+		<div class="alert alert-success">
+			{{ flashMessage }}
+		</div>
+	{% endfor %}
+	<div class="row">
+		{% for evenement in evenements %}
+			<div class="col-md-4 col-sm-6">
+				<div class="single-explore-item">
+					<div class="single-explore-img">
+						<img
+						src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="event image">
+						<!-- Other content for events -->
+
+						<div class="single-explore-img-info">
+							<button onclick="window.location.href='#'">best rated</button>
+							<div class="single-explore-image-icon-box">
+								<ul>
+									<li>
+										<div class="single-explore-image-icon">
+											<a href="{{ path('app_evenement_show', {'idEvent': evenement.idEvent}) }}">
+												<i class="fa fa-arrows-alt"></i>
+											</a>
+
+										</div>
+									</li>
+									<li>
+										<div class="single-explore-image-icon">
+											<a href="{{ path('app_evenement_edit', {'idEvent': evenement.idEvent}) }}">
+												<i class="fa fa-bookmark-o"></i>
+											</a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="single-explore-txt bg-theme-1">
+						<h2>
+							<a href="#">{{ evenement.nomEvent }}</a>
+						</h2>
+						<!-- Other content for event -->
+						<p class="explore-rating-price">
+							<span class="explore-rating">E</span>
+							<a href="#">
+								{{evenement.lieuEvent }}</a>
+							<span class="explore-price-box">
+								Nb participants
+								<span class="explore-price">{{ evenement.nbParticipants }}</span>
+							</span>
+							<a href="#">{{ evenement.organisateur }}</a>
+						</p>
+
+						<div class="explore-person">
+							<div class="row">
+								<div class="col-sm-10">
+									<p>
+										{{ evenement.descript }}...
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="explore-open-close-part">
+							<div class="row">
+								<div class="col-sm-5">
+									<a href="{{ path('app_ticket_new', {'idEvent': evenement.idEvent}) }}">Réserver</a>
+								</div>
+								<div class="col-sm-7">
+									<div class="explore-map-icon">
+										<a href="#">
+											<i data-feather="map-pin"></i>
+										</a>
+										<a href="#">
+											<i data-feather="upload"></i>
+										</a>
+										<a href="#">
+											<i data-feather="heart"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="pagination">
+		{{ knp_pagination_render(evenements) }}
+	</div>
+	<style>
+		/* Pagination container */
+		.pagination {
+			display: flex;
+			justify-content: center;
+			margin-top: 20px;
+		}
+	</style>
+
 {% endblock %}
