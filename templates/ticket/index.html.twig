@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 
 {% block title %} Tickets {% endblock %}
 
@@ -21,7 +21,13 @@
             <tr>
                 
                 <td>{{ ticket.numTicket }}</td>
-                <td>{{ ticket.image }}</td>
+                <td>
+                  {% if ticket.image %}
+                <img src="{{ asset('uploads/images/' ~ ticket.image) }}" alt="ticket image" style="width: 180px; height: auto;">
+                {% else %}
+                No Image Available 
+                {% endif %}
+                </td>
                 <td>{{ ticket.prix }}</td>
                 <td>{{ ticket.categorie }}</td>
                 <td>

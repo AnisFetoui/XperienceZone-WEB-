@@ -1,74 +1,123 @@
 {% extends 'utilisateur/base.html.twig' %}
-{% block title %}{% endblock %}
 
+{% block title %}Activity
+{% endblock %}
 {% block container %}
-	<div>
-		<h4>Admin dashbord</h4>
-		<h4>table of Activites</h4>
+	<h2 class="text-lg font-medium mr-auto">Liste d'activites</h1>
+	<br>
 
-		<table class="table">
-			<thead>
-				<tr>
-					<th>idAct</th>
-					<th>NomAct</th>
-					<th>Description</th>
-					<th>Organisateur</th>
-					<th>LieuAct</th>
-					<th>Adresse</th>
-					<th>Images</th>
-					<th>PlaceDiso</th>
-					<th>PrixAct</th>
-					<th>Duree</th>
-					<th>Periode</th>
-					<th>IdUser</th>
-					<th>actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for activite in activites %}
+	<br>
+	<a href="{{ path('app_activites_new') }}" class="btn btn-primary shadow-md mr-2">Create new activity</a>
+	<br>
+	<br>
+	<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+		<div class="table-responsive">
+			<table class="table table-report -mt-2" style="width: 100%; table-layout: fixed;">
+				<thead>
 					<tr>
-						<td>{{ activite.idAct }}</td>
-						<td>{{ activite.nomAct }}</td>
-						<td>{{ activite.description }}</td>
-						<td>{{ activite.organisateur }}</td>
-						<td>{{ activite.lieuAct }}</td>
-						<td>{{ activite.adresse }}</td>
-						<td>
-							{% if activite.images %}
-								<img src="{{ asset('uploads/images/' ~ activite.images )}}" alt="activity image" style="max-width: 100px; max-height: 100px;">
-							{% else %}
-								NO IMAGE AVAILABLE FOR THIS activity
-							{% endif %}
-						</td>
+						<th class="whitespace-nowrap" style="width: 5px; ">idAct</th>
+						<th class="whitespace-nowrap" style="width: 5px; ">IdUser</th>
+						<th class="whitespace-nowrap">NomAct</th>
+						<th class="whitespace-nowrap" style="width: 200px; ">Description</th>
+						<th class="whitespace-nowrap" style="width: 100px;">Organisateur</th>
 
+						<th class="whitespace-nowrap">LieuAct</th>
+						<th class="whitespace-nowrap">Adresse</th>
+						<th class="whitespace-nowrap">Images</th>
+						<th class="whitespace-nowrap">PlaceDiso</th>
+						<th class="whitespace-nowrap">PrixAct</th>
+						<th class="whitespace-nowrap" style="width: 15px; ">Duree</th>
+						<th class="whitespace-nowrap">Periode</th>
 
-						<td>{{ activite.placeDiso }}
-						</td>
-						<td>{{ activite.prixAct }}</td>
-						<td>{{ activite.duree }}</td>
-						<td>{{ activite.periode }}</td>
-						<td>{{ activite.idUser }}</td>
-						<td>
-							<a href="{{ path('app_activites_show', {'idAct': activite.idAct}) }}">show</a>
-							<a href="{{ path('app_activites_edit', {'idAct': activite.idAct}) }}">edit</a>
-						</td>
-
+						<th class="whitespace-nowrap">actions</th>
 					</tr>
+				</thead>
+				<tbody>
+					{% for activite in activites %}
+						<tr class="intro-x">
+							<td>{{ activite.idAct }}</td>
+							<td>{{ activite.user.getIdUser }}</td>
+							<td>{{ activite.nomAct }}</td>
+							<td>{{ activite.description }}</td>
+							<td>{{ activite.organisateur }}</td>
+							<td>{{ activite.lieuAct }}</td>
+							<td>{{ activite.adresse }}</td>
+							<td>
+								{% if activite.images %}
+									<img src="{{ asset('uploads/images/' ~ activite.images )}}" alt="activity image" style="max-width: 100px; max-height: 100px;">
+								{% else %}
+									NO IMAGE AVAILABLE FOR THIS activity
+								{% endif %}
+							</td>
+
+
+							<td>{{ activite.placeDiso }}
+							</td>
+							<td>{{ activite.prixAct }}</td>
+							<td>{{ activite.duree }}</td>
+							<td>{{ activite.periode }}</td>
+
+
+							<td>
+								<a href="{{ path('app_activites_show', {'idAct': activite.idAct}) }}" style="color:blue; font-size:12px ">show</a>
+								<a href="{{ path('app_activites_edit', {'idAct': activite.idAct}) }}" style="color:red; font-size:12px">edit</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="10">no records found</td>
+						</tr>
+					{% endfor %}
 				</tbody>
-			</tbody>
-		</tr>
-	</tbody>
-</tbody></tr>{% else %}<tr>
-<td colspan="13">no records found</td></tr>{% endfor %}</tbody></table><a href="{{ path('app_activites_new') }}">Create new</a><h4>Inscription List</h4><table class="table"><thead><tr><th>Id_ins</th><th>DateIns</th><th>HeureIns</th><th>NbrTickes</th><th>FraitAbonnement</th><th>ActiviteId</th><th>UserId</th><th>actions</th></tr></thead><tbody>{% for inscription in inscriptions %}<tr>
-<td>{{ inscription.IdIns }}</td>
-<td>{{ inscription.dateIns ? inscription.dateIns|date('Y-m-d') : '' }}</td>
-<td>{{ inscription.heureIns ? inscription.heureIns|date('H:i') : '' }}</td>
-<td>{{ inscription.nbrTickes }}</td>
-<td>{{ inscription.fraitAbonnement }}</td>
-<td>{{ inscription.activiteId }}</td>
-<td>{{ inscription.userId }}</td>
-<td>
-	<a href="{{ path('app_inscription_show', {'Id_ins': inscription.Idins}) }}">show</a>
-	<a href="{{ path('app_inscription_edit', {'Id_ins': inscription.Idins}) }}">edit</a>
-</td></tr>{% else %}<tr>
-<td colspan="8">no records found</td></tr>{% endfor %}</tbody></table>{% endblock %}
+			</table>
+		</div>
+
+
+		<h2 class="text-lg font-medium mr-auto">Liste d'Inscription</h1>
+		<br>
+
+		<br>
+		<a href="#" class="btn btn-primary shadow-md mr-2">Create new inscription</a>
+		<br>
+		<br>
+		<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+			<div class="table-responsive">
+				<table class="table table-report -mt-2" style="width: 100%; table-layout: fixed;">
+					<thead>
+						<tr>
+
+							<th class="whitespace-nowrap">Id_ins</th>
+							<th class="whitespace-nowrap">DateIns</th>
+							<th class="whitespace-nowrap">HeureIns</th>
+							<th class="whitespace-nowrap">NbrTickes</th>
+							<th class="whitespace-nowrap">FraitAbonnement</th>
+							<th class="whitespace-nowrap">ActiviteId</th>
+							<th class="whitespace-nowrap">UserId</th>
+							<th class="whitespace-nowrap">actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for inscription in inscriptions %}
+							<tr>
+								<td>{{ inscription.IdIns }}</td>
+								<td>{{ inscription.dateIns ? inscription.dateIns|date('Y-m-d') : '' }}</td>
+								<td>{{ inscription.heureIns ? inscription.heureIns|date('H:i') : '' }}</td>
+								<td>{{ inscription.nbrTickes }}</td>
+								<td>{{ inscription.fraitAbonnement }}</td>
+								<td>{{ inscription.activiteId }}</td>
+								<td>{{ inscription.userId }}</td>
+								<td>
+									<a href="{{ path('app_inscription_show', {'Id_ins': inscription.Idins}) }}">show</a>
+									<a href="{{ path('app_inscription_edit', {'Id_ins': inscription.Idins}) }}">edit</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="8">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+		{% endblock %}

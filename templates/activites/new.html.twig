@@ -1,15 +1,27 @@
 {% extends 'base.html.twig' %}
-{% block title %}New Activites
+{% block title %}{% endblock %}
+{% block css %}
+	{{ parent() }}
+	<!--style.css-->
+	<link rel="stylesheet" href="{{asset('assets/css/styleaziz.css' )}}">
 {% endblock %}
-
 {% block container %}
 
-	<div>
-		<h4>Create new Activites</h4>
-
-		{{ include('activites/_form.html.twig') }}
-
-		<a href="{{ path('app_activites_index') }}">back to list</a>
+	<div class="content">
+		<div class="titre">
+			<h1>Create and submit your activity Now</h1>
+		</div>
+		<div class="tot">
+			<div class="buttons">
+				<a href="{{ path('app_activites_index') }}">back to list</a>
+				<a href="{{ path('app_activites_index') }}">edit my activites</a>
+			</div>
+			<div class="form-new">
+				{{ include('activites/_form.html.twig') }}
+			</div>
+		</div>
 	</div>
 
 {% endblock %}
+{% block explore %}{% endblock %}
+{% block card %}{% endblock %}

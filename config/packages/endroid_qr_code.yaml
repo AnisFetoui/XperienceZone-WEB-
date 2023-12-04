@@ -1,0 +1,20 @@
+endroid_qr_code:
+<<<<<<< HEAD
+    default:
+        writer: Endroid\QrCode\Writer\PngWriter
+        size: 300
+        margin: 10
+        encoding: 'UTF-8'
+        errorCorrectionLevel: 'low'
+        roundBlockSizeMode: 'margin'
+        validateResult: false
+=======
+  default:
+    writer: Endroid\QrCode\Writer\PngWriter
+    size: 300
+    margin: 10
+    encoding: "UTF-8"
+    errorCorrectionLevel: "low"
+    roundBlockSizeMode: "margin"
+    validateResult: false
+>>>>>>> f298a121a6cbb3b3d2874b1ea941eed10c309b82

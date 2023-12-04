@@ -8,15 +8,26 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^2.7",
+        "bacon/bacon-qr-code": "^2.0",
         "doctrine/annotations": "^2.0",
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.16",
+<<<<<<< HEAD
+        "dompdf/dompdf": "^2.0",
+        "endroid/qr-code-bundle": "^5.0",
+        "knplabs/knp-paginator-bundle": "^5.9",
+=======
+        "endroid/qr-code": "^5.0",
+        "endroid/qr-code-bundle": "^5.0",
         "knplabs/knp-paginator-bundle": "^5.9",
         "mercuryseries/flashy-bundle": "^5.1",
         "nelmio/cors-bundle": "^2.3",
+       
+>>>>>>> f298a121a6cbb3b3d2874b1ea941eed10c309b82
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpoffice/phpspreadsheet": "^1.29",
+        "phpoffice/phpexcel": "^1.8",
         "phpstan/phpdoc-parser": "^1.24",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "5.4.*",
@@ -24,6 +35,7 @@
         "symfony/doctrine-messenger": "5.4.*",
         "symfony/dotenv": "5.4.*",
         "symfony/expression-language": "5.4.*",
+      
         "symfony/firebase-notifier": "5.4.*",
         "symfony/flex": "^1.17|^2",
         "symfony/form": "5.4.*",
@@ -37,24 +49,31 @@
         "symfony/process": "5.4.*",
         "symfony/property-access": "5.4.*",
         "symfony/property-info": "5.4.*",
+      
         "symfony/runtime": "^5.4",
         "symfony/security-bundle": "5.4.*",
         "symfony/serializer": "5.4.*",
         "symfony/string": "5.4.*",
         "symfony/translation": "5.4.*",
         "symfony/twig-bundle": "5.4.*",
+        "symfony/ux-chartjs": "^2.13",
         "symfony/validator": "5.4.*",
+        "symfony/var-dumper": "5.4.*",
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
+        "tigitz/php-spellchecker": "^0.6.0",
+        "tinymce/tinymce": "^6.8",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "twilio/sdk": "*"
     },
     "config": {
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "php-http/discovery": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "endroid/installer": true
         },
         "optimize-autoloader": true,
         "preferred-install": {
@@ -108,4 +127,6 @@
         "symfony/stopwatch": "5.4.*",
         "symfony/web-profiler-bundle": "5.4.*"
     }
+
+    
 }
