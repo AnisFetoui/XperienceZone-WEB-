@@ -1,0 +1,41 @@
+
+
+
+        <meta charset="utf-8">
+        <link href="{{asset('assetsAdmin/dist/images/logo.png')}}" rel="shortcut icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Tinker admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
+        <meta name="keywords" content="admin template, Tinker Admin Template, dashboard template, flat admin template, responsive admin template, web app">
+        <meta name="author" content="LEFT4CODE">
+        <title>Dashboard - XperienceZone</title>
+        <!-- BEGIN: CSS Assets-->
+        <link rel="stylesheet" href="{{asset('assetsAdmin/dist/css/app.css')}}" />
+        <!-- END: CSS Assets-->
+    <h1>Produits</h1>
+
+    <table class="table">
+        <tbody class="py-5 md:py-0 bg-black/[0.15] dark:bg-transparent" >
+            <tr>
+                <th>Idr</th>
+                <td>{{ produit.idProd }}</td>
+            </tr>
+            <tr>
+            
+            <tr>
+                <th>qunatite</th>
+                <td>{{ produit.quantite }}</td>
+            </tr>
+            <tr>
+                <th>prixProd</th>
+                <td>{{ produit.prixProd }}</td>
+            </tr>
+             <tr>
+                <th>Description</th>
+                <td>{{ produit.descriptionProd }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('produitback_index') }}">back to list</a>
+
+<a href="{{ path('app_produit_edit', {'idProd': produit.idProd}) }}">edit</a>
+    {{ include('produit/_delete_form.html.twig') }}

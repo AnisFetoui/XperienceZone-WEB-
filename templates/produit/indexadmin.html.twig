@@ -1,0 +1,145 @@
+{% extends 'utilisateur/base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block container %}
+    <div>
+    
+
+        
+        
+        <table class="table">
+            <thead>
+
+            <style>
+        /* Ajoutez le CSS directement ici */
+        .excel-export-form {
+            display: inline; /* Alignez le formulaire et le bouton horizontalement */
+        }
+
+        .btn-success {
+            background-color: #28a745; /* Couleur verte Bootstrap */
+            color: #fff; /* Texte blanc sur fond vert */
+            border-color: #28a745; /* Bordure verte */
+        }
+
+        .btn-success:hover {
+            background-color: #218838; /* Changement de couleur au survol */
+            border-color: #218838; /* Bordure changée au survol */
+        }
+    </style>
+                    <a href="{{ path('app_produit_search') }}" class="btn btn-success">Search</a>
+
+    <form method="get" action="{{ path('produitback_index') }}" class="excel-export-form">
+        <input type="hidden" name="excel" value="1">
+        <button type="submit" class="btn btn-success">Export Excel</button>
+    </form>
+    <style>
+
+        .tri {
+            color:blue;
+        }
+    </style>
+<div>
+    <strong>Sort by:</strong>
+<a href="{{ path('produitback_index', {'criteria': 'idProd'}) }}" class="tri"> ID</a> |
+<a href="{{ path('produitback_index', {'criteria': 'nomProd'}) }}" class="tri"> Product Name</a> |
+<a href="{{ path('produitback_index', {'criteria': 'descriptionProd'}) }}" class="tri"> Description</a> |
+</div>
+    <h3>Table of Products</h3>
+
+                <tr>
+                    <th>idProd</th>
+                    <th>Name Product</th>
+                    <th>Description</th>
+					<th>quantity</th>
+				    <th>image</th>
+					<th>Price</th>
+					 <th>Category</th>
+
+
+
+
+                    <!-- Autres colonnes spécifiques aux Produits -->
+                    <th>actions</th>
+                </tr>
+            </thead>
+           <tbody>
+           
+    {% for produit in produits %}
+        <tr>
+            <td>{{ produit.idProd }}</td>
+            <td>{{ produit.nomProd }}</td>
+            <td>{{ produit.descriptionProd }}</td>
+			<td>{{ produit.quantite }}</td>
+
+            <td>
+                {% if produit.image %}
+                    <img src="{{ asset('uploads/images/' ~ produit.image) }}" alt="Product Image" style="max-width: 100px;">
+                {% else %}
+                    NO IMAGE AVAILABLE FOR THIS PRODUCT
+                {% endif %}
+            </td>
+            <td>{{ produit.prixProd}}</td>
+            <td>{{ produit.categorie.nomCategorie}}</td>
+            <td>
+                
+                <a href="{{ path('app_produit_edit', {'idProd': produit.idProd}) }}">edit</a>
+            </td>
+           
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="7">no records found</td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<a href="{{ path('app_produit_new') }}">Create new</a>
+
+                            
+                               <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-3">
+        <div class="pagination">
+            {{ knp_pagination_render(produits,'produit/custom_pagination.html.twig') }}
+        </div>
+    </div>
+
+                             
+{% endblock %}
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#search").keyup(function (e) {
+            var value = $(this).val();
+
+            $.ajax({
+                url: "{{ path('search_produit_by_name') }}",  // Mettez le chemin de votre route de recherche ici
+                type: 'GET',
+                data: {
+                    'searchValue': value
+                },
+                success: function (retour) {
+                    if (retour) {
+                        $('#produitBody').hide();
+                        $('#searchBody').empty();
+                        $.each(JSON.parse(retour), function (i, obj) {
+                            $('#searchBody').append('<tr><td>' + obj.nomProd + '</td><td>' + obj.prixProd + ' </td><td><a href="app_produit_show/' + obj.idProd + '">show produit</a> <br><a href="app_produit_edit/' + obj.idProd + '">edit produit</a></td></tr>');
+                        });
+                        $('#searchTable').show();
+                    } else {
+                        $('#produitBody').show();
+                        $('#searchTable').hide();
+                    }
+                },
+            });
+            return false;
+        });
+    });
+</script>
+
+
+
+
+{% endblock %}

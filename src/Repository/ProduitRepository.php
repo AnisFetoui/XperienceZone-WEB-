@@ -20,6 +20,35 @@ class ProduitRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Produit::class);
     }
+    // ...
+
+public function findProductByCriteria($nomProd, $prixProd)
+{
+    $queryBuilder = $this->createQueryBuilder('p');
+
+    if ($nomProd) {
+        $queryBuilder->andWhere('p.nomProd LIKE :nomProd')
+            ->setParameter('nomProd', '%' . $nomProd . '%');
+    }
+
+    if ($prixProd) {
+        $queryBuilder->andWhere('p.prixProd <= :prixProd')
+            ->setParameter('prixProd', $prixProd);
+    }
+
+    return $queryBuilder->getQuery()->getResult();
+}
+public function findProduitByNom($searchString)
+{
+    return $this->createQueryBuilder('p')
+        ->where('LOWER(p.nomProd) LIKE :search')
+        ->setParameter('search', '%' . strtolower($searchString) . '%')
+        ->getQuery()
+        ->getResult();
+}
+
+
+
 
 //    /**
 //     * @return Produit[] Returns an array of Produit objects
@@ -45,4 +74,6 @@ class ProduitRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
 }
