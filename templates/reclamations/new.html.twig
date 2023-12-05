@@ -2,18 +2,45 @@
 
 {% block title %}New Reclamations{% endblock %}
 
-{% block container %}
-    <div class="text-center">
-        <h1>Create new Reclamation</h1>
-    </div>
 
-    <div class="d-flex justify-content-center">
+
+{% block container %}
+
+<style>
+.title1 {
+     font-size: 32px;
+  font-weight: 900;
+  margin: 50px 40px 40px;
+  color: white; 
+  
+     
+    }
+
+  .posit {
+      top= 90%;
+      left= 100%;
+  }  
+  
+   
+
+</style>
+
+<section  class="welcome-hero" position="center">
+<div  >
+        <div class="posit">
+        
+        <h1 class="title1" color="white" >Submit a complaint</h1>
+        
+        </div>
+
+    
         <div class="col-md-6">
+        
             {{ include('reclamations/_form.html.twig') }}
         </div>
-    </div>
+    
 
-    <div class="text-center mt-3">
-        <a href="{{ path('app_reclamations_index') }}" class="btn btn-secondary">Back to list</a>
+   
+    </section>
     </div>
 {% endblock %}

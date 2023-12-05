@@ -45,4 +45,13 @@ class InscriptionRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findByUserId($user_id)
+{
+    return $this->createQueryBuilder('i')
+        ->andWhere('i.userId = :user_id')
+        ->setParameter('user_id', $user_id)
+        ->getQuery()
+        ->getResult();
+}
 }

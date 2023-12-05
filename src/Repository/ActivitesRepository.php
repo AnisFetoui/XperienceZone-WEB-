@@ -48,5 +48,56 @@ class ActivitesRepository extends ServiceEntityRepository
 
 
 
+public function findAllSortedBy(string $criteria): array
+{
+    $results = $this->createQueryBuilder('u')
+        ->orderBy('u.' . $criteria, 'ASC')
+        ->getQuery()
+        ->getResult();
+
+    if ($criteria === 'prixAct') {
+        // Custom sort function to cast 'prixAct' as a decimal
+        usort($results, function ($a, $b) {
+            return floatval($a->getPrixAct()) - floatval($b->getPrixAct());
+        });
+    }
+    
+
+    return $results;
+}
+public function getActivityCountByPlace(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->select('a.lieuAct, COUNT(a.idAct) as activityCount')
+            ->groupBy('a.lieuAct');
+
+        $results = $queryBuilder->getQuery()->getResult();
+
+        $countsByPlace = [];
+        foreach ($results as $result) {
+            $countsByPlace[$result['lieuAct']] = $result['activityCount'];
+        }
+
+        return $countsByPlace;
+    }
+
+    public function getActivityCountByorg(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->select('a.organisateur, COUNT(a.idAct) as activityCount')
+            ->groupBy('a.organisateur');
+
+        $results = $queryBuilder->getQuery()->getResult();
+
+        $countsByorg = [];
+        foreach ($results as $result) {
+            $countsByorg[$result['organisateur']] = $result['activityCount'];
+        }
+
+        return $countsByorg;
+    }
+
+
+
 
 }

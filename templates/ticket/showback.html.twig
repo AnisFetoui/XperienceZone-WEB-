@@ -1,0 +1,41 @@
+{% extends 'utilisateur/base.html.twig' %}
+
+{% block title %}Ticket{% endblock %}
+
+{% block container %}
+    <h2>Ticket</h2>
+
+    <table class="table">
+        <tbody>
+           
+            <tr>
+                <th>NumTicket</th>
+                <td>{{ ticket.numTicket }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                {% if ticket.image %}
+                <img src="{{ asset('uploads/images/' ~ ticket.image) }}" alt="ticket image" style="width: 180px; height: auto;">
+                {% else %}
+                No Image Available 
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ ticket.prix }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ ticket.categorie }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ticket_index') }}">back to list</a>
+
+    <a href="{{ path('app_ticket_editback', {'idTicket': ticket.idTicket}) }}">edit</a>
+
+   {{ include('ticket/deleteback.html.twig') }}
+{% endblock %}

@@ -22,7 +22,6 @@ use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 use Knp\Component\Pager\PaginatorInterface;
 
-
 #[Route('/message')]
 class MessageController extends AbstractController
 {

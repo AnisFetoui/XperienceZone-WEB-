@@ -183,7 +183,10 @@ nav.navbar.bootsnav {
     padding: 34px 0px;
     text-transform:capitalize;
 }
-.navbar-header a.navbar-brand span{display: inline-block;color:#7FFF00;text-transform:capitalize;}
+.navbar-brand span {
+    color: #60941a; /* Remplacez ceci par la couleur que vous souhaitez pour le span */
+}
+.navbar-header a.navbar-brand span{display: inline-block;color: #60941a;text-transform:capitalize;}
 
 .wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand,.wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand:hover,.wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand:focus {padding:30px 0px;}
 /*.navbar-brand*/
@@ -257,7 +260,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #7FFF00;}
     left: 0;
     width: 100%;
     height: 100%;
-    background:rgba(65,73,89,.65);
+   /* background:rgba(65,73,89,.65);*/
     z-index: -1;
 }
 .welcome-hero-txt { padding-top: 155px;}
@@ -298,7 +301,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #7FFF00;}
     height: 70px;
     width: 300px;
     border: 0;
-    background: transparent;
+   background: transparent;
 }
 .single-welcome-hero-form input[type="text"]{
     font-size: 14px;
@@ -306,7 +309,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #7FFF00;}
     text-transform: capitalize;
     font-weight: 500;
 }
-.welcome-hero-form-icon {
+/*.welcome-hero-form-icon {
     position: absolute;
     top: 20px;
     right: 30px;
@@ -336,7 +339,34 @@ nav.navbar.bootsnav .navbar-toggle i{color: #7FFF00;}
     width:  14px;
     height:  auto;
     margin-left:  12px;
+}*/
+
+.welcome-hero-btn {
+    background-color: #60941a; /* Vert */
+    color: #ffffff;
+    border: none;
+    padding: 22px 38px; /* Ajustez la taille du bouton ici */
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
 }
+
+.welcome-hero-btn:hover {
+    background-color: #60941a; /* Couleur au survol */
+}
+
+.welcome-hero-btn span {
+    margin-right: 10px;
+}
+
+/* Ajoutez ce style pour ajuster la taille de l'icône */
+.welcome-hero-btn i {
+    width: 20px;
+    height: 20px;
+}
+
+
 
 /*appsLand-btn*/
 
@@ -594,7 +624,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #7FFF00;}
     color: #f63138;
     text-transform: capitalize;
 }
-.close-btn.open-btn {color: #00c437;}
+.close-btn.open-btn {color: #60941a;}
 .explore-map-icon{text-align: right;}
 .explore-map-icon a svg {
     width: 12px;
@@ -603,7 +633,73 @@ nav.navbar.bootsnav .navbar-toggle i{color: #7FFF00;}
     color: #767f86;
 }
 .explore-map-icon a svg:hover{color: #f63138;}
-.single-explore-txt.bg-theme-2 .explore-map-icon a svg:hover{color: #00c437;}
+.single-explore-txt.bg-theme-2 .explore-map-icon a svg:hover{color: #60941a;}
 .single-explore-item:hover{box-shadow: 0 10px 20px rgba(21,19,19,.2);}
 
 
+.formdelete .btn{
+   color: rgb(168, 56, 56);
+}
+/*************************************/
+.allgraph{
+display: flex;
+flex-direction: column;
+gap: 5px;
+
+}
+.grapheplace{
+    display: flex;
+    flex-direction: row;
+}
+.chartcontainer{
+    width: 500px;
+    height: 300px;
+}
+.chartcontainer1{
+margin-left: 80px;
+margin-top: 40px;
+width: 600px;
+height: 300px;
+}
+.graphorganisateur{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chartcontainer2{
+
+    width: 600px;
+    height: 600px;
+}
+.titre2{
+    text-align: center;
+}
+.titre2 h1 {
+    margin-top: 30px;
+    color: #505866;
+    font-size:24px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+}
+.btn.btn-primary {
+    color: #fff; /* Text color */
+    background-color: #60941a; /* Background color */
+    border-color: #60941a; /* Border color */
+}
+
+/* Customize the hover state */
+.btn.btn-primary:hover {
+    color: #fff;
+    background-color:  #60941a; /* Slightly darker color on hover */
+    border-color:  #60941a;
+}
+
+/* Customize the active state */
+.btn.btn-primary:active,
+.btn.btn-primary:focus {
+    color: #fff;
+    background-color:  #60941a; /* Slightly darker color on active/focus */
+    border-color: #60941a;
+}

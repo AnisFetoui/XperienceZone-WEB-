@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% endblock %}
+{% block css %}
+	{{ parent() }}
+	<!--style.css-->
+	<link rel="stylesheet" href="{{asset('assets/css/styleticket.css' )}}">
+
+{% endblock %}
+{% block container %}
+	{% set successMessages = app.flashes('success') %}
+	{% if successMessages is not empty %}
+		<script>
+			alert("{{ successMessages[0] }}");
+		</script>
+	{% endif %}
+	<div class="header">
+		<div class="titre">
+			<h1>Here you can find your inscriptions</h1>
+		</div>
+	</div>
+	<div class="content">
+		<div class="inscription_list">
+
+
+			<table class="styled-table">
+				<thead>
+					<tr>
+
+						<th>Activity</th>
+						<th>Inscription Date</th>
+						<th>Inscription Hour</th>
+						<th>Ticket for</th>
+						<th>Price</th>
+						<th></th>
+						<th></th>
+						<th></th>
+
+					</tr>
+				</thead>
+				<tbody>
+					{% for inscription in inscription %}
+						<tr class="active-row">
+
+
+							<td>{{ inscription.activite.getnomAct|upper }}</td>
+							<td>{{ inscription.dateIns ? inscription.dateIns|date('Y-m-d') : '' }}</td>
+							<td>{{ inscription.heureIns ? inscription.heureIns|date('H:i') : '' }}</td>
+							<td>{{ inscription.nbrTickes }}</td>
+							<td>{{ inscription.fraitAbonnement }}</td>
+							<td>
+								<a href="{{ path('load-ticket-content', {'inscriptionId': inscription.Idins}) }}">Get your ticket</a>
+							</td>
+							<td>
+								{{ include('inscription/_delete_form.html.twig') }}
+							</td>
+							<td>
+
+								<a class="see-on-calendar" data-activity="{{ inscription.activite.nomAct }}" periode="{{ inscription.activite.periode }}">See on calendar</a>
+
+
+							</td>
+
+						</tr>
+					</td>
+				</tbody>
+			</tr>
+		</tr>
+	{% else %}
+		<tr>you have no inscription right now</tr>
+		<tr>go back to the home page and make one</tr>
+	{% endfor %}
+</tbody></table></div><div id="calendrier"></div></div><script>window.onload = () => {
+let calendarElt = document.querySelector("#calendrier")
+
+let calendar = new FullCalendar.Calendar(calendarElt, {
+
+initialView: 'dayGridMonth',
+locale: 'fr',
+timeZone: 'Europe/Paris',
+headerToolbar: {
+start: 'prev,next today',
+center: 'title',
+
+end: 'dayGridMonth,timeGridWeek'
+},
+
+events: {{ data|raw }}
+
+})
+
+
+calendar.render()
+}
+
+/*see when clicked*/
+document.addEventListener('DOMContentLoaded', function () {
+let calendarElt = document.querySelector("#calendrier");
+let calendar = new FullCalendar.Calendar(calendarElt, {
+
+initialView: 'dayGridMonth',
+locale: 'fr',
+timeZone: 'Europe/Paris',
+headerToolbar: {
+start: 'prev,next today',
+center: 'title',
+
+end: 'dayGridMonth,timeGridWeek'
+}
+});
+
+calendar.render();
+
+// Add click event listener to "See on calendar" links
+let seeOnCalendarLinks = document.querySelectorAll('.see-on-calendar');
+seeOnCalendarLinks.forEach(function (link) {
+link.addEventListener('click', function (event) {
+event.preventDefault();
+console.log("See on calendar link clicked");
+/*let starti = this.getAttribute('data-starti');
+let endi = this.getAttribute('data-endi');*/
+let activityName = this.getAttribute('data-activity');
+let activityperiode = this.getAttribute('periode');
+
+console.log("periode:", activityperiode);
+
+let [start, end] = activityperiode.split(' - ');
+let [startDay, startMonth, startYear] = start.split('/');
+let [endDay, endMonth, endYear] = end.split('/');
+
+let startDate = new Date(`${startYear}-${startMonth}-${startDay}`);
+let endDate = new Date(`${endYear}-${endMonth}-${endDay}`);
+console.log(endDate);
+console.log(startDate);
+
+let formattedStart = startDate.toISOString().split('T')[0];
+let formattedEnd = endDate.toISOString().split('T')[0];
+calendar.removeAllEvents();
+console.log("periode:", activityperiode);
+console.log(formattedStart);
+console.log(formattedEnd);
+
+
+// Go to the date on the calendar
+calendar.gotoDate(formattedStart);
+
+// Add event with activity name
+calendar.addEvent({
+title: activityName,
+start: formattedStart,
+end: formattedEnd,
+allDay: true,
+color: '#009879',
+// ... other event properties ...
+});
+});
+});
+});</script>{% endblock %}{% block explore %}{% endblock %}{% block card %}{% endblock %}

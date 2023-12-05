@@ -1,5 +1,8 @@
+{% extends 'base.html.twig' %}
+
 {% block title %}Inscription
 {% endblock %}
+
 
 {% block container %}
 	<h1>Inscription</h1>
@@ -28,7 +31,7 @@
 			</tr>
 			<tr>
 				<th>ActiviteId</th>
-				<td>{{ inscription.activiteId }}</td>
+				<td>{{ inscription.activite.getIdAct() }}</td>
 			</tr>
 			<tr>
 				<th>UserId</th>
@@ -41,5 +44,8 @@
 
 	<a href="{{ path('app_inscription_edit', {'Id_ins': inscription.Idins}) }}">edit</a>
 
+
 	{{ include('inscription/_delete_form.html.twig') }}
 {% endblock %}
+{% block card %}{% endblock %}
+{% block explore %}{% endblock %}

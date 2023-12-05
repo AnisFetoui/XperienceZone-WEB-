@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
 
 
 
@@ -23,7 +24,7 @@ class ReclamationsType extends AbstractType
             ->add('utilisateur', null, [ 
             'choice_label' => 'mail'
             ])
-            ->add('daterec', null)
+            ->add('daterec', null )
             ->add('typerec', ChoiceType::class, [
                 'choices' => [
                     'Réclamation liée à une activité' => 3,
@@ -32,24 +33,14 @@ class ReclamationsType extends AbstractType
                 ],
                 'placeholder' => 'Sélectionnez le type de réclamation', // Optionnel : affiche un texte vide par défaut
                 'attr' => ['id' => 'reclamations_typerec'],
-                /* 'constraints' => [
-                    new Assert\NotBlank(),
-                ], */
+                
             ])
           
-            ->add('refobject'/* , IntegerType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Type(['type' => 'numeric', 'message' => 'Ce champ doit être un nombre.']),
-                ],
-                
-            ] */)     
-            ->add('details', TextareaType::class/* , [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                ],
-            ] */);
-        ;
+            ->add('refobject')     
+            ->add('details', TextareaType::class)
+            ->add("recaptcha", ReCaptchaType::class);
+            ;
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void

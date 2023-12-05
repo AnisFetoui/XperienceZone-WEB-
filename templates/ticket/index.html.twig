@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'utilisateur/base.html.twig' %}
 
 {% block title %} Tickets {% endblock %}
 
 {% block container %}
     <h3>Ticket index</h3>
-
+<a href="{{ path('app_evenement_indexback') }}">events</a>
     <table class="table">
         <thead>
             <tr>
@@ -21,12 +21,18 @@
             <tr>
                 
                 <td>{{ ticket.numTicket }}</td>
-                <td>{{ ticket.image }}</td>
+                <td>
+                  {% if ticket.image %}
+                <img src="{{ asset('uploads/images/' ~ ticket.image) }}" alt="ticket image" style="width: 50px; height: auto;">
+                {% else %}
+                No Image Available 
+                {% endif %}
+                </td>
                 <td>{{ ticket.prix }}</td>
                 <td>{{ ticket.categorie }}</td>
                 <td>
-                    <a href="{{ path('app_ticket_show', {'idTicket': ticket.idTicket}) }}">show</a>
-                    <a href="{{ path('app_ticket_edit', {'idTicket': ticket.idTicket}) }}">edit</a>
+                    <a href="{{ path('app_ticket_showback', {'idTicket': ticket.idTicket}) }}">show</a>
+                    <a href="{{ path('app_ticket_editback', {'idTicket': ticket.idTicket}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -36,6 +42,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_ticket_new') }}">Create new</a>
+ {{ knp_pagination_render(tickets) }}
+   
 {% endblock %}

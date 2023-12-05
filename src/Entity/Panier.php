@@ -35,6 +35,7 @@ class Panier
    #[ORM\JoinColumn(nullable: false, name: "id_prod", referencedColumnName: "id_prod")]
     private ?Produit $produit = null;
 
+
     public function getIdPanier(): ?int
     {
         return $this->idPanier;
@@ -69,7 +70,7 @@ class Panier
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): static
+    public function setUtilisateur(?Utilisateur $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
 
@@ -87,4 +88,6 @@ class Panier
 
         return $this;
     }
+
+   
 }

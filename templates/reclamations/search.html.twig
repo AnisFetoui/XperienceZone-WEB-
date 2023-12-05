@@ -1,0 +1,89 @@
+{% extends 'utilisateur/base.html.twig' %}
+
+{% block title %}Search{% endblock %}
+
+{% block container %}
+    <style>
+        /* Votre style CSS */
+        .suggestion {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .suggestion:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+
+    <h1>Search Reclamations</h1>
+
+    <form id="searchForm">
+        <input type="text" id="searchInput" placeholder="Rechercher une réclamation...">
+    </form>
+
+    <div id="suggestions"></div>
+    <div id="reclamationDetails"></div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsDiv = document.getElementById('suggestions');
+        const reclamationDetailsDiv = document.getElementById('reclamationDetails');
+
+        suggestionsDiv.addEventListener('click', function(event) {
+            if (event.target && event.target.nodeName === 'DIV') {
+                const selectedSuggestion = event.target;
+                const idr = selectedSuggestion.dataset.idr;
+
+                fetch(`/reclamations/details/${idr}`)
+                    .then(response => response.text())
+                    .then(detailsHtml => {
+                        reclamationDetailsDiv.innerHTML = detailsHtml;
+                    });
+
+                searchInput.value = selectedSuggestion.textContent;
+                searchInput.focus(); // Focus sur le champ de recherche après la sélection
+
+                // Vider la zone des suggestions après avoir affiché les détails
+                suggestionsDiv.innerHTML = '';
+
+                performSearch(searchInput.value.trim());
+            }
+        });
+
+        searchInput.addEventListener('input', function() {
+            const searchString = searchInput.value.trim();
+
+            if (searchString === '') {
+                suggestionsDiv.innerHTML = ''; 
+                return; 
+            }
+
+            fetch(`/reclamations/search?q=${searchString}`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsDiv.innerHTML = '';
+                    data.reclamations.forEach(reclamation => {
+                        const suggestion = document.createElement('div');
+                        suggestion.textContent = reclamation.details;
+                        suggestion.classList.add('suggestion');
+                        suggestion.dataset.idr = reclamation.idr;
+
+                        suggestionsDiv.appendChild(suggestion);
+                    });
+                });
+        });
+
+        function performSearch(searchString) {
+            fetch(`/reclamations/search?q=${searchString}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Logique pour gérer la réponse de la recherche
+                    // ...
+
+                    // Pour l'exemple, affichage des données dans la console
+                    console.log(data);
+                });
+        }
+    </script>
+{% endblock %}

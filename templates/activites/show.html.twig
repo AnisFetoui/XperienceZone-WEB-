@@ -7,75 +7,81 @@
 	<link rel="stylesheet" href="{{asset('assets/css/styleaziz.css' )}}">
 {% endblock %}
 
+
 {% block container %}
-	<div class="navact">
-		<button class="first">Activity</button>
-		<button>Descripton</button>
-		<button>images</button>
+	<div class="all">
+		<div class="navact">
+			<button class="first">Activity</button>
+			<button>Descripton</button>
+			<button>images</button>
 
+
+			<a href="{{ path('ticket', {'userId': userid}) }}">show and download my tickets</a>
+
+
+		</div>
+		<div class="section">
+			<div class="presentation">
+				<p>Activity</p>
+				<h4>{{ activite.nomAct }}</h4>
+
+				<div class="bloc">
+
+					<div class="b1">
+						<h4>Periode</h4>
+						<img src="{{ asset('images/calender.png')}}"></img>
+					<h4>{{ activite.periode }}</h4>
+
+				</div>
+				<div class="b2">
+					<h4>Duration</h4>
+					<img src="{{ asset('images/clock.png')}}"></img>
+				<h4>{{ activite.duree }}
+					hours</h4>
+			</div>
+		</div>
+
+		<div class="bloc2">
+			<div class="desc">
+				<h5>About your activity:</h5>
+				<p>{{ activite.description }}</p>
+			</div>
+			<div class="image">
+				{% if activite.images %}
+					<img src="{{ asset('uploads/images/' ~ activite.images )}}" alt="activity image">
+
+				{% else %}
+					NO IMAGE AVAILABLE FOR THIS activity
+				{% endif %}
+			</div>
+		</div>
 	</div>
-	<div class="section">
-		<div class="presentation">
-			<p>Activity</p>
-			<h4>{{ activite.nomAct }}</h4>
-
-			<div class="bloc">
-
-				<div class="b1">
-					<h4>Periode</h4>
-					<img src="{{ asset('images/calender.png')}}"></img>
-				<h4>{{ activite.periode }}</h4>
+	<div class="rightside">
+		<div class="rightbloc">
+			<div class="org">
+				<h4>Organised by :</h4>
+				<span>{{ activite.organisateur }}</span>
 
 			</div>
-			<div class="b2">
-				<h4>Duration</h4>
-				<img src="{{ asset('images/clock.png')}}"></img>
-			<h4>{{ activite.duree }}
-				hours</h4>
+
+			<div class="place">
+				<h4>Activity will take place at :</h4>
+				<span>{{ activite.adresse  }}</span>
+				<h4>in</h4>
+				<span>{{ activite.lieuAct }}</span>
+			</div>
+			<div class="part">
+				<h4>Min participant :</h4>
+				<span>{{ activite.placeDiso  }}</span>
+			</div>
+
+			<div class="price">
+				<h1>{{ activite.prixAct  }}
+					TD</h1>
+				<img src="{{ asset('images/peice.png')}}"></img>
+
 		</div>
+		<div class="abon">
+			{{ include('inscription/_form.html.twig') }}</div>
 	</div>
-
-	<div class="bloc2">
-		<div class="desc">
-			<h5>About your activity:</h5>
-			<p>{{ activite.description }}</p>
-		</div>
-		<div class="image">
-			{% if activite.images %}
-				<img src="{{ asset('uploads/images/' ~ activite.images )}}" alt="activity image">
-
-			{% else %}
-				NO IMAGE AVAILABLE FOR THIS activity
-			{% endif %}
-		</div>
-	</div>
-</div>
-<div class="rightside">
-	<div class="rightbloc">
-		<div class="org">
-			<h4>Organised by :</h4>
-			<span>{{ activite.organisateur }}</span>
-
-		</div>
-
-		<div class="place">
-			<h4>Activity will take place at :</h4>
-			<span>{{ activite.adresse  }}</span>
-			<h4>in</h4>
-			<span>{{ activite.lieuAct }}</span>
-		</div>
-		<div class="part">
-			<h4>Min participant :</h4>
-			<span>{{ activite.placeDiso  }}</span>
-		</div>
-
-		<div class="price">
-			<h1>{{ activite.prixAct  }}
-				TD</h1>
-			<img src="{{ asset('images/peice.png')}}"></img>
-
-	</div>
-	<div class="abon">
-		{{ include('inscription/_form.html.twig') }}</div>
-
-</div></div></div>{% endblock %}{% block explore %}{% endblock %}{% block card %}{% endblock %}
+</div></div>{% endblock %}{% block explore %}{% endblock %}{% block card %}{% endblock %}

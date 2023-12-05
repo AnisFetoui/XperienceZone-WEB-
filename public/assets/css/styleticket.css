@@ -1,0 +1,157 @@
+.content {
+
+    background: #f8fafb;
+    height:100%;
+    display: flex;
+    flex-direction: row;
+}
+#calendrier {
+	width: 50%;
+    height: 75%;
+    margin-right: 30px;
+}
+.tickettable{
+background-color: #007bff;
+height :200px;
+width: 50%;
+}
+.inscription_list{
+margin-top: 30px;
+ padding-left: 20px;
+    height:10px;
+}
+/* Apply basic styles to the table */
+
+.styled-table {
+
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    width: 40%;
+    font-family: sans-serif;
+    min-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr:hover {
+
+    color: #009879;
+}
+.styled-table tbody tr a:hover {
+
+    color: #009879;
+}
+
+
+.qrcode #qrCodeImage{
+    height: 100px;
+    width: 100px;
+    margin-left: 10px;
+}
+.ticket{
+    border-radius: 4px;
+   
+    width: 600px;
+    margin-left: 50px;
+    height: 200px;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 280px;
+    background:url(../images/welcome-hero/Ticket.png)no-repeat;
+    
+    background-position:center;
+    background-size:cover;
+    background-color: #8D2649;
+    z-index: 1;
+}
+.ticket img{
+    max-height: 100px; /* Set the maximum desired height */
+    max-width: 120px;  /* Set the maximum desired width */
+    width: auto;       /* Allow the width to adjust proportionally */
+    height: auto;
+    object-fit: fill;
+}
+
+.ticket .nomactivte{
+
+
+    margin-top: 170px;
+
+}
+.ticket .nomactivte h4 {
+    color: #ddd;
+    font-size: 15px;
+    font-style: italic;
+}
+.content-ticket{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    gap:100px;
+}
+.leftside{
+
+    margin-left: 20px;
+}
+.leftside p {
+    font-size: 17px;
+}
+.leftside h1 {
+    font-size: 19px;
+    color: #8D2649;
+}
+.leftside #note{
+    color: #FF3131;
+    
+}
+.btndownload{
+    margin-top: 20px;
+    border-radius: 7px;
+    color: azure;
+    width: 120px;
+    height: 40px;
+    background-color: #8D2649;
+}
+.btndownload:hover{
+
+    background-color: #5e1f34;
+
+}
+.header{
+    height: 130px;
+
+    background: #f8fafb;
+}
+.titre{
+    text-align: center;
+    padding:30px 0 95px;
+}
+.titre h1{
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.4px;
+    line-height: 1.4;
+}
