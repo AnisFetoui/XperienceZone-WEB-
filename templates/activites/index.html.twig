@@ -3,7 +3,7 @@
 {% block title %}{% endblock %}
 {% block container %}
 	{# 
-		<a href="{{ path('app_activites_new') }}">Create new</a> #}
+					<a href="{{ path('app_activites_new') }}">Create new</a> #}
 	<section id="home" class="welcome-hero">
 		<div class="container">
 
@@ -90,10 +90,10 @@ cardSection.scrollIntoView({behavior: 'smooth'});
 			<strong>
 				<i class="bi bi-funnel-fill"></i>Sort by:</strong>
 			<br>
-			<a href="{{ path('app_user_tri', {'criteria': 'nomAct'}) }}">name</a>
+			<a href="{{ path('app_act_tri', {'criteria': 'nomAct'}) }}">name</a>
 			<i class="bi bi-tags-fill"></i>
 			|
-			<a href="{{ path('app_user_tri', {'criteria': 'prixAct'}) }}">price
+			<a href="{{ path('app_act_tri', {'criteria': 'prixAct'}) }}">price
 				<i class="bi bi-currency-euro"></i>
 			</a>
 		</div>

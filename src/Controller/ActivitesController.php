@@ -32,13 +32,6 @@ use Symfony\Component\Mime\Part\Multipart\AlternativePart;
 use Symfony\Component\Mime\Part\Multipart\MixedPart;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Swift_Mailer;
-use Symfony\Component\Mailer\MailerInterface;
-
-use Symfony\Component\Mime\Part\DataPart;
-use Symfony\Component\Mime\Part\Multipart\AlternativePart;
-use Symfony\Component\Mime\Part\Multipart\MixedPart;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 #[Route('/activites')]
@@ -51,27 +44,11 @@ class ActivitesController extends AbstractController
             'activites' => $activitesRepository->findAll(),
         ]);
     }
-    #[Route('/tri/{criteria}', name: 'app_user_tri', methods: ['GET'])]
+
+
+    #[Route('/tri/{criteria}', name: 'app_act_tri', methods: ['GET'])]
 public function tri(ActivitesRepository $activitesRepository, string $criteria): Response
 {
-
-    $validCriteria = ['nomAct','prixAct'];
-    
-    if (!in_array($criteria, $validCriteria)) {
-        throw $this->createNotFoundException('Invalid sorting criteria.');
-    }
-
-    $acti = $activitesRepository->findAllSortedBy($criteria);
-
-    return $this->render('activites/index.html.twig', [
-        'activites' => $acti,
-        'currentCriteria' => $criteria,
-    ]);
-}
-    #[Route('/tri/{criteria}', name: 'app_user_tri', methods: ['GET'])]
-public function tri(ActivitesRepository $activitesRepository, string $criteria): Response
-{
-
     $validCriteria = ['nomAct','prixAct'];
     
     if (!in_array($criteria, $validCriteria)) {
@@ -101,17 +78,6 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
     {
         $location = $request->query->get('location');
         $act = $activitesRepository->findBy(['lieuAct' => $location]);
-    #[Route('/location', name: 'app_activites_location', methods: ['GET'])]
-    public function locationfind(Request $request,ActivitesRepository $activitesRepository): Response
-    {
-        $location = $request->query->get('location');
-        $act = $activitesRepository->findBy(['lieuAct' => $location]);
-
-    return $this->render('activites/index.html.twig', ['activites' => $act]);
-    }
-
-
-
 
     return $this->render('activites/index.html.twig', ['activites' => $act]);
     }
@@ -185,10 +151,10 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
 
 
     #[Route('/{idAct}', name: 'app_activites_show', methods: ['GET', 'POST'])]
-    public function show(ActivitesRepositoryRepository $activitesRepositorysRepository , Request $request, EntityManagerInterface $entityManager,$idAct): Response
+    public function show(ActivitesRepository $activitesRepository , Request $request, EntityManagerInterface $entityManager,$idAct): Response
     {
 
-        $activite = $activitesRepository->find($idAct);
+        
 
         $activite = $activitesRepository->find($idAct);
         $isFormSubmitted = false;

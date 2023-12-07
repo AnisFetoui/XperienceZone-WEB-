@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\Userr;
 use App\Entity\Message;
 use App\Form\MessageType;
 use App\Repository\ChannelRepository;
 use App\Repository\MessageRepository;
-use App\Repository\UserRepository;
+use App\Repository\UserrRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,12 +45,13 @@ class MessageController extends AbstractController
 
     
     #[Route('/new', name: 'app_message_new', methods: ['GET', 'POST'])]
-   public function new(Request $request, EntityManagerInterface $entityManager,UserRepository $userRepository ,ChannelRepository $channelRepository) : Response
-    {
+   public function new(Request $request, EntityManagerInterface $entityManager,UserrRepository $userRepository ,ChannelRepository $channelRepository) : Response
+    {   $currentUser = new Userr();
         $message = new Message();
         $message->setHeurEnvoiMsg(new \DateTime()) ;
-        $currentUser=$userRepository->findOneBy(['mail'=> "fetoui@a.com"]);
-        $message->setUtilisateur($currentUser) ;
+        $currentUser = $message->getUtilisateur();
+       // $currentUser=$userRepository->findOneBy(['mail'=> "fetoui@a.com"]);
+       // $message->setUtilisateur($currentUser) ;
         $channel=$channelRepository->findOneBy(['nomCh'=> "ariana"]);  
         $message->setChannel($channel) ;
         $form = $this->createForm(MessageType::class, $message);
@@ -79,8 +80,11 @@ class MessageController extends AbstractController
     #[Route('/{idMsg}/edit', name: 'app_message_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Message $message, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
-       // $currentUser = $this->getUser();
-       $currentUser = $userRepository->findOneBy(['mail' => "fetoui@a.com"]);
+        $currentUser = new Userr();
+        $message = new Message();
+        $message->setHeurEnvoiMsg(new \DateTime()) ;
+        $currentUser = $message->getUtilisateur();;
+       
         if ($currentUser !== null && $currentUser->getIdUser() === $message->getUtilisateur()->getIdUser()) {
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);

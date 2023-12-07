@@ -24,7 +24,7 @@ use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/reclamations')]
 class ReclamationsController extends AbstractController
-{
+{/*
     #[Route('/nacer', name: 'app_reclamations_index', methods: ['GET'])]
     public function index(ReclamationRepository $reclamationRepository, Request $request, PaginatorInterface $paginator): Response
     {
@@ -52,7 +52,7 @@ class ReclamationsController extends AbstractController
             'reclamations' => $pagination,
         ]);
         
-    }
+    }*/
 
     #[Route('/new', name: 'app_reclamations_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, Swift_Mailer $mailer): Response

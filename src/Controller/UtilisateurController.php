@@ -12,7 +12,9 @@ namespace App\Controller;
     use App\Repository\UserrRepository;
     use App\Repository\ActivitesRepository;
     use App\Repository\ProduitRepository;
-
+    use App\Repository\ChannelRepository;
+    use App\Repository\EvenementRepository;
+    use App\Repository\ReclamationRepository;
     use App\Repository\InscriptionRepository;
     use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,7 +54,7 @@ namespace App\Controller;
                 'users' => $pagination,
             ]);
         }
-        #[Route('/back', name: 'activitesback_index', methods: ['GET'])]
+        #[Route('/backAct', name: 'activitesback_index', methods: ['GET'])]
     public function backofficeact(ActivitesRepository $activitesRepository, InscriptionRepository $inscriptionRepository): Response
     {
         return $this->render('activites/backoffice.html.twig', [
@@ -61,6 +63,24 @@ namespace App\Controller;
             
         ]);
     }
+    #[Route('/backChat', name: 'app_channels_index', methods: ['GET'])]
+
+        public function indexBack( PaginatorInterface $paginator, Request $request, ChannelRepository $channelRepository): Response
+        {
+        $allChannel =$channelRepository ->findAll();
+
+        $channels = $paginator->paginate(
+            $allChannel, 
+            $request->query->getInt('page', 1), 
+            5 // Number of items per page
+        );
+    
+        return $this->render('channel/back.html.twig', [
+            'channels' => $channels,
+    
+       ]);
+    }
+    
 
     #[Route('/backProduit', name: 'produitback_index', methods: ['GET'])]
     public function backofficeprod(Request $request,ProduitRepository $produitRepository,PaginatorInterface $paginator): Response
@@ -141,6 +161,33 @@ namespace App\Controller;
                 'produits' => $produits,
             ]);
         }
+/*
+        #[Route('/back/search', name: 'app_produit_search')]
+        public function searchPage(): Response
+        {
+            return $this->render('produit/search.html.twig');
+        }
+
+        #[Route('/searchproduit', name: 'ajax_search', methods: ['GET'])]
+        public function searchproduit(Request $request, ProduitRepository $produitRepository): JsonResponse
+        {    
+    
+            $searchString = $request->query->get('q');
+            $produits = $produitRepository->findProduitByNom($searchString);
+        
+            $produitnom = [];
+            foreach ($produits as $produit) {
+                $produitnom[] = [
+                    'idProd' => $produit->getIdProd(),
+                    'nomProd' => $produit->getNomProd(),
+                    
+                ];
+            }
+        
+            return new JsonResponse(['produits' => $produitnom]);
+        }
+        */
+
         #[Route('/search', name: 'user_search', methods: ['GET'])]
 public function search(Request $request, UserrRepository $userRepository): JsonResponse
 {
@@ -159,7 +206,7 @@ public function search(Request $request, UserrRepository $userRepository): JsonR
 }
 
         #[Route('/searchAnis', name: 'app_users_search')]
-        public function searchPage(): Response
+        public function searchPagee(): Response
         {
             return $this->render('utilisateur/search.html.twig');
         }
@@ -214,6 +261,66 @@ public function search(Request $request, UserrRepository $userRepository): JsonR
         'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'Content-Disposition' => sprintf('inline; filename="%s"', $fileName),
     ]);
+}
+
+/*events*/
+#[Route('/miniar', name: 'app_evenement_indexback', methods: ['GET'])]
+public function indexbackevents(EvenementRepository $evenementRepository, Request $request, PaginatorInterface $paginator): Response
+{   
+    $allEvenements = $evenementRepository->findAll();
+
+    // Paginate the results
+    $evenements = $paginator->paginate(
+        $allEvenements, // Query results (e.g., all events)
+        $request->query->getInt('page', 1), // Current page number, defaults to 1
+        4 // Number of items per page
+    );
+    $criteria = $request->query->get('criteria', 'idEvent'); 
+      
+      
+      $validCriteria = ['idEvent', 'lieuEvent', 'dateEvent', 'heureEvent', 'organisateur']; 
+      
+      if (!in_array($criteria, $validCriteria)) {
+          $criteria = 'idEvent';
+      }
+
+      $evenement = $evenementRepository->findBy([], [$criteria => 'ASC']);
+
+    return $this->render('evenement/indexback.html.twig', [
+        'evenements' => $evenements,
+    ]);
+  
+    
+}   
+
+/*naser reclamation*/
+#[Route('/nacer', name: 'app_reclamations_index', methods: ['GET'])]
+public function indexreclamation(ReclamationRepository $reclamationRepository, Request $request, PaginatorInterface $paginator): Response
+{
+    $criteria = $request->query->get('criteria', 'idr'); 
+    
+    
+    $validCriteria = ['idr', 'daterec', 'typerec', 'refobject', 'details']; 
+    
+    if (!in_array($criteria, $validCriteria)) {
+        $criteria = 'idr';
+    }
+
+    $reclamations = $reclamationRepository->findBy([], [$criteria => 'ASC']);
+    $query = $reclamations;
+
+        $itemsPerPage = 5;
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            $itemsPerPage
+        );
+
+
+    return $this->render('reclamations/index.html.twig', [
+        'reclamations' => $pagination,
+    ]);
+    
 }
     
 

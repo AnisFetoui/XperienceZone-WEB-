@@ -94,12 +94,12 @@ class SecurityController extends AbstractController
         $form = $this->createForm(ForgotPasswordType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            $donnees = $form->getData();//
+            $donnees = $form->getData();
 
 
             $user = $userRepository->findOneBy(['mail'=>$donnees]);
             if(!$user) {
-                $this->addFlash('danger','This email address does not exist.');
+                $this->addFlash('Warning','This email address does not exist.');
                 return $this->redirectToRoute("forgot");
 
             }
@@ -125,7 +125,7 @@ class SecurityController extends AbstractController
 
             //BUNDLE MAILER
             $message = (new Swift_Message('Forgotten Password'))
-                ->setFrom('anis.fetoui@esprit.tn')
+                ->setFrom('naceur.akacha@esprit.tn')
                 ->setTo($user->getMail())
                 ->setBody("<p> Hello,</p> a password reset request has been made. Please click on the following link:".$url,
                 "text/html");

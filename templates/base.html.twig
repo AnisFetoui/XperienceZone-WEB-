@@ -70,16 +70,16 @@
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 
 		<!--[if lt IE 9]>
-																																																																																																																																																																																																																																																							<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-																																																																																																																																																																																																																																																							<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-																																																																																																																																																																																																																																																				        <![endif]-->
+																																																																																																																																																																																																																																																																															<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+																																																																																																																																																																																																																																																																															<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+																																																																																																																																																																																																																																																																												        <![endif]-->
 
 	</head>
 
 	<body>
 		<!--[if lte IE 9]>
-																																																																																																																																																																																																																																																																									            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-																																																																																																																																																																																																																																																																									        <![endif]-->
+																																																																																																																																																																																																																																																																																																	            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+																																																																																																																																																																																																																																																																																																	        <![endif]-->
 
 		<!--header-top start -->
 
@@ -87,12 +87,8 @@
 				<li>
 					<div class="header-top-right">
 						<ul>
-							<li class="select-opt">
-								<a href="https://www.facebook.com/">facebook</a>
-							</li>
-							<li class="select-opt">
-								<a href="#">Instagram</a>
-							</li>
+
+							<li class="select-opt"></li>
 
 						</ul>
 					</div>
@@ -100,6 +96,7 @@
 				<li class="head-responsive-right pull-right">
 					<div class="header-top-right">
 						<ul>
+
 							<li class="header-top-contact">
 								<a href="{{path('app_ProfileClient', {'idUser': app.user.idUser})}}">Profile</a>
 							</li>
@@ -129,312 +126,324 @@
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 								<i class="fa fa-bars"></i>
 							</button>
-							<a class="navbar-brand" href="index.html">Xperience<span>Zone</span>
-							</a>
 
-						</div>
+							<div class="d-flex align-items-center">
 
-					</div>
-					<!--/.navbar-header-->
-					<!-- End Header Navigation -->
+								<a class="navbar-brand" href="index.html">Xperience<span>Zone</span>
+								</a>
 
-					<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu"> <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-							<li class=" scroll active">
-								<a href="{{path('app_home')}}">Home</a>
-							</li>
-							<li class="scroll">
-								<a href="{{ path('app_activites_index') }}">Activity</a>
-							</li>
-							<li class="scroll">
-								<a href="{{ path('app_evenement_index') }}">Events</a>
-							</li>
-							<li class="scroll">
-								<a href="{{ path('app_produit_index') }}">Products</a>
-							</li>
-							<li class="scroll">
-								<a href="{{ path('app_channel_index') }}">Channel</a>
-							</li>
-							<li class="scroll">
-								<a href="{{ path('app_message_index') }}">message</a>
-							</li>
-							<li class="scroll">
-								<a href="{{ path('app_reclamations_index') }}">contact</a>
-							</li>
-							<li class="scroll">
-								<a href="{{ path('app_panier_index') }}">Shop Now</a>
-							</li>
-							<li class="scroll">
-								<a href="{{ path('app_reclamations_new') }}">Reclamation</a>
-							</li>
-						</ul>
-						<!--/.nav -->
-					</div>
-					<!-- /.navbar-collapse -->
-				</div>
-				<!--/.container-->
-			</nav>
-			<!--/nav-->
-			<!-- End Navigation -->
-		</div>
-		<!--/.header-area-->
-		<div class="clearfix"></div>
-	</body>
-</html></section><!-- /.top-area--><!-- top-area End --><!--welcome-hero start -->{% block anis %}
-{% block container %}
-	<section id="home" class="welcome-hero"> <div class="container">
-
-
-		<div class="welcome-hero-txt">
-			<h2>best place to find and explore
-				<br>
-				that all you need
-			</h2>
-			<p>
-				Find Best Event, Activity and many more in just One click
-			</p>
-		</div>
-
-		<div class="welcome-hero-serch-box">
-			<div class="welcome-hero-form">
-				<div class="single-welcome-hero-form">
-					<h3>what?</h3>
-					<form action="index.html">
-						<input type="text" placeholder="Ex: paddle, camping, parachute, skydiving"/>
-					</form>
-					<div class="welcome-hero-form-icon">
-						<i class="flaticon-list-with-dots"></i>
-					</div>
-				</div>
-				<div class="single-welcome-hero-form">
-					<h3>location</h3>
-					<form action="index.html">
-						<input type="text" placeholder="Ex: Bizerte, Sousse, Mahdia, Touzeur"/>
-					</form>
-					<div class="welcome-hero-form-icon">
-						<i class="flaticon-gps-fixed-indicator"></i>
-					</div>
-				</div>
-			</div>
-			<div class="welcome-hero-serch">
-				<button class="welcome-hero-btn" onclick="window.location.href='#'">
-					search
-					<i data-feather="search"></i>
-				</button>
-			</div>
-		</div>
-	</div>
-
-
-</section>{% endblock %}<!--explore start --><section id="explore" class="explore">
-
-<div class="container">
-	{% block explore %}
-		<div class="section-header">
-			<h2>explore</h2>
-			<p>
-				Discover exciting activities, explore vibrant events,  and find unique products</p>
-		</div>
-	{% endblock %}
-	<!--/.section-header-->
-	<div class="explore-content">
-		{% block card %}
-			<div class="row">
-				<div class=" col-md-4 col-sm-6">
-					<div class="single-explore-item">
-						<div class="single-explore-img">
-							<img src="{{asset('assets/images/explore/e2.jpg')}}" alt="explore image">
-							<div class="single-explore-img-info">
-								<button onclick="window.location.href='#'">best rated</button>
-								<div class="single-explore-image-icon-box">
-									<ul>
-										<li>
-											<div class="single-explore-image-icon">
-												<a>
-													<i class="fa fa-arrows-alt"></i>
-												</a>
-											</div>
-										</li>
-										<li>
-											<div class="single-explore-image-icon">
-												<i class="fa fa-bookmark-o"></i>
-											</div>
-										</li>
-									</ul>
-								</div>
 							</div>
+
 						</div>
-						<div class="single-explore-txt bg-theme-1">
-							<h2>
-								<a href="#">Parachute</a>
+						<!--/.navbar-header-->
+						<!-- End Header Navigation -->
+
+						<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu"> <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+
+								<li class="scroll">
+									<a href="{{ path('app_activites_index') }}">Activity</a>
+								</li>
+								<li class="scroll">
+									<a href="{{ path('app_evenement_index') }}">Events</a>
+								</li>
+								<li class="scroll">
+									<a href="{{ path('app_produit_index') }}">Products</a>
+								</li>
+								<li class="scroll">
+									<a href="{{ path('app_channel_index') }}">Channel</a>
+								</li>
+								<li class="scroll">
+									<a href="{{ path('app_message_index') }}">message</a>
+								</li>
+
+								<li class="scroll">
+									<a href="{{ path('app_panier_index') }}">Shop Now</a>
+								</li>
+								<li class="scroll">
+									<a href="{{ path('app_reclamations_new') }}">Reclamation</a>
+								</li>
+							</ul>
+							<!--/.nav -->
+						</div>
+						<!-- /.navbar-collapse -->
+					</div>
+					<!--/.container-->
+				</nav>
+				<!--/nav-->
+				<!-- End Navigation -->
+			</div>
+			<!--/.header-area-->
+			<div class="clearfix"></div>
+
+		</section>
+		<!-- /.top-area-->
+		<!-- top-area End -->
+
+		<!--welcome-hero start -->
+			{% block anis %}
+				{% block container %}
+					<section id="home" class="welcome-hero"> <div class="container">
+
+
+						<div class="welcome-hero-txt">
+							<h2>best place to find and explore
+								<br>
+								that all you need
 							</h2>
-							<p class="explore-rating-price">
-								<span class="explore-rating">5.0</span>
-								<a href="#">
-									10 ratings</a>
-								<span class="explore-price-box">
-									Price
-									<span class="explore-price">20 DT</span>
-								</span>
-								<a href="#">XperienceZone</a>
+							<p>
+								Find Best Event, Activity and many more in just One click
 							</p>
-							<div class="explore-person">
-								<div class="row">
+						</div>
 
-									<div class="col-sm-10">
-										<p>
-											xperience inoubliable, n'esiter pas d'inscrire et de marquer les plus belles moments de ta vie...
-										</p>
+						<div class="welcome-hero-serch-box">
+							<div class="welcome-hero-form">
+								<div class="single-welcome-hero-form">
+									<h3>what?</h3>
+									<form action="index.html">
+										<input type="text" placeholder="Ex: paddle, camping, parachute, skydiving"/>
+									</form>
+									<div class="welcome-hero-form-icon">
+										<i class="flaticon-list-with-dots"></i>
+									</div>
+								</div>
+								<div class="single-welcome-hero-form">
+									<h3>location</h3>
+									<form action="index.html">
+										<input type="text" placeholder="Ex: Bizerte, Sousse, Mahdia, Touzeur"/>
+									</form>
+									<div class="welcome-hero-form-icon">
+										<i class="flaticon-gps-fixed-indicator"></i>
 									</div>
 								</div>
 							</div>
-							<div class="explore-open-close-part">
-								<div class="row">
-									<div class="col-sm-5">
-										<a>Abonner</a>
-									</div>
-									<div class="col-sm-7">
-										<div class="explore-map-icon">
-											<a href="#">
-												<i data-feather="map-pin"></i>
-											</a>
-											<a href="#">
-												<i data-feather="upload"></i>
-											</a>
-											<a href="#">
-												<i data-feather="heart"></i>
-											</a>
+							<div class="welcome-hero-serch">
+								<button class="welcome-hero-btn" onclick="window.location.href='#'">
+									search
+									<i data-feather="search"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+
+
+				</section>
+			{% endblock %}
+			<!--explore start -->
+			<section id="explore" class="explore">
+
+				<div class="container">
+					{% block explore %}
+						<div class="section-header">
+							<h2>explore</h2>
+							<p>
+								Discover exciting activities, explore vibrant events,  and find unique products</p>
+						</div>
+					{% endblock %}
+					<!--/.section-header-->
+					<div class="explore-content">
+						{% block card %}
+							<div class="row">
+								<div class=" col-md-4 col-sm-6">
+									<div class="single-explore-item">
+										<div class="single-explore-img">
+											<img src="{{asset('assets/images/explore/e2.jpg')}}" alt="explore image">
+											<div class="single-explore-img-info">
+												<button onclick="window.location.href='#'">best rated</button>
+												<div class="single-explore-image-icon-box">
+													<ul>
+														<li>
+															<div class="single-explore-image-icon">
+																<a>
+																	<i class="fa fa-arrows-alt"></i>
+																</a>
+															</div>
+														</li>
+														<li>
+															<div class="single-explore-image-icon">
+																<i class="fa fa-bookmark-o"></i>
+															</div>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+										<div class="single-explore-txt bg-theme-1">
+											<h2>
+												<a href="#">Parachute</a>
+											</h2>
+											<p class="explore-rating-price">
+												<span class="explore-rating">5.0</span>
+												<a href="#">
+													10 ratings</a>
+												<span class="explore-price-box">
+													Price
+													<span class="explore-price">20 DT</span>
+												</span>
+												<a href="#">XperienceZone</a>
+											</p>
+											<div class="explore-person">
+												<div class="row">
+
+													<div class="col-sm-10">
+														<p>
+															xperience inoubliable, n'esiter pas d'inscrire et de marquer les plus belles moments de ta vie...
+														</p>
+													</div>
+												</div>
+											</div>
+											<div class="explore-open-close-part">
+												<div class="row">
+													<div class="col-sm-5">
+														<a>Abonner</a>
+													</div>
+													<div class="col-sm-7">
+														<div class="explore-map-icon">
+															<a href="#">
+																<i data-feather="map-pin"></i>
+															</a>
+															<a href="#">
+																<i data-feather="upload"></i>
+															</a>
+															<a href="#">
+																<i data-feather="heart"></i>
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
+
 							</div>
 						</div>
+						<!--/.container-->
+					{% endblock %}
+				</section>
+
+				<!--/.explore-->
+				<!--explore end -->
+
+
+				<!--footer start-->
+					<footer id="footer" class="footer"> <div class="container">
+						<div class="footer-menu">
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="navbar-header">
+										<a class="navbar-brand" href="index.html">Xperience<span>zone</span>
+										</a>
+									</div>
+									<!--/.navbar-header-->
+								</div>
+								<div class="col-sm-9">
+									<ul class="footer-menu-item">
+										<li class="scroll">
+											<a href="#works">how it works</a>
+										</li>
+										<li class="scroll">
+											<a href="#explore">explore</a>
+										</li>
+										<li class="scroll">
+											<a href="#reviews">review</a>
+										</li>
+										<li class="scroll">
+											<a href="#blog">blog</a>
+										</li>
+										<li class="scroll">
+											<a href="#contact">contact</a>
+										</li>
+										<li class=" scroll">
+											<a href="#contact">my account</a>
+										</li>
+									</ul>
+									<!--/.nav -->
+								</div>
+							</div>
+						</div>
+						<div class="hm-footer-copyright">
+							<div class="row">
+								<div class="col-sm-5">
+									<p>
+										&copy;copyright. designed and developed by
+										<a href="https://www.themesine.com/">Holiguns</a>
+									</p>
+									<a href="https://www.facebook.com/profile.php?id=61553926414737&is_tour_dismissed=true">
+										<img src="{{asset('assets/logo/capture.png')}}" alt="Code QR" style="width: 50px; margin-right: 10px;"></a>
+								</div>
+								<div class="col-sm-7">
+									<div class="footer-social">
+										<span>
+											<i class="fa fa-phone">
+												+  (216) 29843730</i>
+										</span>
+										<a href="https://www.facebook.com/profile.php?id=61553926414737&is_tour_dismissed=true">
+											<i class="fa fa-facebook"></i>
+										</a>
+										<a href="#">
+											<i class="fa fa-twitter"></i>
+										</a>
+										<a href="#">
+											<i class="fa fa-linkedin"></i>
+										</a>
+										<a href="#">
+											<i class="fa fa-google-plus"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<!--/.hm-footer-copyright-->
 					</div>
-				</div>
+					<!--/.container-->
 
-			</div>
-		</div>
-		<!--/.container-->
-	{% endblock %}
-</section>
+					<div id="scroll-Top">
+						<div class="return-to-top">
+							<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
+						</div>
 
-<!--/.explore-->
-<!--explore end -->
-
-
-<!--footer start-->
-	<footer id="footer" class="footer"> <div class="container">
-		<div class="footer-menu">
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="index.html">Xperience<span>zone</span>
-						</a>
 					</div>
-					<!--/.navbar-header-->
-				</div>
-				<div class="col-sm-9">
-					<ul class="footer-menu-item">
-						<li class="scroll">
-							<a href="#works">how it works</a>
-						</li>
-						<li class="scroll">
-							<a href="#explore">explore</a>
-						</li>
-						<li class="scroll">
-							<a href="#reviews">review</a>
-						</li>
-						<li class="scroll">
-							<a href="#blog">blog</a>
-						</li>
-						<li class="scroll">
-							<a href="#contact">contact</a>
-						</li>
-						<li class=" scroll">
-							<a href="#contact">my account</a>
-						</li>
-					</ul>
-					<!--/.nav -->
-				</div>
-			</div>
-		</div>
-		<div class="hm-footer-copyright">
-			<div class="row">
-				<div class="col-sm-5">
-					<p>
-						&copy;copyright. designed and developed by
-						<a href="https://www.themesine.com/">Holiguns</a>
-					</p>
-					<!--/p-->
-				</div>
-				<div class="col-sm-7">
-					<div class="footer-social">
-						<span>
-							<i class="fa fa-phone">
-								+  (216) 29843730</i>
-						</span>
-						<a href="#">
-							<i class="fa fa-facebook"></i>
-						</a>
-						<a href="#">
-							<i class="fa fa-twitter"></i>
-						</a>
-						<a href="#">
-							<i class="fa fa-linkedin"></i>
-						</a>
-						<a href="#">
-							<i class="fa fa-google-plus"></i>
-						</a>
-					</div>
-				</div>
-			</div>
+					<!--/.scroll-Top-->
 
-		</div>
-		<!--/.hm-footer-copyright-->
-	</div>
-	<!--/.container-->
-
-	<div id="scroll-Top">
-		<div class="return-to-top">
-			<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
-		</div>
-
-	</div>
-	<!--/.scroll-Top-->
-
-</footer>
-<!--/.footer-->
-<!--footer end-->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
-{% block js %}
-	<!-- Include all js compiled plugins (below), or include individual files as needed -->
+				</footer>
+				<!--/.footer-->
+				<!--footer end-->
+			{% endblock %}
+			<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
+			{% block js %}
+				<!-- Include all js compiled plugins (below), or include individual files as needed -->
 
 
-	<script src="{{asset('assets/js/jquery.js')}}" defer></script>
+				<script src="{{asset('assets/js/jquery.js')}}" defer></script>
 
 
-	<!--modernizr.min.js-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+				<!--modernizr.min.js-->
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
-	<!--bootstrap.min.js-->
-	<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+				<!--bootstrap.min.js-->
+				<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 
 
-	<!-- bootsnav js -->
-	<script src="{{asset('assets/js/bootsnav.js')}}"></script>
+				<!-- bootsnav js -->
+				<script src="{{asset('assets/js/bootsnav.js')}}"></script>
 
-	<!--feather.min.js-->
-	<script src="{{asset('assets/js/feather.min.js')}}"></script>
+				<!--feather.min.js-->
+				<script src="{{asset('assets/js/feather.min.js')}}"></script>
 
-	<!-- counter js -->
-	<script src="{{asset('assets/js/jquery.counterup.min.js')}}"></script>
-	<script src="{{asset('assets/js/waypoints.min.js')}}"></script>
+				<!-- counter js -->
+				<script src="{{asset('assets/js/jquery.counterup.min.js')}}"></script>
+				<script src="{{asset('assets/js/waypoints.min.js')}}"></script>
 
-	<!--slick.min.js-->
-	<script src="{{asset('assets/js/slick.min.js')}}"></script>
+				<!--slick.min.js-->
+				<script src="{{asset('assets/js/slick.min.js')}}"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
-	<!--Custom JS-->
-	<script src="{{asset('assets/js/custom.js')}}"></script>
-{% endblock %}</body></body></html>
+				<!--Custom JS-->
+				<script src="{{asset('assets/js/custom.js')}}"></script>
+			{% endblock %}
+		</body>
+	</body>
+</html>

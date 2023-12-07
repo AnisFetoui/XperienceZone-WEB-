@@ -8,13 +8,9 @@ use App\Repository\ChannelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -45,24 +41,7 @@ class ChannelController extends AbstractController
        ]);
     }
     
-  #[Route('/back', name: 'app_channels_index', methods: ['GET'])]
-
-        public function indexBack( PaginatorInterface $paginator, Request $request, ChannelRepository $channelRepository): Response
-        {
-        $allChannel =$channelRepository ->findAll();
-
-        $channels = $paginator->paginate(
-            $allChannel, 
-            $request->query->getInt('page', 1), 
-            5 // Number of items per page
-        );
-    
-        return $this->render('channel/back.html.twig', [
-            'channels' => $channels,
-    
-       ]);
-    }
-    
+  
 
     #[Route('/new', name: 'app_channel_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

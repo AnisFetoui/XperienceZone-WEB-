@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 use App\Entity\Channel;
-use App\Entity\Utilisateur;
+use App\Entity\Userr;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
@@ -38,7 +38,7 @@ class Message extends AbstractController
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: "id_user", referencedColumnName: "id_user", nullable: false)]
-    private ?Utilisateur $utilisateur = null;
+    private ?Userr $utilisateur = null;
 
 
     public function getIdMsg(): ?int
@@ -70,12 +70,12 @@ class Message extends AbstractController
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getUtilisateur(): ?Userr
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(Utilisateur $utilisateur): self
+    public function setUtilisateur(Userr $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
 

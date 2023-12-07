@@ -55,6 +55,7 @@ class ProduitController extends AbstractController
 
         ]);
     }
+    
     #[Route('/search', name: 'ajax_search', methods: ['GET'])]
     public function search(Request $request, ProduitRepository $produitRepository): JsonResponse
     {    
@@ -155,7 +156,7 @@ public function backofficeprod(Request $request,ProduitRepository $produitReposi
             'produits' => $produits,
         ]);
     }
-    #[Route('/back/search', name: 'app_produit_search')]
+   #[Route('/back/search', name: 'app_produit_search')]
     public function searchPage(): Response
     {
         return $this->render('produit/search.html.twig');

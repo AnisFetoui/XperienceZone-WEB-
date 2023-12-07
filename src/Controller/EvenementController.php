@@ -74,7 +74,7 @@ public function index(EvenementRepository $evenementRepository, Request $request
             'evenements' => $evenements,
         ]);
      
-    }*/
+    }
   #[Route('/miniar', name: 'app_evenement_indexback', methods: ['GET'])]
   public function indexback(EvenementRepository $evenementRepository, Request $request, PaginatorInterface $paginator): Response
   {   
@@ -102,7 +102,7 @@ public function index(EvenementRepository $evenementRepository, Request $request
       ]);
     
       
-  }   
+  }   */
 
   #[Route('/{idEvent}/editback', name: 'app_evenement_editback', methods: ['GET', 'POST'])]
   public function editback(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
