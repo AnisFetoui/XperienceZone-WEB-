@@ -18,6 +18,7 @@ use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 use Endroid\QrCode\Label\Label;
 use Endroid\QrCode\Logo\Logo;
@@ -91,7 +92,7 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
             
         ]);
     }
-*/
+
 
     #[Route('/statact', name: 'stat_activite', methods: ['GET'])]
     public function statact(ActivitesRepository $activitesRepository, InscriptionRepository $inscriptionRepository): Response
@@ -112,7 +113,7 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
 
         return new JsonResponse($activityCountByorg);
     }
-
+*/
 
     #[Route('/abonner/{id}', name: 'abonner_activite', methods: ['GET'])]
     public function Abonner_Activite($id): Response
@@ -120,7 +121,7 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
         return $this->redirectToRoute('app_inscription_new', ['id' => $id]);
     }
 
-    #[Route('/new', name: 'app_activites_new', methods: ['GET', 'POST'])]
+   /* #[Route('/new', name: 'app_activites_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $activite = new Activites();
@@ -146,15 +147,14 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
             'activite' => $activite,
             'form' => $form,
         ]);
-    }
+    }*/
 
 
 
     #[Route('/{idAct}', name: 'app_activites_show', methods: ['GET', 'POST'])]
-    public function show(ActivitesRepository $activitesRepository , Request $request, EntityManagerInterface $entityManager,$idAct): Response
+    public function show(ActivitesRepository $activitesRepository , Request $request, EntityManagerInterface $entityManager,$idAct, UserInterface $user): Response
     {
-
-        
+       
 
         $activite = $activitesRepository->find($idAct);
         $isFormSubmitted = false;
@@ -163,12 +163,12 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
         $prix = $activite->getPrixAct();
         $form = $this->createForm(InscriptionType::class, $inscription);
         $form->handleRequest($request);
-       // $userId=app.user.idUser;
-        $userId=38;
+        $userId = $user->getIdUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $inscription->setActivite($activite);
-            $inscription -> setUserId(38);
+           
+            $inscription->setUserins($user);
             $nbrTicketValue = $form->get('nbrTickes')->getData();
             $prix =  $prix *$nbrTicketValue;
             $inscription -> setFraitAbonnement($prix);

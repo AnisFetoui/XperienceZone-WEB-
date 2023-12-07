@@ -49,12 +49,16 @@
 		<div class="form-group">
 			{{ form_row(form.user, {'attr': {'class': 'form-control'}}) }}
 		</div>
+		<br>
 		<div class="form-group">
+			<h4 style="font-size: 18px;">Choose an image</h4>
+			<br>
 			{{ form_row(form.images, {'attr': {'class': 'custom-file-input'}}) }}
 		</div>
 	</div>
 </div>
+<br>
+<button class="btn btn-success btn1 text-white">{{ button_label|default('Save') }}</button>
 
-<button class="btn1">{{ button_label|default('Save') }}</button>
 
 {{ form_end(form) }}

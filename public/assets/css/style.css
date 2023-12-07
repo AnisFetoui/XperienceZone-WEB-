@@ -121,7 +121,7 @@ html,body{height: 100%;}
 /*-------------------------------------
         2. Header-top
 --------------------------------------*/
-.header-top{border-bottom:1px solid #f6f8fa;}
+.header-top{border-bottom:1px solid #f6f8fa; height: 35px;}
 
 .header-top ul li {display: inline-block;}
 
@@ -129,13 +129,14 @@ html,body{height: 100%;}
 
 /*.select-opt*/
 .select-opt,.header-top-contact{
-    padding: 10px 18px;
+    padding: 10px 10px 10px 10px;
     border-right: 1px solid #f6f8fa;
 }
 .header-top-contact{
     border-right: 0;
     border-left: 1px solid #f6f8fa;
     font-size: 12px;
+
 }
 .select-opt select {
     border: none;
@@ -159,9 +160,24 @@ html,body{height: 100%;}
 /*.select-opt*/
 
 .header-top-right ul li a{
-    color:#a7b0ba;
-    font-size: 12px;
-    font-weight: 300;
+    color:#3a73b4;
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+.header-top-right ul li a:hover{
+    color:#2d9649;
+
+
+}
+.header-top-right #Logout{
+    color:#962d2d;
+    font-weight: 600;
+
+
+
 }
 
 
@@ -309,7 +325,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #7FFF00;}
     text-transform: capitalize;
     font-weight: 500;
 }
-/*.welcome-hero-form-icon {
+.welcome-hero-form-icon {
     position: absolute;
     top: 20px;
     right: 30px;
@@ -339,13 +355,13 @@ nav.navbar.bootsnav .navbar-toggle i{color: #7FFF00;}
     width:  14px;
     height:  auto;
     margin-left:  12px;
-}*/
-
+}
+/*
 .welcome-hero-btn {
-    background-color: #60941a; /* Vert */
+    background-color: #60941a;
     color: #ffffff;
     border: none;
-    padding: 22px 38px; /* Ajustez la taille du bouton ici */
+    padding: 22px 38px;
     cursor: pointer;
     border-radius: 8px;
     display: flex;
@@ -353,18 +369,18 @@ nav.navbar.bootsnav .navbar-toggle i{color: #7FFF00;}
 }
 
 .welcome-hero-btn:hover {
-    background-color: #60941a; /* Couleur au survol */
+    background-color: #60941a;
 }
 
 .welcome-hero-btn span {
     margin-right: 10px;
 }
 
-/* Ajoutez ce style pour ajuster la taille de l'icône */
+
 .welcome-hero-btn i {
     width: 20px;
     height: 20px;
-}
+}*/
 
 
 
@@ -702,4 +718,17 @@ height: 300px;
     color: #fff;
     background-color:  #60941a; /* Slightly darker color on active/focus */
     border-color: #60941a;
+}
+.buttoons .btnnormale{
+    color: #fff; 
+    background-color: #60941a; 
+    border-color: #60941a; 
+    text-align: center;
+    padding-top: 5px;
+    width: 180px;
+    height: 30px;
+    border-radius: 10px;
+}
+.buttoons .btnnormale:hover{
+    background-color: #79ab38; 
 }

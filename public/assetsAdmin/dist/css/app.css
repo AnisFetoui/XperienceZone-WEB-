@@ -1809,6 +1809,7 @@ select{
 }
 .dropdown .dropdown-menu {
       transform: translate3d(-10000px, 0px, 0px) !important;
+      color: rgb(212, 68, 68);
     }
 .dropdown-menu {
     z-index: 9999;

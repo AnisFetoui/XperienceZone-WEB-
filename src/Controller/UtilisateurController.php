@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Controller;
-
+    use App\Entity\Activites;
+    use App\Form\ActivitesType;
     use App\Entity\Utilisateur;
     use App\Entity\Userr;
     use App\Form\UtilisateurType;
@@ -54,6 +55,8 @@ namespace App\Controller;
                 'users' => $pagination,
             ]);
         }
+
+        /***************************************activite start********************************************************** */
         #[Route('/backAct', name: 'activitesback_index', methods: ['GET'])]
     public function backofficeact(ActivitesRepository $activitesRepository, InscriptionRepository $inscriptionRepository): Response
     {
@@ -63,6 +66,54 @@ namespace App\Controller;
             
         ]);
     }
+    #[Route('/newact', name: 'app_activites_new', methods: ['GET', 'POST'])]
+    public function newact(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $activite = new Activites();
+        $form = $this->createForm(ActivitesType::class, $activite);
+        $form->handleRequest($request);
+        $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images';
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('images')->getData();
+            if($imageFile){
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+                $imageFile->move($imagedirectory,$newFilename);
+                $activite->setImages($newFilename);
+
+
+            }
+            $entityManager->persist($activite);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_activites_new', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('activites/new.html.twig', [
+            'activite' => $activite,
+            'form' => $form,
+        ]);
+    }
+    
+    #[Route('/statact', name: 'stat_activite', methods: ['GET'])]
+    public function statact(ActivitesRepository $activitesRepository, InscriptionRepository $inscriptionRepository): Response
+    {
+        return $this->render('activites/statactivite.html.twig');
+    }
+    #[Route('/get-activity-count-by-place', name: 'app_get_activity_count_by_place', methods: ['GET'])]
+    public function getActivityCountByPlace(ActivitesRepository $activitesRepository): JsonResponse
+    {
+        $activityCountByPlace = $activitesRepository->getActivityCountByPlace();
+
+        return new JsonResponse($activityCountByPlace);
+    }
+    #[Route('/get-activity-count-by-org', name: 'app_get_activity_count_by_org', methods: ['GET'])]
+    public function getActivityCountByorg(ActivitesRepository $activitesRepository): JsonResponse
+    {
+        $activityCountByorg = $activitesRepository->getActivityCountByorg();
+
+        return new JsonResponse($activityCountByorg);
+    }
+    /******************************************activite end ***************************************************************************************/
     #[Route('/backChat', name: 'app_channels_index', methods: ['GET'])]
 
         public function indexBack( PaginatorInterface $paginator, Request $request, ChannelRepository $channelRepository): Response

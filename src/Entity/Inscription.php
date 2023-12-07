@@ -7,6 +7,7 @@ USE Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
@@ -46,6 +47,10 @@ class Inscription
     #[ORM\OneToOne]
     #[ORM\JoinColumn(nullable: false, name: "activite_id", referencedColumnName: "id_act")]
     private ?Activites $activite=null;
+
+    #[ORM\OneToOne]
+   #[ORM\JoinColumn(nullable: false, name: "user_id", referencedColumnName: "id_user")]
+   private ?Userr $user=null;
 
 
    
@@ -109,20 +114,13 @@ class Inscription
         return $this;
     }
 
-
-
-    public function getUserId(): ?int
+    public function setUserins(?Userr $user): static
     {
-        return $this->userId;
-    }
-
-    public function setUserId(int $userId): static
-    {
-        $this->userId = $userId;
-
+        $this->user = $user;
+ 
         return $this;
     }
-
+   
 
     public function getActivite(): ?Activites
     {
@@ -135,6 +133,9 @@ class Inscription
  
         return $this;
     }
+
+    
+ 
 
 
 
@@ -149,6 +150,19 @@ class Inscription
        
 
         return $data;
+    }
+
+
+    public function getUser(): ?UserInterface
+    {
+        return $this->user;
+    }
+
+    public function setUser(?UserInterface $user): static
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
 }

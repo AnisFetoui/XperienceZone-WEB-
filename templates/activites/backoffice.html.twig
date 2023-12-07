@@ -10,8 +10,10 @@
 	<br>
 
 	<br>
-	<a href="{{ path('app_activites_new') }}" class="btn btn-primary shadow-md mr-2">Create new activity</a>
-	<a href="{{ path('stat_activite') }}" class="btn btn-primary shadow-md mr-2">stat activity</a>
+	<div class="buttoons">
+		<a href="{{ path('app_activites_new') }}" class="btnnormale">Create new activity</a>
+		<a href="{{ path('stat_activite') }}" class="btnnormale">stat activity</a>
+	</div>
 	<br>
 	<br>
 	<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
@@ -81,8 +83,7 @@
 		<h2 class="text-lg font-medium mr-auto">Liste d'Inscription</h1>
 		<br>
 
-		<br>
-		<a href="#" class="btn btn-primary shadow-md mr-2">Create new inscription</a>
+
 		<br>
 		<br>
 		<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
@@ -110,7 +111,7 @@
 								<td>{{ inscription.nbrTickes }}</td>
 								<td>{{ inscription.fraitAbonnement }}</td>
 								<td>{{ inscription.activite.getIdAct() }}</td>
-								<td>{{ inscription.userId }}</td>
+								<td>{{ inscription.user.idUser }}</td>
 								<td>
 									<a href="{{ path('app_inscription_show', {'Id_ins': inscription.Idins}) }}">show</a>
 									{{ include('inscription/_delete_form.html.twig') }}

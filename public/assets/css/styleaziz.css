@@ -222,11 +222,11 @@ justify-content: center;
 }
 .titre{
     height: 150px;
-
+    font-size: 20px;
     padding-top: 30px;
 }
 .titre h1{
-    font-size: 28px;
+    font-size: 40px;
     color: #fff;
     font-weight: 700;
     text-transform: uppercase;
