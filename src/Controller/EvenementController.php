@@ -15,6 +15,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use VictorPrad\RecaptchaBundle\Validator\Constraints as Recaptcha;
 
 
 #[Route('/evenement')]
@@ -23,22 +24,10 @@ class EvenementController extends AbstractController
    
     private $session;
 
-    // Injectez le service SessionInterface dans le constructeur
+    //  service SessionInterface dans le constructeur
     public function __construct(SessionInterface $session)
     {
         $this->session = $session;
-    }
-
-
-    
-    #[Route('/delete/{idEvent}', name: 'app_evenement_deleteback', methods: ['POST'])]
-    public function deleteback(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$evenement->getIdEvent(), $request->request->get('_token'))) {
-            $entityManager->remove($evenement);
-            $entityManager->flush();
-        }
-        return $this->redirectToRoute('app_evenement_indexback', [], Response::HTTP_SEE_OTHER);
     }
 
 
@@ -97,6 +86,16 @@ public function index(EvenementRepository $evenementRepository, Request $request
           $request->query->getInt('page', 1), // Current page number, defaults to 1
           4 // Number of items per page
       );
+      $criteria = $request->query->get('criteria', 'idEvent'); 
+        
+        
+        $validCriteria = ['idEvent', 'lieuEvent', 'dateEvent', 'heureEvent', 'organisateur']; 
+        
+        if (!in_array($criteria, $validCriteria)) {
+            $criteria = 'idEvent';
+        }
+
+        $evenement = $evenementRepository->findBy([], [$criteria => 'ASC']);
   
       return $this->render('evenement/indexback.html.twig', [
           'evenements' => $evenements,
@@ -104,6 +103,36 @@ public function index(EvenementRepository $evenementRepository, Request $request
     
       
   }   
+
+  #[Route('/{idEvent}/editback', name: 'app_evenement_editback', methods: ['GET', 'POST'])]
+  public function editback(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
+  {
+      $form = $this->createForm(EvenementType::class, $evenement);
+      $form->handleRequest($request);
+      $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; 
+
+      if ($form->isSubmitted() && $form->isValid()) {
+            //handle image apload 
+            $imageFile= $form->get('image')->getData();
+            if ($imageFile){
+                //generate a unique name for the image 
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+                $imageFile->move( $imagedirectory,$newFilename);
+                $evenement->setImage($newFilename);
+            }
+        
+          $entityManager->flush();
+
+          return $this->redirectToRoute('app_evenement_indexback', [], Response::HTTP_SEE_OTHER);
+      }
+
+      return $this->renderForm('evenement/editback.html.twig', [
+          'evenement' => $evenement,
+          'form' => $form,
+      ]);
+  }
+
+
 
 
 
@@ -114,7 +143,7 @@ public function index(EvenementRepository $evenementRepository, Request $request
       $evenement = new Evenement();
       $form = $this->createForm(EvenementType::class, $evenement);
       $form->handleRequest($request);
-      $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; // Remplacez par le chemin réel de votre répertoire
+      $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; 
       if ($form->isSubmitted() && $form->isValid()) {
           //handle image apload 
           $imageFile= $form->get('image')->getData();
@@ -144,35 +173,17 @@ public function index(EvenementRepository $evenementRepository, Request $request
       ]);
   }
 
-  #[Route('/{idEvent}/editback', name: 'app_evenement_editback', methods: ['GET', 'POST'])]
-  public function editback(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
+ 
+
+  #[Route('/delete/{idEvent}', name: 'app_evenement_deleteback', methods: ['POST'])]
+  public function deleteback(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
   {
-      $form = $this->createForm(EvenementType::class, $evenement);
-      $form->handleRequest($request);
-      $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; // Remplacez par le chemin réel de votre répertoire
-
-      if ($form->isSubmitted() && $form->isValid()) {
-            //handle image apload 
-            $imageFile= $form->get('image')->getData();
-            if ($imageFile){
-                //generate a unique name for the image 
-                $newFilename = uniqid().'.'.$imageFile->guessExtension();
-                $imageFile->move( $imagedirectory,$newFilename);
-                $evenement->setImage($newFilename);
-            }
-        
+      if ($this->isCsrfTokenValid('delete'.$evenement->getIdEvent(), $request->request->get('_token'))) {
+          $entityManager->remove($evenement);
           $entityManager->flush();
-
-          return $this->redirectToRoute('app_evenement_indexback', [], Response::HTTP_SEE_OTHER);
       }
-
-      return $this->renderForm('evenement/editback.html.twig', [
-          'evenement' => $evenement,
-          'form' => $form,
-      ]);
+      return $this->redirectToRoute('app_evenement_indexback', [], Response::HTTP_SEE_OTHER);
   }
-
-
 
     
 
@@ -217,7 +228,7 @@ public function index(EvenementRepository $evenementRepository, Request $request
     {
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
-        $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; // R le chemin réel de  répertoire
+        $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; // Remplacez par le chemin réel de votre répertoire
 
         if ($form->isSubmitted() && $form->isValid()) {
              //handle image apload 
@@ -323,4 +334,3 @@ public function search(Request $request, EvenementRepository $evenementRepositor
 
 
 }
-

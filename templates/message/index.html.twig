@@ -1,180 +1,188 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {% endblock %}
+{% block title %}{% endblock %}
 
 {% block container %}
-   
-  <h1> Customer Comments </h1>
+
+	<h1>
+		Customer Comments
+	</h1>
 {% endblock %}
 
 {% block card %}
-    <style>
-        .explore-items-wrapper {
-            overflow-x: auto;
-            white-space: nowrap;
-            position: relative;
-            margin-bottom: 20px;
-        }
+	<style>
+		.explore-items-wrapper {
+			overflow-x: auto;
+			white-space: nowrap;
+			position: relative;
+			margin-bottom: 20px;
+		}
 
-        .explore-items {
-            display: flex;
-            gap: 20px;
-        }
+		.explore-items {
+			display: flex;
+			gap: 20px;
+		}
 
-        .single-explore-item {
-            flex: 0 0 auto;
-            width: 350px; /* Ajustez la largeur selon vos besoins */
-            margin-right: 20px;
-        }
+		.single-explore-item {
+			flex: 0 0 auto;
+			width: 350px; /* Ajustez la largeur selon vos besoins */
+			margin-right: 20px;
+		}
 
-        .message-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            animation: zoomIn 0.3s ease-out forwards;
-            z-index: 1000;
-        }
+		.message-modal {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%) scale(0);
+			background: rgba(0, 0, 0, 0.7);
+			padding: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+			animation: zoomIn 0.3s ease-out forwards;
+			z-index: 1000;
+		}
 
-        .message-container {
-            background-color: #fff;
-            padding: 100px;
-            border-radius: 50px;
-            width: 100%; /* Ajustez la largeur selon vos besoins */
-        }
+		.message-container {
+			background-color: #fff;
+			padding: 100px;
+			border-radius: 50px;
+			width: 100%; /* Ajustez la largeur selon vos besoins */
+		}
 
-        @keyframes zoomIn {
-            to {
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
+		@keyframes zoomIn {
+			to {
+				transform: translate(-50%, -50%) scale(1);
+			}
+		}
 
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            color: #fff;
-            font-size: 30px;
-        }
+		.close-btn {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			cursor: pointer;
+			color: #fff;
+			font-size: 30px;
+		}
 
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
+		.overlay {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			z-index: 999;
+		}
 
-        .row.modal-open {
-            overflow: hidden;
-        }
-    </style>
+		.row.modal-open {
+			overflow: hidden;
+		}
+	</style>
 
- <div class="overlay" id="overlay"></div>
+	<div class="overlay" id="overlay"></div>
 
-<div class="explore-items-wrapper">
-    <div class="explore-items">
-        {% for message in messages %}
-            <div class="single-explore-item">
-                <div class="single-explore-img">
-                    <div class="single-explore-img-info">
-                        <button onclick="window.location.href='#'">best rated</button>
-                        <div class="single-explore-image-icon-box">
-                            <ul>
-                                <li>
-                                    <div class="single-explore-image-icon">
-                                        <a href="{{ path('app_message_show', {'idMsg': message.idMsg}) }}">
-                                            <i class="fa fa-arrows-alt"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="single-explore-image-icon">
-                                        <i class="fa fa-bookmark-o"></i>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="single-explore-txt bg-theme-1">
-                    <h2>
-                        <a href="#">{{ message.utilisateur.username }}</a>
-                    </h2>
-                    <div class="message-content">
-                        {% if message.contenuMsg|length < 3 %}
-                            <p>{{ message.contenuMsg |raw}}</p>
-                        {% else %}
-                            <p class="short-content">{{ message.contenuMsg |raw|slice(0, 30) }}...</p>
-                            <a href="#" class="show-more-link" onclick="toggleContent({{ message.idMsg }})">View more</a>
-                            <div id="messageModal{{ message.idMsg }}" class="message-modal">
-                                <span class="close-btn" onclick="closeContent('{{ message.idMsg }}')">&times;</span>
-                                <div class="message-container">
-                                    <p>Comment sent on: {{ message.heurEnvoiMsg ? message.heurEnvoiMsg|date('Y-m-d H:i:s') : ''}}</p>
-                                    <p>From:   {{ message.utilisateur.username }}</p>
-                                    <p>Message: {{ message.contenuMsg  |raw }}</p>
-                                    <td>
-                                        <a href="{{ path('app_message_edit', {'idMsg': message.idMsg}) }}">edit</a>
-                                    </td>
-                                </div>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="explore-open-close-part">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <div class="explore-map-icon">
-                                    <a href="#">
-                                        <i data-feather="map-pin"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i data-feather="upload"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i data-feather="heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        
-    </div>
-</div>
-     <a href="{{ path('app_message_new') }}">Add new</a>
-     
+	<div class="explore-items-wrapper">
+		<div class="explore-items">
+			{% for message in messages %}
+				<div class="single-explore-item">
+					<div class="single-explore-img">
+						<div class="single-explore-img-info">
+							<button onclick="window.location.href='#'">best rated</button>
+							<div class="single-explore-image-icon-box">
+								<ul>
+									<li>
+										<div class="single-explore-image-icon">
+											<a href="{{ path('app_message_show', {'idMsg': message.idMsg}) }}">
+												<i class="fa fa-arrows-alt"></i>
+											</a>
+										</div>
+									</li>
+									<li>
+										<div class="single-explore-image-icon">
+											<i class="fa fa-bookmark-o"></i>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="single-explore-txt bg-theme-1">
+						<h2>
+							<a href="#">{{ message.utilisateur.username }}</a>
+						</h2>
+						<div class="message-content">
+							{% if message.contenuMsg|length < 2 %}
+								<p>{{ message.contenuMsg | raw }}</p>
+							{% else %}
+								<p class="short-content">{{ message.contenuMsg|raw |slice(0, 30) }}...</p>
+								<a href="#" class="show-more-link" onclick="toggleContent({{ message.idMsg }})">View more</a>
+								<div id="messageModal{{ message.idMsg }}" class="message-modal">
+									<span class="close-btn" onclick="closeContent('{{ message.idMsg }}')">&times;</span>
+									<div class="message-container">
+										<p>Comment sent on:
+											{{ message.heurEnvoiMsg ? message.heurEnvoiMsg|date('Y-m-d H:i:s') : ''}}</p>
+										<p>From:
+											{{ message.utilisateur.username }}</p>
+										<p>Message:
+											{{ message.contenuMsg |raw }}</p>
+										<td>
+											<a href="{{ path('app_message_edit', {'idMsg': message.idMsg}) }}">edit</a>
+										</td>
+									</div>
+								</div>
+							{% endif %}
+						</div>
+						<div class="explore-open-close-part">
+							<div class="row">
+								<div class="col-sm-7">
+									<div class="explore-map-icon">
+										<a href="#">
+											<i data-feather="map-pin"></i>
+										</a>
+										<a href="#">
+											<i data-feather="upload"></i>
+										</a>
+										<a href="#">
+											<i data-feather="heart"></i>
+										</a>
+									</div>
+								</div>
+								<div class="col-sm-5">
+									<div class="comment-buttons">
+										<button class="comment-button">Like</button>
+										<button class="comment-button">Reply</button>
+										<button class="comment-button">Report</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<a href="{{ path('app_message_new') }}">Add new</a>
 
 </script>
 
-    <script>
-        function toggleContent(messageId) {
-            var messageModal = document.querySelector('#messageModal' + messageId);
-            var overlay = document.getElementById('overlay');
-            messageModal.style.display = 'block';
-            overlay.style.display = 'block';
-            document.body.classList.add('modal-open');
-        }
+<script>
+	function toggleContent(messageId) {
+var messageModal = document.querySelector('#messageModal' + messageId);
+var overlay = document.getElementById('overlay');
+messageModal.style.display = 'block';
+overlay.style.display = 'block';
+document.body.classList.add('modal-open');
+}
 
-        function closeContent(messageId) {
-            var messageModal = document.querySelector('#messageModal' + messageId);
-            var overlay = document.getElementById('overlay');
-            messageModal.style.display = 'none';
-            overlay.style.display = 'none';
-            document.body.classList.remove('modal-open');
-        }
-    </script>
-   {{ knp_pagination_render(messages) }}
-   
-{% endblock %}
+function closeContent(messageId) {
+var messageModal = document.querySelector('#messageModal' + messageId);
+var overlay = document.getElementById('overlay');
+messageModal.style.display = 'none';
+overlay.style.display = 'none';
+document.body.classList.remove('modal-open');
+}
+</script>
 
 
+{{ knp_pagination_render(messages) }}{% endblock %}

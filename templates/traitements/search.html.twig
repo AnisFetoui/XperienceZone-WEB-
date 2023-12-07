@@ -1,6 +1,6 @@
 {% extends 'utilisateur/base.html.twig' %}
 
-{% block title %}Search{% endblock %}
+{% block title %}Search Traitements{% endblock %}
 
 {% block container %}
     <style>
@@ -16,29 +16,29 @@
         }
     </style>
 
-    <h1>Search Reclamations</h1>
+    <h1>Search Traitements</h1>
 
     <form id="searchForm">
-        <input type="text" id="searchInput" placeholder="Rechercher une réclamation...">
+        <input type="text" id="searchInput" placeholder="Rechercher un traitement...">
     </form>
 
     <div id="suggestions"></div>
-    <div id="reclamationDetails"></div>
+    <div id="traitementDetails"></div>
 
     <script>
         const searchInput = document.getElementById('searchInput');
         const suggestionsDiv = document.getElementById('suggestions');
-        const reclamationDetailsDiv = document.getElementById('reclamationDetails');
+        const traitementDetailsDiv = document.getElementById('traitementDetails');
 
         suggestionsDiv.addEventListener('click', function(event) {
             if (event.target && event.target.nodeName === 'DIV') {
                 const selectedSuggestion = event.target;
-                const idr = selectedSuggestion.dataset.idr;
+                const idt = selectedSuggestion.dataset.idt;
 
-                fetch(`/reclamations/details/${idr}`)
+                fetch(`/traitements/details/${idt}`)
                     .then(response => response.text())
                     .then(detailsHtml => {
-                        reclamationDetailsDiv.innerHTML = detailsHtml;
+                        traitementDetailsDiv.innerHTML = detailsHtml;
                     });
 
                 searchInput.value = selectedSuggestion.textContent;
@@ -55,19 +55,19 @@
             const searchString = searchInput.value.trim();
 
             if (searchString === '') {
-                suggestionsDiv.innerHTML = ''; 
-                return; 
+                suggestionsDiv.innerHTML = ''; // Efface les suggestions si le champ est vide
+                return; // Arrête la fonction pour éviter de faire la recherche vide
             }
 
-            fetch(`/reclamations/search?q=${searchString}`)
+            fetch(`/traitements/search?q=${searchString}`)
                 .then(response => response.json())
                 .then(data => {
                     suggestionsDiv.innerHTML = '';
-                    data.reclamations.forEach(reclamation => {
+                    data.reclamations.forEach(traitement => {
                         const suggestion = document.createElement('div');
-                        suggestion.textContent = reclamation.details;
+                        suggestion.textContent = traitement.details;
                         suggestion.classList.add('suggestion');
-                        suggestion.dataset.idr = reclamation.idr;
+                        suggestion.dataset.idt = traitement.idt;
 
                         suggestionsDiv.appendChild(suggestion);
                     });
@@ -75,7 +75,7 @@
         });
 
         function performSearch(searchString) {
-            fetch(`/reclamations/search?q=${searchString}`)
+            fetch(`/traitements/search?q=${searchString}`)
                 .then(response => response.json())
                 .then(data => {
                     // Logique pour gérer la réponse de la recherche

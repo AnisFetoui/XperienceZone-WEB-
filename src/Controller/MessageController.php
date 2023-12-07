@@ -21,7 +21,6 @@ use Twig\TwigFilter;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/message')]
 class MessageController extends AbstractController
@@ -32,13 +31,12 @@ class MessageController extends AbstractController
        
         $allMessage = $messageRepository->findAll();
 
-        // Paginate the results
+      
         $messages = $paginator->paginate(
             $allMessage, 
             $request->query->getInt('page', 1), 
           
         );
-    
         return $this->render('message/index.html.twig', [
             'messages' => $messages,
     
@@ -47,7 +45,7 @@ class MessageController extends AbstractController
 
     
     #[Route('/new', name: 'app_message_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,UserRepository $userRepository ,ChannelRepository $channelRepository) : Response
+   public function new(Request $request, EntityManagerInterface $entityManager,UserRepository $userRepository ,ChannelRepository $channelRepository) : Response
     {
         $message = new Message();
         $message->setHeurEnvoiMsg(new \DateTime()) ;
@@ -58,21 +56,17 @@ class MessageController extends AbstractController
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-         
-            
+          
         $content = $message->getContenuMsg();
-       // $content = strip_tags($message->getContenuMsg());
         // Vérifier si le contenu du message contient des mots indésirables
         if ($this->containsForbiddenWords($content)) {
             // Bloquer l'envoi du message indésirable
             return new Response('"The message contains forbidden words 
             Next time, you will be blocked', Response::HTTP_BAD_REQUEST);
         }
-            
             $entityManager->persist($message);
             $entityManager->flush();
-            
-
+         
             return $this->redirectToRoute('app_message_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -81,12 +75,10 @@ class MessageController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
+   
     #[Route('/{idMsg}/edit', name: 'app_message_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Message $message, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
-
        // $currentUser = $this->getUser();
        $currentUser = $userRepository->findOneBy(['mail' => "fetoui@a.com"]);
         if ($currentUser !== null && $currentUser->getIdUser() === $message->getUtilisateur()->getIdUser()) {
@@ -95,9 +87,9 @@ class MessageController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $content = $message->getContenuMsg();
-            // Vérifier si le contenu du message contient des mots indésirables
+          
             if ($this->containsForbiddenWords($content)) {
-                // Bloquer l'envoi du message indésirable
+               
                 return new Response('"The message contains forbidden words 
                 Next time, you will be blocked', Response::HTTP_BAD_REQUEST);
             }
@@ -107,11 +99,12 @@ class MessageController extends AbstractController
         return $this->renderForm('message/edit.html.twig', [
             'message' => $message,
             'form' => $form,
+            
         ]);
     } else {
         return new JsonResponse(['Sorry! Thats not your message, so you cannot modify it']);
     }
-   // return $this->redirectToRoute('app_message_index', [], Response::HTTP_SEE_OTHER);
+
     }
 
 
@@ -134,7 +127,7 @@ class MessageController extends AbstractController
             $entityManager->remove($message);
             $entityManager->flush();
     } else {
-        // L'utilisateur actuel n'est pas le propriétaire du message
+        
         return new JsonResponse(['Sorry ! thats not your comment so you cannot delete this message']);
     }
 
@@ -143,18 +136,16 @@ class MessageController extends AbstractController
 }
 
 
-    private function containsForbiddenWords(string $content): bool
-    {
-        $forbiddenWords = ['vulgaire', 'idiot', 'raciste', 'violance', 'ugly', ];
-    
-        foreach ($forbiddenWords as $word) {
-            if (stripos($content, $word) !== false) {
-                return true;
-            }
+private function containsForbiddenWords(string $content): bool
+{
+    $forbiddenWords = ['vulgaire', 'idiot', 'raciste', 'violance', 'ugly',  ];
+
+    foreach ($forbiddenWords as $word) {
+        if (stripos($content, $word) !== false) {
+            return true;
         }
-    
-        return false;
+    }
+
+    return false;
 }
-
-
 }

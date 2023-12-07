@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Ticket{% endblock %}
+{% block title %}New Ticket
+{% endblock %}
 
 {% block container %}
-    <h2>Create new Ticket</h2>
+	<h2>Create new Ticket</h2>
 
-    {{ include('ticket/_form.html.twig') }}
+	{{ include('ticket/_form.html.twig') }}
 
-    <a href="{{ path('app_evenement_index') }}">back to list</a>
+	<a href="{{ path('app_evenement_index') }}">back to list</a>
 {% endblock %}

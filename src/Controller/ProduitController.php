@@ -74,7 +74,7 @@ class ProduitController extends AbstractController
         return new JsonResponse(['produits' => $produitnom]);
     }
     
-/*
+
 
     #[Route('/back', name: 'produitback_index', methods: ['GET'])]
 public function backofficeprod(Request $request,ProduitRepository $produitRepository,PaginatorInterface $paginator): Response
@@ -155,8 +155,6 @@ public function backofficeprod(Request $request,ProduitRepository $produitReposi
             'produits' => $produits,
         ]);
     }
-
-    */
     #[Route('/back/search', name: 'app_produit_search')]
     public function searchPage(): Response
     {

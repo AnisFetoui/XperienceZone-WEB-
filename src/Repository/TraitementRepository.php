@@ -45,4 +45,35 @@ class TraitementRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findReclamationsByString($searchString)
+{
+    return $this->createQueryBuilder('r')
+        ->where('r.resume LIKE :search')
+        ->setParameter('search', '%' . $searchString . '%')
+        ->getQuery()
+        ->getResult();
+}
+
+
+public function countByStat(string $stat): int
+{
+    return $this->createQueryBuilder('t')
+        ->select('COUNT(t)')
+        ->where('t.stat = :stat')
+        ->setParameter('stat', $stat)
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+
+public function countByTypeAndStat(string $stat): array
+{
+    return $this->createQueryBuilder('t')
+        ->select('t.typer, COUNT(t.idt) as count')
+        ->where('t.stat = :stat')
+        ->groupBy('t.typer')
+        ->setParameter('stat', $stat)
+        ->getQuery()
+        ->getResult();
+}
 }

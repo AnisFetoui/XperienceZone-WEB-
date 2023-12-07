@@ -70,7 +70,7 @@ class Panier
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Userr $utilisateur): static
+    public function setUtilisateur(?Utilisateur $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
 

@@ -8,11 +8,16 @@ use App\Repository\ChannelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 #[Route('/channels')]
 class ChannelController extends AbstractController
@@ -31,7 +36,7 @@ class ChannelController extends AbstractController
         $channels = $paginator->paginate(
             $allChannel, 
             $request->query->getInt('page', 1), 
-            5 // Number of items per page
+            5 //
         );
     
         return $this->render('channel/index.html.twig', [
@@ -41,12 +46,7 @@ class ChannelController extends AbstractController
     }
     
   #[Route('/back', name: 'app_channels_index', methods: ['GET'])]
-  /*  public function index(ChannelRepository $channelRepository): Response
-    {
-        return $this->render('channel/index.html.twig', [
-            'channels' => $channelRepository->findAll(),
 
-        ]);*/
         public function indexBack( PaginatorInterface $paginator, Request $request, ChannelRepository $channelRepository): Response
         {
         $allChannel =$channelRepository ->findAll();
@@ -84,6 +84,8 @@ class ChannelController extends AbstractController
         ]);
     }
 
+    
+
     #[Route('/{idCh}', name: 'app_channel_show', methods: ['GET'])]
     public function show(Channel $channel): Response
     {
@@ -92,8 +94,16 @@ class ChannelController extends AbstractController
         ]);
     }
 
+    #[Route('showchaima/{idCh}', name: 'app_channel_show', methods: ['GET'])]
+    public function showchaima(Channel $channel): Response
+    {
+        return $this->render('channel/show.html.twig', [
+            'channel' => $channel,
+        ]);
+    }
 
-    #[Route('/back/{idCh}', name: 'app_channels_show', methods: ['GET'])]
+
+    #[Route('/back/{idCh}', name: 'app_channels_showback', methods: ['GET'])]
     public function showback(Channel $channel): Response
     {
         return $this->render('channel/showback.html.twig', [
@@ -121,6 +131,8 @@ class ChannelController extends AbstractController
 
   
 
+  
+
     #[Route('/{idCh}', name: 'app_channel_delete', methods: ['POST'])]
     public function delete(Request $request, Channel $channel, EntityManagerInterface $entityManager): Response
     {
@@ -140,6 +152,7 @@ class ChannelController extends AbstractController
         $data = [];
         foreach ($channels as $channel) {
             $data[] = [
+                'idCh' =>$channel->getIdCh(),
                 'nomCh' => $channel->getNomCh(),
                 'evenement' => [
                     'nomEvent' => $channel->getEvenement() ? $channel->getEvenement()->getNomEvent() : null,
@@ -149,9 +162,12 @@ class ChannelController extends AbstractController
         }
         $jsonContent = $serializer->serialize($data, 'json');
 
-        return new Response($jsonContent, 200, ['Content-Type' => 'application/json']);
+     return new Response($jsonContent, 200, ['Content-Type' => 'application/json']);
+
     }
-    
+ 
+
+
     }
 
    

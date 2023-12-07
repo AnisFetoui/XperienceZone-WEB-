@@ -31,7 +31,7 @@
     box-sizing: border-box;
     width: 150%;
     margin: 0 10%;
-    left: 80%;
+    left: 60%;
     position: absolute;
 }
 .fs-title {
@@ -43,7 +43,55 @@
     top: 0%;
     left: 70%;
     }
+  /* Styles du formulaire */
+    .form-group {
+        margin-bottom: 20px;
+    }
 
+    .form-control {
+        width: 30%;
+        padding: 7px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 50px;
+        transition: border-color 0.3s, box-shadow 0.3s, width 0.3s; /* Ajout d'une transition pour l'animation */
+    }
+
+    .form-control:focus {
+        border-color:#60941a; /* Couleur de la bordure lorsqu'un champ est en focus */
+        outline: none;
+        box-shadow: 0 0 5px #007bff; /* Ajout d'une ombre lorsqu'un champ est en focus */
+        width: 37%; /* Agrandissement de la largeur du champ lorsqu'il est en focus */
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        background-color: #60941a;
+        color: #fff;
+    }
+
+    .btn-primary {
+        background-color: #60941a;
+    }
+
+    .btn-outline-secondary {
+        background-color: transparent;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+
+    /* Styles pour les erreurs de formulaire */
+    .error {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 5px;
+    }
 
 
     
@@ -72,8 +120,12 @@
 {{ form_row(form.details,{'attr': {'class': 'text'}}) }}
 <span class="error-message">{{ form_errors(form.details) }}</span>
 
+{{ form_row(form.recaptcha) }} 
+<span class="error-message">{{ form_errors(form.recaptcha) }}</span>
 
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<br>
+    <button class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">{{ button_label|default('Save') }}</button>
 </fieldset>
 {{ form_end(form) }}
 </div>

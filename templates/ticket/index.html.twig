@@ -1,47 +1,49 @@
 {% extends 'utilisateur/base.html.twig' %}
 
-{% block title %} Tickets {% endblock %}
+{% block title %}
+	Tickets
+{% endblock %}
 
 {% block container %}
-    <h3>Ticket index</h3>
+	<h3>Ticket index</h3>
+	<a href="{{ path('app_evenement_indexback') }}">events</a>
+	<table class="table">
+		<thead>
+			<tr>
 
-    <table class="table">
-        <thead>
-            <tr>
-              
-                <th>NumTicket</th>
-                <th>Image</th>
-                <th>Prix</th>
-                <th>Categorie</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for ticket in tickets %}
-            <tr>
-                
-                <td>{{ ticket.numTicket }}</td>
-                <td>
-                  {% if ticket.image %}
-                <img src="{{ asset('uploads/images/' ~ ticket.image) }}" alt="ticket image" style="width: 180px; height: auto;">
-                {% else %}
-                No Image Available 
-                {% endif %}
-                </td>
-                <td>{{ ticket.prix }}</td>
-                <td>{{ ticket.categorie }}</td>
-                <td>
-                    <a href="{{ path('app_ticket_show', {'idTicket': ticket.idTicket}) }}">show</a>
-                    <a href="{{ path('app_ticket_edit', {'idTicket': ticket.idTicket}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+				<th>NumTicket</th>
+				<th>Image</th>
+				<th>Prix</th>
+				<th>Categorie</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for ticket in tickets %}
+				<tr>
 
-    <a href="{{ path('app_ticket_new') }}">Create new</a>
+					<td>{{ ticket.numTicket }}</td>
+					<td>
+						{% if ticket.image %}
+							<img src="{{ asset('uploads/images/' ~ ticket.image) }}" alt="ticket image" style="width: 180px; height: auto;">
+						{% else %}
+							No Image Available
+						{% endif %}
+					</td>
+					<td>{{ ticket.prix }}</td>
+					<td>{{ ticket.categorie }}</td>
+					<td>
+						<a href="{{ path('app_ticket_showback', {'idTicket': ticket.idTicket}) }}">show</a>
+						<a href="{{ path('app_ticket_editback', {'idTicket': ticket.idTicket}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{{ knp_pagination_render(tickets) }}
+
 {% endblock %}

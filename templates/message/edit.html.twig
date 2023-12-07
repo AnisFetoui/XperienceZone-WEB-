@@ -1,36 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Message{% endblock %}
+{% block title %}Edit Message
+{% endblock %}
 
 {% block container %}
-    <h1>Edit Message</h1>
+	<h1>Edit Message</h1>
 
-    {{ form_start(form) }}
+	{{ form_start(form) }}
 
-  
-    {{ form_row(form.contenuMsg, {'attr': {'class': 'tinymce-editor'}}) }}
 
-    <button type="submit">Update</button>
-    {{ form_end(form) }}
+	{{ form_row(form.contenuMsg, {'attr': {'class': 'tinymce-editor'}}) }}
 
-    <a href="{{ path('app_message_index') }}">Back to List</a>
+	<button type="submit">Update</button>
+	{{ form_end(form) }}
 
-    {{ include('message/_delete_form.html.twig') }}
+	<a href="{{ path('app_message_index') }}">Back to List</a>
 
-    {# Ajoutez le script TinyMCE à la fin du bloc container #}
-   
-<script src="https://cdn.tiny.cloud/1/adgqpc201sqv1tsnpixlr4xanu0tqz8v33s3og9t6is60tgk/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-     <script>
-        tinymce.init({
-            selector: '.tinymce-editor',
-            plugins: "preview powerpaste casechange searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample advtable table charmap pagebreak nonbreaking anchor advlist lists checklist wordcount tinymcespellchecker a11ychecker help formatpainter permanentpen pageembed linkchecker emoticons export",
-            height: '600px',
-            toolbar_sticky: true,
-            icons: 'thin',
-            autosave_restore_when_empty: true,
-            force_br_newlines: true,
-            force_p_newlines: false,
-            content_style: `
+	{{ include('message/_delete_form.html.twig') }}
+
+
+	<script src="https://cdn.tiny.cloud/1/adgqpc201sqv1tsnpixlr4xanu0tqz8v33s3og9t6is60tgk/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	<script>
+		tinymce.init({
+selector: '.tinymce-editor',
+plugins: "preview powerpaste casechange searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample advtable table charmap pagebreak nonbreaking anchor advlist lists checklist wordcount tinymcespellchecker a11ychecker help formatpainter permanentpen pageembed linkchecker emoticons export",
+height: '600px',
+toolbar_sticky: true,
+icons: 'thin',
+autosave_restore_when_empty: true,
+force_br_newlines: true,
+force_p_newlines: false,
+content_style: `
                 body {
                     background: #fff;
                 }
@@ -52,7 +52,7 @@
                         padding:4rem 6rem 6rem 6rem
                     }
                 }
-            `,
-        });
-    </script>
+            `
+});
+	</script>
 {% endblock %}

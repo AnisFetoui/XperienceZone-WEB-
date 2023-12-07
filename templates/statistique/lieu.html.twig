@@ -1,77 +1,79 @@
 {% extends 'utilisateur/base.html.twig' %}
 
-{% block title %}Statistiques sur les Lieux{% endblock %}
+{% block title %}Statistiques sur les Lieux
+{% endblock %}
 {% block stylesheets %}
-    {{ parent() }}
-    <style>
-        #lieuxChartContainer {
-            margin-top: 20px;
-            text-align: center;
+	{{ parent() }}
+	<style>
+		#lieuxChartContainer {
+			margin-top: 20px;
+			text-align: center;
 
-              #lieuxTableContainer {
-            margin-top: 20px;
-        }
-        }
-    </style>
+			#lieuxTableContainer {
+				margin-top: 20px;
+			}
+		}
+	</style>
 {% endblock %}
 
 {% block container %}
-    <h1>Statistiques sur les Lieux</h1>
+	<h1>Statistiques sur les Lieux</h1>
 
-   
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   
 
-    <div id="lieuxChartContainer">
-        <canvas id="lieuxChart" width="400" height="400"></canvas>
-    </div>
-   <div id="lieuxTableContainer">
-   <div id="lieuxTableContainer">
-        <h2>Statistiques détaillées par lieu</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Lieu</th>
-                    <th>Nombre d'événements</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for lieu, stats in statsLieu %}
-                    <tr>
-                        <td>{{ stats.lieuEvent }}</td>
-                        <td>{{ stats.eventCount }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Récupérez les données depuis Symfony pour le graphique des lieux
-            var lieuxData = {{ statsLieu|json_encode|raw }};
 
-            // Créez un tableau de données pour le graphique des lieux
-            var lieuxChart = new Chart(document.getElementById('lieuxChart').getContext('2d'), {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(lieuxData),
-                    datasets: [{
-                        label: 'Nombre d\'événements',
-                        data: Object.values(lieuxData).map(stats => stats.eventCount),
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-{% endblock %}
+	<div id="lieuxChartContainer">
+		<canvas id="lieuxChart" width="400" height="400"></canvas>
+	</div>
+	<div id="lieuxTableContainer">
+		<div id="lieuxTableContainer">
+			<h2>Statistiques détaillées par lieu</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Lieu</th>
+						<th>Nombre d'événements</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for lieu, stats in statsLieu %}
+						<tr>
+							<td>{{ stats.lieuEvent }}</td>
+							<td>{{ stats.eventCount }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', function () { // Récupérez les données depuis Symfony pour le graphique des lieux
+var lieuxData = {{ statsLieu|json_encode|raw }};
+
+// Créez un tableau de données pour le graphique des lieux
+var lieuxChart = new Chart(document.getElementById('lieuxChart').getContext('2d'), {
+type: 'bar',
+data: {
+labels: Object.keys(lieuxData),
+datasets: [
+{
+label: 'Nombre d\'événements',
+data: Object.values(lieuxData).map(stats => stats.eventCount),
+backgroundColor: 'rgba(75, 192, 192, 0.2)',
+borderColor: 'rgba(75, 192, 192, 1)',
+borderWidth: 1
+}
+]
+},
+options: {
+scales: {
+y: {
+beginAtZero: true
+}
+}
+}
+});
+});
+		</script>
+	{% endblock %}

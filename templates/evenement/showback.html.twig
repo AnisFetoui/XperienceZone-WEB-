@@ -1,57 +1,58 @@
 {% extends 'utilisateur/base.html.twig' %}
 
-{% block title %}Evenement{% endblock %}
+{% block title %}Evenement
+{% endblock %}
 
 {% block container %}
-    <h2>Evenement</h2>
+	<h2>Evenement</h2>
 
-    <table class="table">
-        <tbody>
-           
-            <tr>
-                <th>NomEvent</th>
-                <td>{{ evenement.nomEvent }}</td>
-            </tr>
-            <tr>
-                <th>Descript</th>
-                <td>{{ evenement.descript }}</td>
-            </tr>
-            <tr>
-                <th>DateEvent</th>
-                <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>HeureEvent</th>
-                <td>{{ evenement.heureEvent }}</td>
-            </tr>
-            <tr>
-                <th>LieuEvent</th>
-                <td>{{ evenement.lieuEvent }}</td>
-            </tr>
-            <tr>
-                <th>NbParticipants</th>
-                <td>{{ evenement.nbParticipants }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>
-                {% if evenement.image %}
-                <img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="event image" style="width: 180px; height: auto;">
-                {% else %}
-                No Image Available 
-                {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Organisateur</th>
-                <td>{{ evenement.organisateur }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
 
-    <a href="{{ path('app_evenement_indexback') }}">back to list</a>
+			<tr>
+				<th>NomEvent</th>
+				<td>{{ evenement.nomEvent }}</td>
+			</tr>
+			<tr>
+				<th>Descript</th>
+				<td>{{ evenement.descript }}</td>
+			</tr>
+			<tr>
+				<th>DateEvent</th>
+				<td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>HeureEvent</th>
+				<td>{{ evenement.heureEvent }}</td>
+			</tr>
+			<tr>
+				<th>LieuEvent</th>
+				<td>{{ evenement.lieuEvent }}</td>
+			</tr>
+			<tr>
+				<th>NbParticipants</th>
+				<td>{{ evenement.nbParticipants }}</td>
+			</tr>
+			<tr>
+				<th>Image</th>
+				<td>
+					{% if evenement.image %}
+						<img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="event image" style="width: 180px; height: auto;">
+					{% else %}
+						No Image Available
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<th>Organisateur</th>
+				<td>{{ evenement.organisateur }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_evenement_editback', {'idEvent': evenement.idEvent}) }}">edit</a>
+	<a href="{{ path('app_evenement_indexback') }}">back to list</a>
 
-    {{ include('evenement/_deleteback.html.twig') }}
+	<a href="{{ path('app_evenement_editback', {'idEvent': evenement.idEvent}) }}">edit</a>
+
+	{{ include('evenement/deleteback.html.twig') }}
 {% endblock %}

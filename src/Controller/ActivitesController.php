@@ -32,6 +32,14 @@ use Symfony\Component\Mime\Part\Multipart\AlternativePart;
 use Symfony\Component\Mime\Part\Multipart\MixedPart;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Swift_Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+
+use Symfony\Component\Mime\Part\DataPart;
+use Symfony\Component\Mime\Part\Multipart\AlternativePart;
+use Symfony\Component\Mime\Part\Multipart\MixedPart;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 #[Route('/activites')]
 class ActivitesController extends AbstractController
@@ -43,6 +51,23 @@ class ActivitesController extends AbstractController
             'activites' => $activitesRepository->findAll(),
         ]);
     }
+    #[Route('/tri/{criteria}', name: 'app_user_tri', methods: ['GET'])]
+public function tri(ActivitesRepository $activitesRepository, string $criteria): Response
+{
+
+    $validCriteria = ['nomAct','prixAct'];
+    
+    if (!in_array($criteria, $validCriteria)) {
+        throw $this->createNotFoundException('Invalid sorting criteria.');
+    }
+
+    $acti = $activitesRepository->findAllSortedBy($criteria);
+
+    return $this->render('activites/index.html.twig', [
+        'activites' => $acti,
+        'currentCriteria' => $criteria,
+    ]);
+}
     #[Route('/tri/{criteria}', name: 'app_user_tri', methods: ['GET'])]
 public function tri(ActivitesRepository $activitesRepository, string $criteria): Response
 {
@@ -76,6 +101,17 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
     {
         $location = $request->query->get('location');
         $act = $activitesRepository->findBy(['lieuAct' => $location]);
+    #[Route('/location', name: 'app_activites_location', methods: ['GET'])]
+    public function locationfind(Request $request,ActivitesRepository $activitesRepository): Response
+    {
+        $location = $request->query->get('location');
+        $act = $activitesRepository->findBy(['lieuAct' => $location]);
+
+    return $this->render('activites/index.html.twig', ['activites' => $act]);
+    }
+
+
+
 
     return $this->render('activites/index.html.twig', ['activites' => $act]);
     }
@@ -149,8 +185,10 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
 
 
     #[Route('/{idAct}', name: 'app_activites_show', methods: ['GET', 'POST'])]
-    public function show(ActivitesRepository $activitesRepository , Request $request, EntityManagerInterface $entityManager,$idAct): Response
+    public function show(ActivitesRepositoryRepository $activitesRepositorysRepository , Request $request, EntityManagerInterface $entityManager,$idAct): Response
     {
+
+        $activite = $activitesRepository->find($idAct);
 
         $activite = $activitesRepository->find($idAct);
         $isFormSubmitted = false;
@@ -192,6 +230,7 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
     #[Route('/ticket/{userId}', name: 'ticket', methods: ['GET', 'POST'])]
     public function showTicket(InscriptionRepository $inscriptionRepository,ActivitesRepository $activitesRepository , $userId): Response
     {$rdvs[]= [];
+        $this->addFlash('success', 'Reservation made successfully');$rdvs[]= [];
         $this->addFlash('success', 'Reservation made successfully');
         $inscriptions = $inscriptionRepository->findByUserId($userId);
         foreach ($inscriptions as $i) {
@@ -217,9 +256,15 @@ public function tri(ActivitesRepository $activitesRepository, string $criteria):
             'data' =>$data,
             'start'=> $formattedStart,
             'end' => $formattedEnd,
+            'data' =>$data,
+            'start'=> $formattedStart,
+            'end' => $formattedEnd,
             
         ]);
     }
+    
+
+
     
 
 
@@ -265,7 +310,7 @@ public function loadTicketContent(InscriptionRepository $inscriptionRepository, 
         ]);
     }
 
-    #[Route('/{idAct}/delete', name: 'app_activites_delete', methods: ['POST'])]
+    #[Route('/{idAct}/delete/delete', name: 'app_activites_delete', methods: ['POST'])]
     public function delete(Request $request, Activites $activite, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$activite->getIdAct(), $request->request->get('_token'))) {

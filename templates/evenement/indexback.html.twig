@@ -1,151 +1,169 @@
 {% extends 'utilisateur/base.html.twig' %}
 
-{% block title %}Evenement index{% endblock %}
+{% block title %}Evenement index
+{% endblock %}
 
 {% block container %}
-    <h3>Evenement</h3>
+	<h3>Evenement</h3>
+	<thead>
+		<tr>
+			<th>
+				<a href="{{ path('app_evenement_indexback', {'sort': 'idEvent'}) }}">idEvent</a>
+			</th>
+			<th>
+				<a href="{{ path('app_evenement_indexback', {'sort': 'nomEvent'}) }}">NomEvent</a>
+			</th>
+			<th>
+				<a href="{{ path('app_evenement_indexback', {'sort': 'lieuEvent'}) }}">LieuEvent</a>
+			</th>
+			<th>
+				<a href="{{ path('app_evenement_indexback', {'sort': 'lieuEvent'}) }}">heureEvent</a>
+			</th>
+			<th>
+				<a href="{{ path('app_evenement_indexback', {'sort': 'lieuEvent'}) }}">organisateur</a>
+			</th>
+		</tr>
+		<a href="{{ path('app_ticket_index') }}">liste des tickets
+		</a>
+	</thead>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>idEvent</th>
+				<th>NomEvent</th>
+				<th>DateEvent</th>
+				<th>HeureEvent</th>
+				<th>LieuEvent</th>
+				<th>NbParticipants</th>
+				<th>Image</th>
+				<th>Organisateur</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody id="eTableBody">
+			{% for evenement in evenements %}
+				<tr>
+					<td>{{ evenement.idEvent }}</td>
+					<td>{{ evenement.nomEvent }}</td>
+					<td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ evenement.heureEvent }}</td>
+					<td>{{ evenement.lieuEvent }}</td>
+					<td>{{ evenement.nbParticipants }}</td>
+					<td>
+						{% if evenement.image %}
+							<img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="event image" style="width: 180px; height: auto;">
+						{% else %}
+							No Image Available
+						{% endif %}
+					</td>
+					<td>{{ evenement.organisateur }}</td>
+					<td>
+						<a href="{{ path('app_evenement_showback', {'idEvent': evenement.idEvent}) }}">show</a>
+						<a href="{{ path('app_evenement_editback', {'idEvent': evenement.idEvent}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="10">No records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>idEvent</th>
-                <th>NomEvent</th>
-                <th>DateEvent</th>
-                <th>HeureEvent</th>
-                <th>LieuEvent</th>
-                <th>NbParticipants</th>
-                <th>Image</th>
-                <th>Organisateur</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody id="eTableBody">
-            {% for evenement in evenements %}
-                <tr>
-                    <td>{{ evenement.idEvent }}</td>
-                    <td>{{ evenement.nomEvent }}</td>
-                    <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ evenement.heureEvent }}</td>
-                    <td>{{ evenement.lieuEvent }}</td>
-                    <td>{{ evenement.nbParticipants }}</td>
-                    <td>
-                        {% if evenement.image %}
-                            <img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="event image" style="width: 180px; height: auto;">
-                        {% else %}
-                            No Image Available
-                        {% endif %}
-                    </td>
-                    <td>{{ evenement.organisateur }}</td>
-                    <td>
-                        <a href="{{ path('app_evenement_showback', {'idEvent': evenement.idEvent}) }}">show</a>
-                        <a href="{{ path('app_evenement_editback', {'idEvent': evenement.idEvent}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="10">No records found</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+	<input type="text" id="searchInput" placeholder="Search">
+	<button id="searchButton">Search</button>
 
-    <input type="text" id="searchInput" placeholder="Search">
-    <button id="searchButton">Search</button>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+var searchInput = document.getElementById('searchInput');
+var searchButton = document.getElementById('searchButton');
 
- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var searchInput = document.getElementById('searchInput');
-        var searchButton = document.getElementById('searchButton');
+if (searchInput && searchButton) {
+searchButton.addEventListener('click', function () {
+var searchTerm = searchInput.value;
 
-        if (searchInput && searchButton) {
-            searchButton.addEventListener('click', function () {
-                var searchTerm = searchInput.value;
+fetch('{{ path('app_search') }}?searchTerm=' + searchTerm, {
+method: 'GET',
+headers: {
+'Content-Type': 'application/json'
+}
+}).then(response => response.json()).then(data => {
+var evenements = data.evenements;
+var tableBody = document.getElementById('eTableBody');
+tableBody.innerHTML = '';
 
-                fetch('{{ path('app_search') }}?searchTerm=' + searchTerm, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    var evenements = data.evenements;
-                    var tableBody = document.getElementById('eTableBody');
-                    tableBody.innerHTML = '';
+if (evenements.length > 0) {
+evenements.forEach(function (evenement) {
+var row = document.createElement('tr');
+var idCell = document.createElement('td');
+idCell.textContent = evenement.idEvent;
+row.appendChild(idCell);
 
-                    if (evenements.length > 0) {
-                        evenements.forEach(function (evenement) {
-                            var row = document.createElement('tr');
-                            var idCell = document.createElement('td');
-                            idCell.textContent = evenement.idEvent;
-                            row.appendChild(idCell);
+var nomCell = document.createElement('td');
+nomCell.textContent = evenement.nomEvent;
+row.appendChild(nomCell);
 
-                            var nomCell = document.createElement('td');
-                            nomCell.textContent = evenement.nomEvent;
-                            row.appendChild(nomCell);
+var dateCell = document.createElement('td');
+dateCell.textContent = evenement.dateEvent ? evenement.dateEvent : '';
+row.appendChild(dateCell);
 
-                            var dateCell = document.createElement('td');
-                            dateCell.textContent = evenement.dateEvent ? evenement.dateEvent : '';
-                            row.appendChild(dateCell);
+var heureCell = document.createElement('td');
+heureCell.textContent = evenement.heureEvent;
+row.appendChild(heureCell);
 
-                            var heureCell = document.createElement('td');
-                            heureCell.textContent = evenement.heureEvent;
-                            row.appendChild(heureCell);
+var lieuCell = document.createElement('td');
+lieuCell.textContent = evenement.lieuEvent;
+row.appendChild(lieuCell);
 
-                            var lieuCell = document.createElement('td');
-                            lieuCell.textContent = evenement.lieuEvent;
-                            row.appendChild(lieuCell);
+var participantsCell = document.createElement('td');
+participantsCell.textContent = evenement.nbParticipants;
+row.appendChild(participantsCell);
 
-                            var participantsCell = document.createElement('td');
-                            participantsCell.textContent = evenement.nbParticipants;
-                            row.appendChild(participantsCell);
+var imageCell = document.createElement('td');
+if (evenement.image) {
+var image = document.createElement('img');
+image.src = '{{ asset('uploads/images/') }}' + evenement.image;
+image.alt = 'event image';
+image.style.width = '180px';
+image.style.height = 'auto';
+imageCell.appendChild(image);
+} else {
+imageCell.textContent = 'No Image Available';
+} row.appendChild(imageCell);
 
-                            var imageCell = document.createElement('td');
-                            if (evenement.image) {
-                                var image = document.createElement('img');
-                                image.src = '{{ asset('uploads/images/') }}' + evenement.image;
-                                image.alt = 'event image';
-                                image.style.width = '180px';
-                                image.style.height = 'auto';
-                                imageCell.appendChild(image);
-                            } else {
-                                imageCell.textContent = 'No Image Available';
-                            }
-                            row.appendChild(imageCell);
+var organisateurCell = document.createElement('td');
+organisateurCell.textContent = evenement.organisateur;
+row.appendChild(organisateurCell);
 
-                            var organisateurCell = document.createElement('td');
-                            organisateurCell.textContent = evenement.organisateur;
-                            row.appendChild(organisateurCell);
+var actionsCell = document.createElement('td');
+var showLink = document.createElement('a');
 
-                            var actionsCell = document.createElement('td');
-                            var showLink = document.createElement('a');
-                           
-                            showLink.textContent = 'show';
-                            actionsCell.appendChild(showLink);
+showLink.textContent = 'show';
+actionsCell.appendChild(showLink);
 
-                            var editLink = document.createElement('a');
-                          
-                            editLink.textContent = 'edit';
-                            actionsCell.appendChild(editLink);
+var editLink = document.createElement('a');
 
-                            row.appendChild(actionsCell);
+editLink.textContent = 'edit';
+actionsCell.appendChild(editLink);
 
-                            tableBody.appendChild(row);
-                        });
-                    } else {
-                        var noRecordsRow = document.createElement('tr');
-                        var noRecordsCell = document.createElement('td');
-                        noRecordsCell.setAttribute('colspan', '10');
-                        noRecordsCell.textContent = 'No records found';
-                        noRecordsRow.appendChild(noRecordsCell);
-                        tableBody.appendChild(noRecordsRow);
-                    }
-                });
-            });
-        }
-    });
-</script>
- {{ knp_pagination_render(evenements) }}
-    <a href="{{ path('app_evenement_newback') }}">Create new</a>
-    <a href="{{ path('statistiques') }}">Statistiques</a>
+row.appendChild(actionsCell);
+
+tableBody.appendChild(row);
+});
+} else {
+var noRecordsRow = document.createElement('tr');
+var noRecordsCell = document.createElement('td');
+noRecordsCell.setAttribute('colspan', '10');
+noRecordsCell.textContent = 'No records found';
+noRecordsRow.appendChild(noRecordsCell);
+tableBody.appendChild(noRecordsRow);
+}
+});
+});
+}
+});
+	</script>
+	{{ knp_pagination_render(evenements) }}
+	<a href="{{ path('app_evenement_newback') }}">Create new</a>
+	<a href="{{ path('statistiques') }}">Statistiques</a>
 {% endblock %}

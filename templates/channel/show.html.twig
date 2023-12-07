@@ -23,22 +23,22 @@
 
         <div class="navigation-links">
             <a href="{{ path('app_channel_index') }}">Back to List</a>
-            <a href="{{ path('app_channel_edit', {'idCh': channel.idCh}) }}">Edit</a>
-            {{ include('channel/_delete_form.html.twig') }}
         </div>
+
+        
     </div>
 
     <style>
         .container {
-            margin-bottom: 50px; /* Ajoutez la marge inférieure désirée pour déplacer les liens vers le bas */
+            margin-bottom: 50px; 
         }
 
         .navigation-links {
-            margin-top: 100px; /* Ajoutez la marge supérieure désirée pour déplacer les liens vers le bas */
+            margin-top: 100px; 
         }
 
         .navigation-links a {
-            margin-right: 50px; /* Ajoutez une marge entre les liens si nécessaire */
+            margin-right: 50px; 
         }
     </style>
 {% endblock %}

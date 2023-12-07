@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ticket;
+use App\Entity\Evennement;
 use App\Form\TicketType;
 use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,6 +16,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Service\TwilioService;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 
@@ -23,18 +25,37 @@ use App\Service\TwilioService;
 class TicketController extends AbstractController
 {
     #[Route('/', name: 'app_ticket_index', methods: ['GET'])]
-    public function index(TicketRepository $ticketRepository): Response
+    public function index(TicketRepository $ticketRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $allTickets = $ticketRepository->findAll();
+
+        // Paginate the results
+        $tickets = $paginator->paginate(
+            $allTickets, // Query results (e.g., all tickets)
+            $request->query->getInt('page', 1), // Current page number, defaults to 1
+            5// Number of items per page
+        );
         return $this->render('ticket/index.html.twig', [
-            'tickets' => $ticketRepository->findAll(),
+            'tickets' => $tickets,
         ]);
     }
 
-    #[Route('/new', name: 'app_ticket_new', methods: ['GET', 'POST'])]
+
+
+    #[Route('/{idEvent}/new', name: 'app_ticket_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, EvenementRepository $evenementRepository,TwilioService $twilioService): Response
     {
         $ticket = new Ticket();
+
+ // Récupérer l'événement en fonction de $idEvent
+/* $evenement = $evenementRepository->findOneBy(['idEvent' => $idEvent]);
+
+ if ($evenement) {
+     $ticket->setEvenement($evenement);
+ }*/
+     
         $form = $this->createForm(TicketType::class, $ticket);
+        
         $form->handleRequest($request);
         $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; // Remplacez par le chemin réel de votre répertoire
         if ($form->isSubmitted() && $form->isValid()) {
@@ -54,21 +75,24 @@ class TicketController extends AbstractController
             throw $this->createNotFoundException('Event not found');
         }
         $ticket->setEvenement($evenement);
-
+       // $session->set('key', 'value');
             $entityManager->persist($ticket);
             $entityManager->flush();
-            //$to = '+21692103963'; // Static phone number
+           // $to = '+21692103963'; // Static phone number
            // $message = 'Hello We are excited to inform you that your ticket for the event has been successfully added.Thank you for choosing our platform! If you have any questions or concerns, feel free to reach out see you there'; // Modify the message as needed
            // $twilioService->sendSMS($to, $message);
             $idTicket = $ticket->getIdTicket();
+            // Récupérer des données depuis la session
+       // $valueFromSession = $session->get('key');
             return $this->redirectToRoute('app_ticket_show',  ['idTicket' => $idTicket], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('ticket/new.html.twig', [
             'ticket' => $ticket,
             'form' => $form,
         ]);
     }
+
+
 
     #[Route('/{idTicket}', name: 'app_ticket_show', methods: ['GET'])]
     public function show(Ticket $ticket): Response
@@ -78,6 +102,17 @@ class TicketController extends AbstractController
         ]);
     }
 
+
+    #[Route('/{idTicket}/show', name: 'app_ticket_showback', methods: ['GET'])]
+    public function showw(Ticket $ticket): Response
+    {
+        return $this->render('ticket/showback.html.twig', [
+            'ticket' => $ticket,
+        ]);
+    }
+
+
+    
     #[Route('/{idTicket}/edit', name: 'app_ticket_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Ticket $ticket, EntityManagerInterface $entityManager): Response
     {
@@ -95,6 +130,49 @@ class TicketController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/{idTicket}/delete', name: 'app_ticket_deleteback', methods: ['POST'])]
+    public function deletee(Request $request, Ticket $ticket, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$ticket->getIdTicket(), $request->request->get('_token'))) {
+            $entityManager->remove($ticket);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+
+
+
+
+
+
+
+    #[Route('/{idTicket}/editt', name: 'app_ticket_editback', methods: ['GET', 'POST'])]
+    public function editt(Request $request, Ticket $ticket, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(TicketType::class, $ticket);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('ticket/editback.html.twig', [
+            'ticket' => $ticket,
+            'form' => $form,
+        ]);
+    }
+
+   
+
+
+
+
 
     #[Route('/{idTicket}', name: 'app_ticket_delete', methods: ['POST'])]
     public function delete(Request $request, Ticket $ticket, EntityManagerInterface $entityManager): Response

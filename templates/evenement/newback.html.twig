@@ -1,11 +1,13 @@
 {% extends 'utilisateur/base.html.twig' %}
 
-{% block title %}New Event{% endblock %}
+{% block title %}New Event
+{% endblock %}
 
 {% block container %}
-    <h3>Create your event</h3>
+	<h3>Create your event</h3>
 
-    {{ include('evenement/_form.html.twig') }}
+	{{ include('evenement/_form.html.twig') }}
 
-    <a href="{{ path('app_evenement_indexback') }}">back to list</a>
+	<a href="{{ path('app_evenement_indexback') }}">back to list</a>
+
 {% endblock %}
