@@ -49,7 +49,7 @@ class Activites
     
     #[Assert\NotBlank(message: "add min participant")]
    #[ORM\Column]
-    private ?int $placeDiso;
+    private ?int $placeDispo;
   
     #[Assert\NotBlank(message: "add a price")]
     #[Assert\Regex(
@@ -160,12 +160,12 @@ class Activites
 
     public function getPlaceDiso(): ?int
     {
-        return $this->placeDiso;
+        return $this->placeDispo;
     }
 
-    public function setPlaceDiso(int $placeDiso): static
+    public function setPlaceDiso(int $placeDispo): static
     {
-        $this->placeDiso = $placeDiso;
+        $this->placeDispo = $placeDispo;
 
         return $this;
     }

@@ -21,9 +21,7 @@ class ReclamationsType extends AbstractType
     {
         $builder
 
-            ->add('utilisateur', null, [ 
-            'choice_label' => 'mail'
-            ])
+           
             ->add('daterec', null )
             ->add('typerec', ChoiceType::class, [
                 'choices' => [

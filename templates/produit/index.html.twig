@@ -1,97 +1,97 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit {% endblock %}
+{% block title %}Produit
+{% endblock %}
 
 {% block container %}
-    {# Formulaire de recherche stylé avec Bootstrap #}
-   <form method="get" action="{{ path('app_produit_index') }}">
-    <input type="text" name="nomProd" placeholder="Nom du produit" value="{{ nomProd }}">
-    <input type="number" name="prixProd" placeholder="Prix maximum" value="{{ prixProd}}">
-    <button type="submit">Rechercher</button>
-</form>
-    <a href="{{ path('app_produit_new') }}">Create new</a>
-    
+	{# Formulaire de recherche stylé avec Bootstrap #}
+	<form method="get" action="{{ path('app_produit_index') }}">
+		<input type="text" name="nomProd" placeholder="Nom du produit" value="{{ nomProd }}">
+		<input type="number" name="prixProd" placeholder="Prix maximum" value="{{ prixProd}}">
+		<button type="submit">Rechercher</button>
+	</form>
+
+
 {% endblock %}
+{% block explore %}
 
 {% block card %}
-    <div id="resultats" class="row">
-        {% for produit in produits %}
-            <div class="col-md-4 col-sm-6">
-                <div class="single-explore-item">
-                    <div class="single-explore-img">
-                        <img src="{{ asset('uploads/images/' ~ produit.image) }}" alt="Product Image">
-                        <!-- Other content for produit -->
-                        <div class="single-explore-img-info">
-                            <button onclick="window.location.href='#'" class="btn btn-vert">best rated</button>
-                            <div class="single-explore-image-icon-box">
-                                <ul>
-                                    <li>
-                                        <div class="single-explore-image-icon">
-                                            <a href="{{ path('app_produit_show', {'idProd': produit.idProd}) }}">
-                                                <i class="fa fa-arrows-alt"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="single-explore-image-icon">
-                                            <i class="fa fa-bookmark-o"></i>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single-explore-txt bg-theme-1">
-                        <h2>
-                            <a href="#">{{ produit.nomProd }}</a>
-                        </h2>
-                        <!-- Other content for produit -->
-                        <p class="explore-rating-price">
-                            {% if produit.noteProd is not null %}
-                                <span class="explore-rating">{{ produit.noteProd }}</span>
-                            {% else %}
-                                <span class="explore-rating">Pas de note</span>
-                            {% endif %}
-                                Price
-                                <span class="explore-price">{{ produit.prixProd }}</span>
-                            </span>
-                        </p>
-                        <div class="explore-person">
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <p>{{ produit.quantite }}...</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="explore-open-close-part">
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <a href="{{ path('app_produit_show', {'idProd': produit.idProd}) }}">Show Details</a>
-                                </div>
-                                <div class="explore-map-icon">
-                                    <a href="{{ path('app_panier_new', {'idProd': produit.idProd}) }}" class="btn btn-vert">Shop Now</a>
-                                    <!-- ... Autres icônes ... -->
-                                </div>
-                                <div class="col-sm-7">
-                                    <div class="explore-map-icon">
-                                        <a href="#"><i data-feather="map-pin"></i></a>
-                                        <a href="#"><i data-feather="upload"></i></a>
-                                        <a href="#"><i data-feather="heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-   
-
-    <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-3">
-        <div class="pagination">
-            {{ knp_pagination_render(produits,'produit/custom_pagination.html.twig') }}
-        </div>
-    </div>
-{% endblock %}
-
+<div id="resultats" class="row">
+	{% for produit in produits %}
+		<div class="col-md-4 col-sm-6">
+			<div class="single-explore-item">
+				<div class="single-explore-img">
+					<img
+					src="{{ asset('uploads/images/' ~ produit.image) }}" alt="Product Image">
+					<!-- Other content for produit -->
+					<div class="single-explore-img-info">
+						<button onclick="window.location.href='#'" class="btn btn-vert">best rated</button>
+						<div class="single-explore-image-icon-box">
+							<ul>
+								<li>
+									<div class="single-explore-image-icon">
+										<a href="{{ path('app_produit_show', {'idProd': produit.idProd}) }}">
+											<i class="fa fa-arrows-alt"></i>
+										</a>
+									</div>
+								</li>
+								<li>
+									<div class="single-explore-image-icon">
+										<i class="fa fa-bookmark-o"></i>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="single-explore-txt bg-theme-1">
+					<h2>
+						<a href="#">{{ produit.nomProd }}</a>
+					</h2>
+					<!-- Other content for produit -->
+					<p class="explore-rating-price">
+						{% if produit.noteProd is not null %}
+							<span class="explore-rating">{{ produit.noteProd }}</span>
+						{% else %}
+							<span class="explore-rating">Pas de note</span>
+						{% endif %}
+						Price
+						<span class="explore-price">{{ produit.prixProd }}</span>
+					</p>
+				</span>
+			</p>
+			<div class="explore-person">
+				<div class="row">
+					<div class="col-sm-10">
+						<p>{{ produit.quantite }}...</p>
+					</div>
+				</div>
+			</div>
+			<div class="explore-open-close-part">
+				<div class="row">
+					<div class="col-sm-5">
+						<a href="{{ path('app_produit_show', {'idProd': produit.idProd}) }}">Show Details</a>
+					</div>
+					<div class="explore-map-icon">
+						<a href="{{ path('app_panier_new', {'idProd': produit.idProd}) }}" class="btn btn-vert">Shop Now</a>
+						<!-- ... Autres icônes ... -->
+					</div>
+					<div class="col-sm-7">
+						<div class="explore-map-icon">
+							<a href="#">
+								<i data-feather="map-pin"></i>
+							</a>
+							<a href="#">
+								<i data-feather="upload"></i>
+							</a>
+							<a href="#">
+								<i data-feather="heart"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>{% endfor %}</div><div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-3"><div class="pagination">
+{{ knp_pagination_render(produits,'produit/custom_pagination.html.twig') }}</div></div>{% endblock %}{% endblock %}

@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\Histogram;
@@ -55,26 +57,25 @@ class ReclamationsController extends AbstractController
     }*/
 
     #[Route('/new', name: 'app_reclamations_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, Swift_Mailer $mailer): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Swift_Mailer $mailer,UserInterface $user): Response
     {
         $reclamation = new Reclamations();
         $form = $this->createForm(ReclamationsType::class, $reclamation);
         $form->handleRequest($request);
+        $userId = $user->getIdUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $reclamation->setUtilisateur($user);
             $entityManager->persist($reclamation);
             $entityManager->flush();
 
-            
-        
-        
-            
             return $this->redirectToRoute('app_reclamations_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('reclamations/new.html.twig', [
             'reclamation' => $reclamation,
             'form' => $form,
+            'iduser'=>$userId,
         ]);
     }
 

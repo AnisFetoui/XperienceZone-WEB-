@@ -7,6 +7,8 @@ use App\Entity\Utilisateur;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TicketRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 
 #[ORM\Entity(repositoryClass:TicketRepository::class)]
@@ -45,7 +47,7 @@ class Ticket
   // #[ORM\ManyToOne(inversedBy: 'tickets')]
    #[ORM\ManyToOne]
    #[ORM\JoinColumn(nullable: false, name: "id_user", referencedColumnName: "id_user")]
-   private ?Utilisateur $user=null;
+   private ?Userr $user=null;
 
 
    
@@ -115,12 +117,23 @@ class Ticket
        return $this;
    }
 
-   public function getUser(): ?Utilisateur
+   public function getUserticket(): ?Userr
    {
        return $this->user;
    }
 
-   public function setUser(?Utilisateur $user): static
+   public function setUserticket(?Userr $user): static
+   {
+       $this->user = $user;
+
+       return $this;
+   }
+   public function getUser(): ?UserInterface
+   {
+       return $this->user;
+   }
+
+   public function setUser(?UserInterface $user): static
    {
        $this->user = $user;
 

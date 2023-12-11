@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Form\FormEvents;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 
@@ -88,24 +89,20 @@ class PanierController extends AbstractController
     }*/
 
     #[Route('/new', name: 'app_panier_new', methods: ['GET', 'POST'])]
-public function new(Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy, UserRepository $userRepository): Response
+public function new(Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy, UserRepository $userRepository, UserInterface $user): Response
 {
     $panier = new Panier();
 
     $form = $this->createForm(PanierType::class, $panier);
     $form->handleRequest($request);
 
-    // Replace with your static user retrieval logic
-    $currentUser = $userRepository->findOneBy(['mail' => 'fetoui@a.com']);
 
-    if (!$currentUser) {
-        // Handle the case where the static user is not found
-        $this->addFlash('mercuryseries_flashy_notification', 'Static user not found.');
-        return $this->redirectToRoute('app_login'); // Redirect to login page or handle it in another way
-    }
+    
+
 
     if ($form->isSubmitted() && $form->isValid()) {
         $produit = $panier->getProduit();
+        $panier->setUtilisateur($user);
 
         if ($produit->getQuantite() < $panier->getQuantitePanier()) {
             $this->addFlash('mercuryseries_flashy_notification', 'The quantity is out of stock.');
@@ -129,7 +126,7 @@ public function new(Request $request, EntityManagerInterface $entityManager, Fla
         $produit->setQuantite($nouvelleQuantite);
 
         // Set the user on the Panier entity
-        $panier->setUtilisateur($currentUser);
+
 
         $entityManager->persist($panier);
         $entityManager->persist($produit);

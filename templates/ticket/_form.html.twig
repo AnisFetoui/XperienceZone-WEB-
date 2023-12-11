@@ -64,23 +64,6 @@
 
 </div>
 
-<div class="form-group">
-	{{ form_label(form.prix) }}
-	{{ form_widget(form.prix, {'attr': {'class': 'form-control', 'placeholder': 'price'}}) }}
-
-</div>
-<div class="form-group">
-	{{ form_label(form.evenement) }}
-	{{ form_widget(form.evenement, {'attr': {'class': 'form-control', 'placeholder': 'Event time'}}) }}
-
-</div>
-
-<div class="form-group">
-	{{ form_label(form.user) }}
-	{{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
-
-</div>
-
 
 <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 

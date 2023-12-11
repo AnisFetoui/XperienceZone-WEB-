@@ -26,11 +26,11 @@ class TicketType extends AbstractType
               //  'scale' => 2, // Précision décimale (2 chiffres après la virgule)
                 // Autres options du champ NumberType
            // ])
-           ->add('prix', MoneyType::class, [
+           /*->add('prix', MoneyType::class, [
             'label' => 'Prix',
             'currency' => 'TND', // Code de la devise (Tunisian Dinar)
            
-        ])
+        ])*/
             ->add('categorie', ChoiceType::class, [
                 'label' => 'Catégorie',
                 'choices' => [
@@ -41,8 +41,8 @@ class TicketType extends AbstractType
                 ],
              
             ])
-            ->add('evenement',null,['choice_label'=> 'nomEvent'])
-            ->add('user',null,['choice_label'=> 'username'])
+           // ->add('evenement',null,['choice_label'=> 'nomEvent'])
+           // ->add('user',null,['choice_label'=> 'username'])
         ;
         ;
     }

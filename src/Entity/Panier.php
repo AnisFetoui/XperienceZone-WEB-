@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Repository\PanierRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 #[ORM\Entity(repositoryClass: PanierRepository::class)]
@@ -76,6 +77,20 @@ class Panier
 
         return $this;
     }
+    
+    public function getUser(): ?UserInterface
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUser(?UserInterface $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+
 
     public function getProduit(): ?Produit
     {

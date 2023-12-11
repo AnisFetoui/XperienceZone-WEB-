@@ -1,39 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Shop{% endblock %}
+{% block title %}Shop
+{% endblock %}
 
 {% block container %}
-    <div class="container mt-5">
-        <h1 class="mb-4">Shop Now</h1>
+	<div class="container mt-5">
+		<h1 class="mb-4">Shop Now</h1>
 
-      {{ form_start(form) }}
+		{{ form_start(form) }}
 
-    {# ... autres champs du formulaire ... #}
+		{# ... autres champs du formulaire ... #}
 
-    <div class="form-group">
-        <label for="produit">Produit</label>
-        {{ form_widget(form.produit, {'attr': {'class': 'form-control'}}) }}
+		<div class="form-group">
+			<label for="produit">Produit</label>
+			{{ form_widget(form.produit, {'attr': {'class': 'form-control'}}) }}
 
-        {# Afficher l'image du produit avec une taille réduite #}
-<td>
-                    {% if panier.produit %}
-                        <img src="{{ asset('uploads/images/' ~ panier.produit.image) }}" alt="{{ panier.produit.nomProd }}" style="max-width: 100px;">
-                        {{ panier.produit.nomProd }}
-                    {% else %}
-                        Aucun produit
-                    {% endif %}
-                    
-                </td>
-                </div>
+			{# Afficher l'image du produit avec une taille réduite #}
+			<td>
+				{% if panier.produit %}
+					<img src="{{ asset('uploads/images/' ~ panier.produit.image) }}" alt="{{ panier.produit.nomProd }}" style="max-width: 100px;">
+					{{ panier.produit.nomProd }}
+				{% else %}
+					Aucun produit
+				{% endif %}
 
-    <div class="form-group">
-        <label for="quantitePanier">Quantity</label>
-        {{ form_widget(form.quantitePanier, {'attr': {'class': 'form-control'}}) }}
-    </div>
+			</td>
+		</div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Add</button>
-    </div>
+		<div class="form-group">
+			<label for="quantitePanier">Quantity</label>
+			{{ form_widget(form.quantitePanier, {'attr': {'class': 'form-control'}}) }}
+		</div>
 
-{{ form_end(form) }}
-{% endblock %}
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Add</button>
+		</div>
+
+		{{ form_end(form) }}
+	{% endblock %}
+	{% block explore %}{% endblock %}
+	{% block card %}{% endblock %}

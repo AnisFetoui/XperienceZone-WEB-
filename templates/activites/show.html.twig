@@ -65,10 +65,14 @@
 			</div>
 
 			<div class="place">
-				<h4>Activity will take place at :</h4>
-				<span>{{ activite.adresse  }}</span>
-				<h4>in</h4>
+				<h4>Activity will take place in :</h4>
 				<span>{{ activite.lieuAct }}</span>
+
+				<a href="{{ activite.adresse }}">
+					<i class="bi bi-geo"></i>
+				</a>
+				<br>
+
 			</div>
 			<div class="part">
 				<h4>Min participant :</h4>

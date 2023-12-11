@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
@@ -82,6 +82,19 @@ class Message extends AbstractController
         return $this;
     }
 
+    public function getUser(): ?UserInterface
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUser(?UserInterface $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+
     public function getChannel(): ?Channel
     {
         return $this->channel;
@@ -93,5 +106,9 @@ class Message extends AbstractController
 
         return $this;
     }
+
+
+
+
 
 }

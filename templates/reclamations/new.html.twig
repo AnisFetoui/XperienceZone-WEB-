@@ -1,46 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Reclamations{% endblock %}
-
+{% block title %}New Reclamations
+{% endblock %}
 
 
 {% block container %}
 
-<style>
-.title1 {
-     font-size: 32px;
-  font-weight: 900;
-  margin: 50px 40px 40px;
-  color: white; 
-  
-     
-    }
+	<style>
+		.title1 {
+			font-size: 32px;
+			font-weight: 900;
 
-  .posit {
-      top= 90%;
-      left= 100%;
-  }  
-  
-   
+			color: white;
 
-</style>
 
-<section  class="welcome-hero" position="center">
-<div  >
-        <div class="posit">
-        
-        <h1 class="title1" color="white" >Submit a complaint</h1>
-        
-        </div>
+		}
 
-    
-        <div class="col-md-6">
-        
-            {{ include('reclamations/_form.html.twig') }}
-        </div>
-    
+		.posit {
+			height: 100px;
+			padding-left: 80px;
+			padding-top: 50px;
+		}
+	</style>
 
-   
-    </section>
-    </div>
+	<section class="welcome-hero" position="center">
+		<div>
+			<div class="posit">
+
+				<h1 class="title1" color="white">Submit a complaint
+				</h1>
+
+			</div>
+
+
+			<div class="col-md-6">
+
+				{{ include('reclamations/_form.html.twig') }}
+			</div>
+
+
+		</section>
+	</div>
 {% endblock %}
+{% block explore %}{% endblock %}
+{% block card %}{% endblock %}

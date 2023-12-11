@@ -55,7 +55,7 @@ class ActivitesType extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])
-            ->add('placeDiso')
+            ->add('placeDispo')
             ->add('prixAct')
             ->add('duree')
             ->add('periode')

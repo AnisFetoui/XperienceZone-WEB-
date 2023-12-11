@@ -5,6 +5,7 @@ use App\Repository\ReclamationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
@@ -17,7 +18,7 @@ class Reclamations
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false, name: "idU", referencedColumnName: "id_user")]
-    private ?Utilisateur $utilisateur = null;
+    private ?Userr $utilisateur = null;
 
  /* #[Assert\Range(
         min = "2023-01-01",
@@ -89,17 +90,31 @@ class Reclamations
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getUtilisateur(): ?Userr
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): static
+    public function setUtilisateur(?Userr $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
 
         return $this;
     }
+
+    
+    public function getUser(): ?UserInterface
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUser(?UserInterface $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
 
     public function getDetails(): ?string
     {

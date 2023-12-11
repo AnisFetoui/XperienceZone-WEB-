@@ -17,6 +17,7 @@ use Dompdf\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Service\TwilioService;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 
@@ -43,7 +44,7 @@ class TicketController extends AbstractController
 
 
     #[Route('/{idEvent}/new', name: 'app_ticket_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, EvenementRepository $evenementRepository,TwilioService $twilioService): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, EvenementRepository $evenementRepository,TwilioService $twilioService,UserInterface $user,$idEvent): Response
     {
         $ticket = new Ticket();
 
@@ -60,8 +61,9 @@ class TicketController extends AbstractController
         $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images'; // Remplacez par le chemin réel de votre répertoire
         if ($form->isSubmitted() && $form->isValid()) {
             
-             // Si aucun fichier d'image n'est téléchargé, utiliser l'image de l'événement
-        $idEvent = $form->get('evenement')->getData();
+         
+            $ticket->setUserticket($user);
+        //$idEvent = $form->get('evenement')->getData();
         $evenement = $evenementRepository->find($idEvent);
         if (!$evenement) {
             throw $this->createNotFoundException('Event not found');
@@ -69,11 +71,7 @@ class TicketController extends AbstractController
         $ticket->setImage($evenement->getImage());
 
         // Associer l'événement au ticket
-        $idEvent = $form->get('evenement')->getData();
-        $evenement = $evenementRepository->find($idEvent);
-        if (!$evenement) {
-            throw $this->createNotFoundException('Event not found');
-        }
+    
         $ticket->setEvenement($evenement);
        // $session->set('key', 'value');
             $entityManager->persist($ticket);
