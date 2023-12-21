@@ -41,8 +41,7 @@ class ChannelController extends AbstractController
        ]);
     }
     
-  
-
+  /*
     #[Route('/new', name: 'app_channel_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -62,7 +61,7 @@ class ChannelController extends AbstractController
             'form' => $form,
         ]);
     }
-
+*/
     
 
     #[Route('/{idCh}', name: 'app_channel_show', methods: ['GET'])]

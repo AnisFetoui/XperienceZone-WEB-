@@ -5,6 +5,7 @@ use App\Repository\ActivitesRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ActivitesRepository::class)]
 class Activites
@@ -158,12 +159,12 @@ class Activites
         return $this;
     }
 
-    public function getPlaceDiso(): ?int
+    public function getPlaceDispo(): ?int
     {
         return $this->placeDispo;
     }
 
-    public function setPlaceDiso(int $placeDispo): static
+    public function setPlaceDispo(int $placeDispo): static
     {
         $this->placeDispo = $placeDispo;
 
@@ -219,4 +220,15 @@ class Activites
         return $this;
     }
 
+    public function getUserr(): ?UserInterface
+    {
+        return $this->user;
+    }
+
+    public function setUserr(?UserInterface $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 }

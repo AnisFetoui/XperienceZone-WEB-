@@ -59,10 +59,10 @@ class ActivitesType extends AbstractType
             ->add('prixAct')
             ->add('duree')
             ->add('periode')
-            ->add('user',null,['choice_label'=>'id_user',
+            //->add('user',null,['choice_label'=>'id_user',
             //'expanded' => True,
           //  'multiple' => True,
-            ])
+           // ])
         ;
     }
 

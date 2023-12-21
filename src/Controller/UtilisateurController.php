@@ -2,7 +2,9 @@
 
 namespace App\Controller;
     use App\Entity\Activites;
+    use App\Entity\Channel;
     use App\Form\ActivitesType;
+    use App\Form\ChannelType;
     use App\Entity\Utilisateur;
     use App\Entity\Userr;
     use App\Form\UtilisateurType;
@@ -30,6 +32,7 @@ namespace App\Controller;
     use Endroid\QrCode\Writer\PngWriter;
     use Endroid\QrCode\QrCode;
     use Doctrine\Persistence\ObjectManager;
+    use Symfony\Component\Security\Core\User\UserInterface;
 
 
     #[Route('/utilisateur')]
@@ -56,6 +59,40 @@ namespace App\Controller;
             ]);
         }
 
+        #[Route('/statistique', name: 'app_statistique')]
+public function statistique(UserrRepository $userRepository): Response
+{
+    $totalUtilisateurs = $userRepository->count([]);
+    $hommes = $userRepository->countByGenre('Male');
+    $femmes = $userRepository->countByGenre('Female');
+    $Age20 = $userRepository->countByAgeRange([0,20]);
+    $Age40 = $userRepository->countByAgeRange([20,40]);
+    $Age60 = $userRepository->countByAgeRange([40,120]);
+    
+    $pourcentageAge20 = ($Age20 / $totalUtilisateurs) * 100;
+    $pourcentageAge40 = ($Age40 / $totalUtilisateurs) * 100;
+    $pourcentageAge60 = ($Age60 / $totalUtilisateurs) * 100;
+
+
+    $pourcentageHommes = ($hommes / $totalUtilisateurs) * 100;
+    $pourcentageFemmes = ($femmes / $totalUtilisateurs) * 100;
+
+    return $this->render('statistique/sexe.html.twig', [
+        'Age20' => $Age20,
+        'Age40' => $Age40,
+        'Age60' => $Age60,
+        'pourcentageAge60' => $pourcentageAge60,
+        'pourcentageAge40' => $pourcentageAge40,
+        'pourcentageAge20' => $pourcentageAge20,
+        'totalUtilisateurs' => $totalUtilisateurs,
+        'hommes' => $hommes,
+        'femmes' => $femmes,
+        'pourcentageHommes' => $pourcentageHommes,
+        'pourcentageFemmes' => $pourcentageFemmes,
+    ]);
+    
+}
+
         /***************************************activite start********************************************************** */
         #[Route('/backAct', name: 'activitesback_index', methods: ['GET'])]
     public function backofficeact(ActivitesRepository $activitesRepository, InscriptionRepository $inscriptionRepository): Response
@@ -67,13 +104,16 @@ namespace App\Controller;
         ]);
     }
     #[Route('/newact', name: 'app_activites_new', methods: ['GET', 'POST'])]
-    public function newact(Request $request, EntityManagerInterface $entityManager): Response
+    public function newact(Request $request, EntityManagerInterface $entityManager,UserInterface $user): Response
     {
         $activite = new Activites();
         $form = $this->createForm(ActivitesType::class, $activite);
         $form->handleRequest($request);
         $imagedirectory = $this->getParameter('kernel.project_dir').'/public/uploads/images';
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $activite->setUser($user);
+            
             $imageFile = $form->get('images')->getData();
             if($imageFile){
                 $newFilename = uniqid().'.'.$imageFile->guessExtension();
@@ -131,7 +171,27 @@ namespace App\Controller;
     
        ]);
     }
-    
+    #[Route('/newcha', name: 'app_channel_new', methods: ['GET', 'POST'])]
+    public function newch(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $channel = new Channel();
+        $form = $this->createForm(ChannelType::class, $channel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($channel);
+            $entityManager->flush();
+
+            return $this->render('channel/showback.html.twig', [
+                'channel' => $channel,
+            ]);
+        }
+
+        return $this->renderForm('channel/new.html.twig', [
+            'channel' => $channel,
+            'form' => $form,
+        ]);
+    }
 
     #[Route('/backProduit', name: 'produitback_index', methods: ['GET'])]
     public function backofficeprod(Request $request,ProduitRepository $produitRepository,PaginatorInterface $paginator): Response

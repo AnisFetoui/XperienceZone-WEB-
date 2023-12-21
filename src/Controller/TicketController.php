@@ -76,9 +76,9 @@ class TicketController extends AbstractController
        // $session->set('key', 'value');
             $entityManager->persist($ticket);
             $entityManager->flush();
-           // $to = '+21692103963'; // Static phone number
-           // $message = 'Hello We are excited to inform you that your ticket for the event has been successfully added.Thank you for choosing our platform! If you have any questions or concerns, feel free to reach out see you there'; // Modify the message as needed
-           // $twilioService->sendSMS($to, $message);
+            $to = '+21692103963'; // Static phone number
+            $message = 'Hello We are excited to inform you that your ticket for the event has been successfully added.Thank you for choosing our platform! If you have any questions or concerns, feel free to reach out see you there'; // Modify the message as needed
+            $twilioService->sendSMS($to, $message);
             $idTicket = $ticket->getIdTicket();
             // Récupérer des données depuis la session
        // $valueFromSession = $session->get('key');
